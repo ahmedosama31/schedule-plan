@@ -1,0 +1,5 @@
+{
+  "name": "Spring 2026 Scheduler",
+  "description": "A smart course planning tool for students to visualize and manage their Spring 2026 class schedule with automatic conflict detection and group constraints.",
+  "requestFramePermissions": []
+}
