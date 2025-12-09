@@ -1,5 +1,5 @@
-import { CourseSelection, Section, ClassSession } from './types';
-import { COURSES } from './data';
+
+import { CourseSelection, Section, ClassSession, Course } from './types';
 
 // Helper to check if two sessions overlap
 const sessionsOverlap = (s1: ClassSession, s2: ClassSession): boolean => {

@@ -1,15 +1,17 @@
+
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { COURSES } from './data';
 import { CourseSelection } from './types';
 import CourseCard from './components/CourseCard';
 import ScheduleGrid from './components/ScheduleGrid';
-import { Search, Calendar, PlusCircle, ChevronDown, X } from 'lucide-react';
+import { Search, Calendar, PlusCircle, ChevronDown, X, Save, Upload } from 'lucide-react';
 
 const App: React.FC = () => {
   const [selections, setSelections] = useState<CourseSelection[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
@@ -52,6 +54,45 @@ const App: React.FC = () => {
     setSelections(selections.map(s => s.course.code === updated.course.code ? updated : s));
   };
 
+  const handleSave = () => {
+    const dataToSave = selections.map(s => ({
+      courseCode: s.course.code,
+      selectedLectureId: s.selectedLectureId,
+      selectedTutorialId: s.selectedTutorialId,
+      selectedLabId: s.selectedLabId,
+      selectedMthsGroup: s.selectedMthsGroup
+    }));
+    localStorage.setItem('spring2026_schedule', JSON.stringify(dataToSave));
+    alert('Schedule saved successfully!');
+  };
+
+  const handleLoad = () => {
+    const saved = localStorage.getItem('spring2026_schedule');
+    if (!saved) {
+      alert('No saved schedule found.');
+      return;
+    }
+    try {
+      const parsed = JSON.parse(saved);
+      const restored: CourseSelection[] = parsed.map((p: any) => {
+        const course = COURSES.find(c => c.code === p.courseCode);
+        if (!course) return null;
+        return {
+          course,
+          selectedLectureId: p.selectedLectureId,
+          selectedTutorialId: p.selectedTutorialId,
+          selectedLabId: p.selectedLabId,
+          selectedMthsGroup: p.selectedMthsGroup
+        };
+      }).filter(Boolean);
+      setSelections(restored);
+      alert('Schedule loaded successfully!');
+    } catch (e) {
+      console.error(e);
+      alert('Failed to load schedule. Data may be corrupted.');
+    }
+  };
+
   return (
     <div className="flex h-screen w-full bg-slate-50 text-slate-800 font-sans">
       
@@ -71,6 +112,24 @@ const App: React.FC = () => {
                Spring 2026
              </h1>
              <p className="text-xs text-slate-400 mt-1">Schedule Planner</p>
+             
+             {/* Save/Load Actions */}
+             <div className="flex gap-2 mt-4">
+                <button 
+                    onClick={handleSave}
+                    className="flex-1 flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 py-2 rounded-md text-xs font-semibold transition-colors border border-slate-200"
+                    title="Save current schedule to local storage"
+                >
+                    <Save size={14} /> Save
+                </button>
+                <button 
+                    onClick={handleLoad}
+                    className="flex-1 flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 py-2 rounded-md text-xs font-semibold transition-colors border border-slate-200"
+                    title="Load schedule from local storage"
+                >
+                    <Upload size={14} /> Load
+                </button>
+             </div>
            </div>
 
            {/* Add Course Search */}
@@ -152,8 +211,8 @@ const App: React.FC = () => {
              )}
            </div>
            
-           <div className="p-4 border-t border-slate-200 bg-white text-xs text-slate-400 text-center">
-             Supports MTHS group constraints & conflict detection.
+           <div className="p-2 border-t border-slate-100 bg-slate-50 text-[10px] text-slate-400 text-center">
+             Supports conflict detection.
            </div>
         </div>
       </div>
