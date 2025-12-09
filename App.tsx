@@ -80,7 +80,7 @@ const App: React.FC = () => {
                <input 
                  type="text" 
                  placeholder="Search course code or name..."
-                 className="w-full pl-9 pr-8 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                 className="w-full pl-9 pr-8 py-2 text-sm border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white text-slate-900"
                  value={searchTerm}
                  onChange={(e) => {
                      setSearchTerm(e.target.value);

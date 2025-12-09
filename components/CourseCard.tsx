@@ -80,7 +80,7 @@ const CourseCard: React.FC<Props> = ({ selection, allSelections, onRemove, onUpd
           <div>
             <label className="block text-xs font-semibold text-slate-600 mb-1">Section Group</label>
             <select
-              className="w-full text-sm p-2 border border-slate-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              className="w-full text-sm p-2 border border-slate-200 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white text-slate-900"
               value={selection.selectedMthsGroup || ''}
               onChange={handleMthsGroupChange}
             >
@@ -97,7 +97,7 @@ const CourseCard: React.FC<Props> = ({ selection, allSelections, onRemove, onUpd
               <div>
                 <label className="block text-xs font-semibold text-slate-600 mb-1">Lecture</label>
                 <select
-                  className="w-full text-sm p-2 border border-slate-200 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full text-sm p-2 border border-slate-200 rounded-md focus:ring-2 focus:ring-blue-500 outline-none bg-white text-slate-900"
                   value={selection.selectedLectureId || ''}
                   onChange={(e) => handleSectionChange('lecture', e.target.value)}
                 >
@@ -111,7 +111,7 @@ const CourseCard: React.FC<Props> = ({ selection, allSelections, onRemove, onUpd
               <div>
                 <label className="block text-xs font-semibold text-slate-600 mb-1">Tutorial</label>
                 <select
-                  className="w-full text-sm p-2 border border-slate-200 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full text-sm p-2 border border-slate-200 rounded-md focus:ring-2 focus:ring-blue-500 outline-none bg-white text-slate-900"
                   value={selection.selectedTutorialId || ''}
                   onChange={(e) => handleSectionChange('tutorial', e.target.value)}
                 >
@@ -125,7 +125,7 @@ const CourseCard: React.FC<Props> = ({ selection, allSelections, onRemove, onUpd
               <div>
                 <label className="block text-xs font-semibold text-slate-600 mb-1">Laboratory</label>
                 <select
-                  className="w-full text-sm p-2 border border-slate-200 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+                  className="w-full text-sm p-2 border border-slate-200 rounded-md focus:ring-2 focus:ring-blue-500 outline-none bg-white text-slate-900"
                   value={selection.selectedLabId || ''}
                   onChange={(e) => handleSectionChange('lab', e.target.value)}
                 >

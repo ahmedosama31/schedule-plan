@@ -1,3 +1,4 @@
+
 import { Course, SectionType, DayOfWeek, Section } from './types';
 
 // Helper to create sections easily
@@ -93,7 +94,7 @@ const rawData: Course[] = [
       createSection('CMPS118', SectionType.Lecture, '1', DayOfWeek.Thursday, 8, 0, 10, 0),
       createSection('CMPS118', SectionType.Lecture, '2', DayOfWeek.Wednesday, 8, 0, 10, 0),
       createSection('CMPS118', SectionType.Tutorial, '1', DayOfWeek.Wednesday, 9, 0, 11, 0),
-      createSection('CMPS118', SectionType.Tutorial, '1_alt', DayOfWeek.Wednesday, 14, 0, 16, 0), // Named unique to avoid ID collision if needed, but 'group' is same
+      createSection('CMPS118', SectionType.Tutorial, '1_alt', DayOfWeek.Wednesday, 14, 0, 16, 0), 
       createSection('CMPS118', SectionType.Tutorial, '2', DayOfWeek.Wednesday, 11, 0, 13, 0),
       createSection('CMPS118', SectionType.Tutorial, '3', DayOfWeek.Wednesday, 16, 0, 18, 0),
     ]
@@ -162,7 +163,7 @@ const rawData: Course[] = [
     sections: [
       createSection('CMPS303', SectionType.Lecture, '1', DayOfWeek.Thursday, 14, 0, 16, 0),
       createSection('CMPS303', SectionType.Tutorial, '1', DayOfWeek.Tuesday, 13, 0, 16, 0),
-      createSection('CMPS303', SectionType.Tutorial, '1_late', DayOfWeek.Tuesday, 16, 0, 19, 0), // Noted as same group T1 in PDF
+      createSection('CMPS303', SectionType.Tutorial, '1_late', DayOfWeek.Tuesday, 16, 0, 19, 0),
     ]
   },
   {
@@ -434,7 +435,7 @@ const rawData: Course[] = [
     isMTHS: false,
     sections: [
       createSection('ELCS406', SectionType.Lecture, '1', DayOfWeek.Sunday, 9, 0, 10, 50),
-      createSection('ELCS406', SectionType.Tutorial, '1', DayOfWeek.Sunday, 11, 0, 13, 50), // 11:00 to 1:50 is 13:50? No, usually 12:50 or 13:50. PDF says "1:50", assumes 13:50.
+      createSection('ELCS406', SectionType.Tutorial, '1', DayOfWeek.Sunday, 11, 0, 13, 50),
     ]
   },
   {
@@ -458,7 +459,7 @@ const rawData: Course[] = [
       createSection('PHYS102', SectionType.Lecture, '1', DayOfWeek.Wednesday, 11, 0, 12, 50),
       createSection('PHYS102', SectionType.Lecture, '2', DayOfWeek.Wednesday, 9, 0, 10, 50),
       createSection('PHYS102', SectionType.Lecture, '3', DayOfWeek.Wednesday, 14, 0, 15, 50),
-      createSection('PHYS102', SectionType.Tutorial, '1', DayOfWeek.Tuesday, 11, 0, 13, 50), // 1:50 PM
+      createSection('PHYS102', SectionType.Tutorial, '1', DayOfWeek.Tuesday, 11, 0, 13, 50), 
       createSection('PHYS102', SectionType.Tutorial, '3', DayOfWeek.Tuesday, 8, 0, 10, 50),
       createSection('PHYS102', SectionType.Tutorial, '4', DayOfWeek.Tuesday, 14, 0, 16, 50),
     ]
@@ -625,6 +626,306 @@ const rawData: Course[] = [
     isMTHS: false,
     sections: [
       createSection('GENS236', SectionType.Lecture, '1', DayOfWeek.Sunday, 11, 0, 13, 0),
+    ]
+  },
+  
+  // --- New PDF 5: EEE Timetable ---
+  {
+    code: 'CVES125',
+    name: 'Civil Engineering',
+    isMTHS: false,
+    sections: [
+      createSection('CVES125', SectionType.Lecture, '1', DayOfWeek.Tuesday, 9, 0, 11, 0),
+      createSection('CVES125', SectionType.Tutorial, '1', DayOfWeek.Thursday, 9, 0, 11, 0),
+    ]
+  },
+  {
+    code: 'EECS202',
+    name: 'Op Amps',
+    isMTHS: false,
+    sections: [
+      createSection('EECS202', SectionType.Lecture, '1', DayOfWeek.Wednesday, 11, 0, 13, 0),
+      createSection('EECS202', SectionType.Tutorial, '1', DayOfWeek.Monday, 13, 0, 15, 0),
+      createSection('EECS202', SectionType.Tutorial, '2', DayOfWeek.Tuesday, 9, 0, 11, 0),
+    ]
+  },
+  {
+    code: 'EEES481',
+    name: 'Graduation Project-1',
+    isMTHS: false,
+    sections: [
+      createSection('EEES481', SectionType.Lecture, '1', DayOfWeek.Sunday, 19, 0, 20, 0),
+    ]
+  },
+  {
+    code: 'EEES482',
+    name: 'Graduation Project-2',
+    isMTHS: false,
+    sections: [
+      createSection('EEES482', SectionType.Lecture, '1', DayOfWeek.Thursday, 19, 0, 20, 0),
+    ]
+  },
+  {
+    code: 'EEEN380',
+    name: 'Seminar-2',
+    isMTHS: false,
+    sections: [
+      createSection('EEEN380', SectionType.Lecture, '1', DayOfWeek.Wednesday, 8, 0, 9, 0),
+    ]
+  },
+  {
+    code: 'EPES200',
+    name: 'Basic Laboratory',
+    isMTHS: false,
+    sections: [
+      // Row 1
+      createSection('EPES200', SectionType.Lecture, '1', DayOfWeek.Monday, 16, 0, 17, 0),
+      createSection('EPES200', SectionType.Lab, '1', DayOfWeek.Monday, 13, 0, 16, 0),
+      // Row 2
+      createSection('EPES200', SectionType.Lecture, '2', DayOfWeek.Tuesday, 16, 0, 17, 0),
+      createSection('EPES200', SectionType.Lab, '2', DayOfWeek.Tuesday, 13, 0, 16, 0),
+    ]
+  },
+  {
+    code: 'EPES203',
+    name: 'Electromagnetic Fields',
+    isMTHS: false,
+    sections: [
+      createSection('EPES203', SectionType.Lecture, '1', DayOfWeek.Monday, 11, 0, 13, 0),
+      createSection('EPES203', SectionType.Tutorial, '1', DayOfWeek.Thursday, 13, 0, 15, 0),
+    ]
+  },
+  {
+    code: 'EPES204',
+    name: 'Energy Conversion',
+    isMTHS: false,
+    sections: [
+      createSection('EPES204', SectionType.Lecture, '1', DayOfWeek.Tuesday, 13, 0, 15, 0),
+      createSection('EPES204', SectionType.Tutorial, '1', DayOfWeek.Monday, 16, 0, 19, 0),
+    ]
+  },
+  {
+    code: 'EPES301',
+    name: 'Electrical Machines-1',
+    isMTHS: false,
+    sections: [
+      createSection('EPES301', SectionType.Lecture, '1', DayOfWeek.Wednesday, 9, 0, 11, 0),
+      createSection('EPES301', SectionType.Tutorial, '1', DayOfWeek.Thursday, 16, 0, 19, 0),
+    ]
+  },
+  {
+    code: 'EPES302',
+    name: 'Elements of Power Systems',
+    isMTHS: false,
+    sections: [
+      createSection('EPES302', SectionType.Lecture, '1', DayOfWeek.Sunday, 11, 0, 13, 0),
+      createSection('EPES302', SectionType.Tutorial, '1', DayOfWeek.Thursday, 13, 0, 15, 0),
+    ]
+  },
+  {
+    code: 'EPES306',
+    name: 'Power Electronics (1)',
+    isMTHS: false,
+    sections: [
+      createSection('EPES306', SectionType.Lecture, '1', DayOfWeek.Tuesday, 9, 0, 11, 0),
+      createSection('EPES306', SectionType.Tutorial, '1', DayOfWeek.Sunday, 16, 0, 18, 0),
+    ]
+  },
+  {
+    code: 'EPES307',
+    name: 'Electrical Measurements',
+    isMTHS: false,
+    sections: [
+      // Row 1
+      createSection('EPES307', SectionType.Lecture, '1', DayOfWeek.Monday, 11, 0, 13, 0),
+      createSection('EPES307', SectionType.Tutorial, '1', DayOfWeek.Tuesday, 13, 0, 16, 0),
+      // Row 2
+      createSection('EPES307', SectionType.Lecture, '2', DayOfWeek.Sunday, 13, 0, 15, 0),
+      createSection('EPES307', SectionType.Tutorial, '2', DayOfWeek.Tuesday, 8, 0, 11, 0),
+    ]
+  },
+  {
+    code: 'EPES308',
+    name: 'Automatic Control Systems',
+    isMTHS: false,
+    sections: [
+      createSection('EPES308', SectionType.Lecture, '1', DayOfWeek.Thursday, 9, 0, 11, 0),
+      createSection('EPES308', SectionType.Tutorial, '1', DayOfWeek.Monday, 9, 0, 11, 0),
+    ]
+  },
+  {
+    code: 'EPES402',
+    name: 'Power System Analysis',
+    isMTHS: false,
+    sections: [
+      createSection('EPES402', SectionType.Lecture, '1', DayOfWeek.Sunday, 11, 0, 13, 0),
+      createSection('EPES402', SectionType.Tutorial, '1', DayOfWeek.Sunday, 9, 0, 11, 0),
+      createSection('EPES402', SectionType.Tutorial, '2', DayOfWeek.Sunday, 8, 0, 10, 0),
+    ]
+  },
+  {
+    code: 'EPES405',
+    name: 'Power Electronics (2)',
+    isMTHS: false,
+    sections: [
+      createSection('EPES405', SectionType.Lecture, '1', DayOfWeek.Tuesday, 13, 0, 15, 0),
+      createSection('EPES405', SectionType.Tutorial, '1', DayOfWeek.Monday, 13, 0, 15, 0),
+    ]
+  },
+  {
+    code: 'EPES406',
+    name: 'High Voltage Technology',
+    isMTHS: false,
+    sections: [
+      createSection('EPES406', SectionType.Lecture, '1', DayOfWeek.Wednesday, 9, 0, 11, 0),
+      createSection('EPES406', SectionType.Tutorial, '1', DayOfWeek.Wednesday, 13, 0, 15, 0),
+    ]
+  },
+  {
+    code: 'EPES412',
+    name: 'Electrical Power Distribution',
+    isMTHS: false,
+    sections: [
+      createSection('EPES412', SectionType.Lecture, '1', DayOfWeek.Monday, 11, 0, 13, 0),
+      createSection('EPES412', SectionType.Tutorial, '1', DayOfWeek.Thursday, 13, 0, 15, 0),
+    ]
+  },
+  {
+    code: 'EPMN413',
+    name: 'Energy Conservation',
+    isMTHS: false,
+    sections: [
+      createSection('EPMN413', SectionType.Lecture, '1', DayOfWeek.Thursday, 11, 0, 13, 0),
+      createSection('EPMN413', SectionType.Tutorial, '1', DayOfWeek.Tuesday, 16, 0, 18, 0),
+    ]
+  },
+  {
+    code: 'EPES416',
+    name: 'Power Stations',
+    isMTHS: false,
+    sections: [
+      createSection('EPES416', SectionType.Lecture, '1', DayOfWeek.Thursday, 11, 0, 13, 0),
+      createSection('EPES416', SectionType.Tutorial, '1', DayOfWeek.Sunday, 13, 0, 15, 0),
+    ]
+  },
+  {
+    code: 'EPES417',
+    name: 'Renewable Energy Systems',
+    isMTHS: false,
+    sections: [
+      createSection('EPES417', SectionType.Lecture, '1', DayOfWeek.Sunday, 11, 0, 13, 0),
+      createSection('EPES417', SectionType.Tutorial, '1', DayOfWeek.Thursday, 16, 0, 18, 0),
+    ]
+  },
+  {
+    code: 'EPES311',
+    name: 'Microprocessors Electric App',
+    isMTHS: false,
+    sections: [
+      createSection('EPES311', SectionType.Lecture, '1', DayOfWeek.Monday, 13, 0, 16, 0),
+      createSection('EPES311', SectionType.Tutorial, '1', DayOfWeek.Tuesday, 16, 0, 19, 0),
+      createSection('EPES311', SectionType.Tutorial, '2', DayOfWeek.Tuesday, 13, 0, 16, 0),
+    ]
+  },
+  {
+    code: 'EPES304',
+    name: 'Electrical Machines-2',
+    isMTHS: false,
+    sections: [
+      createSection('EPES304', SectionType.Lecture, '1', DayOfWeek.Monday, 16, 0, 18, 0),
+      createSection('EPES304', SectionType.Tutorial, '1', DayOfWeek.Thursday, 13, 0, 16, 0),
+    ]
+  },
+  {
+    code: 'EPES403',
+    name: 'Power System Protection',
+    isMTHS: false,
+    sections: [
+      createSection('EPES403', SectionType.Lecture, '1', DayOfWeek.Wednesday, 11, 0, 13, 0),
+      createSection('EPES403', SectionType.Tutorial, '1', DayOfWeek.Tuesday, 9, 0, 11, 0),
+      createSection('EPES403', SectionType.Tutorial, '2', DayOfWeek.Wednesday, 9, 0, 11, 0),
+    ]
+  },
+  {
+    code: 'EPES404',
+    name: 'Digital Control Systems',
+    isMTHS: false,
+    sections: [
+      // Row 1
+      createSection('EPES404', SectionType.Lecture, '1', DayOfWeek.Monday, 9, 0, 11, 0),
+      createSection('EPES404', SectionType.Tutorial, '1', DayOfWeek.Wednesday, 13, 0, 16, 0),
+      // Row 2
+      createSection('EPES404', SectionType.Lecture, '2', DayOfWeek.Monday, 13, 0, 15, 0),
+      createSection('EPES404', SectionType.Tutorial, '2', DayOfWeek.Wednesday, 16, 0, 19, 0),
+    ]
+  },
+  {
+    code: 'EPES421',
+    name: 'Electrical Machines Drives',
+    isMTHS: false,
+    sections: [
+      createSection('EPES421', SectionType.Lecture, '1', DayOfWeek.Sunday, 14, 0, 16, 0),
+      createSection('EPES421', SectionType.Tutorial, '1', DayOfWeek.Monday, 16, 0, 18, 0),
+    ]
+  },
+  {
+    code: 'EPES426',
+    name: 'Computer Control Systems',
+    isMTHS: false,
+    sections: [
+      createSection('EPES426', SectionType.Lecture, '1', DayOfWeek.Tuesday, 11, 0, 13, 0),
+      createSection('EPES426', SectionType.Tutorial, '1', DayOfWeek.Tuesday, 13, 0, 15, 0),
+    ]
+  },
+  {
+    code: 'EPES428',
+    name: 'Power System Op & Control',
+    isMTHS: false,
+    sections: [
+      createSection('EPES428', SectionType.Lecture, '1', DayOfWeek.Sunday, 13, 0, 15, 0),
+      createSection('EPES428', SectionType.Tutorial, '1', DayOfWeek.Tuesday, 13, 0, 15, 0),
+    ]
+  },
+  {
+    code: 'EPES430',
+    name: 'Operations Research',
+    isMTHS: false,
+    sections: [
+      createSection('EPES430', SectionType.Lecture, '1', DayOfWeek.Thursday, 9, 0, 11, 0),
+      createSection('EPES430', SectionType.Tutorial, '1', DayOfWeek.Sunday, 16, 0, 18, 0),
+      createSection('EPES430', SectionType.Tutorial, '2', DayOfWeek.Thursday, 13, 0, 15, 0),
+    ]
+  },
+  {
+    code: 'INTS125',
+    name: 'Intro to Mech Eng',
+    isMTHS: false,
+    sections: [
+      // Row 1
+      createSection('INTS125', SectionType.Lecture, '1', DayOfWeek.Tuesday, 11, 0, 13, 0),
+      createSection('INTS125', SectionType.Tutorial, '1', DayOfWeek.Wednesday, 13, 0, 16, 0),
+      // Row 2
+      createSection('INTS125', SectionType.Lecture, '2', DayOfWeek.Tuesday, 9, 0, 11, 0),
+      createSection('INTS125', SectionType.Tutorial, '2', DayOfWeek.Tuesday, 16, 0, 19, 0),
+    ]
+  },
+  {
+    code: 'MEPS219',
+    name: 'Mechanical Power Eng',
+    isMTHS: false,
+    sections: [
+      createSection('MEPS219', SectionType.Lecture, '1', DayOfWeek.Wednesday, 11, 0, 13, 0),
+      createSection('MEPS219', SectionType.Tutorial, '1', DayOfWeek.Thursday, 8, 0, 11, 0),
+    ]
+  },
+  {
+    code: 'EPMN201',
+    name: 'Microprocessors Elec Energy',
+    isMTHS: false,
+    sections: [
+      createSection('EPMN201', SectionType.Lecture, '1', DayOfWeek.Monday, 13, 0, 15, 0),
+      createSection('EPMN201', SectionType.Tutorial, '1', DayOfWeek.Tuesday, 16, 0, 19, 0),
+      createSection('EPMN201', SectionType.Tutorial, '2', DayOfWeek.Tuesday, 13, 0, 16, 0),
     ]
   }
 ];
