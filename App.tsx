@@ -1,9 +1,11 @@
+
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { COURSES } from './data';
 import { CourseSelection } from './types';
 import CourseCard from './components/CourseCard';
 import ScheduleGrid from './components/ScheduleGrid';
-import { Search, Calendar, PlusCircle, ChevronDown, X } from 'lucide-react';
+import { optimizeSchedule, OptimizationPreferences } from './utils';
+import { Search, Calendar, PlusCircle, ChevronDown, X, Sparkles } from 'lucide-react';
 
 const App: React.FC = () => {
   const [selections, setSelections] = useState<CourseSelection[]>([]);
@@ -11,6 +13,13 @@ const App: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
+
+  // Optimization State
+  const [isOptimizing, setIsOptimizing] = useState(false);
+  const [optPrefs, setOptPrefs] = useState<OptimizationPreferences>({
+    compactDays: false,
+    no8am: false,
+  });
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -50,6 +59,24 @@ const App: React.FC = () => {
 
   const updateSelection = (updated: CourseSelection) => {
     setSelections(selections.map(s => s.course.code === updated.course.code ? updated : s));
+  };
+
+  const handleOptimize = async () => {
+    if (selections.length === 0) return;
+    setIsOptimizing(true);
+    
+    // Allow UI to render loading state
+    setTimeout(() => {
+      const result = optimizeSchedule(selections, optPrefs);
+      setIsOptimizing(false);
+      
+      if (result) {
+        setSelections(result);
+        alert("Schedule optimized successfully!");
+      } else {
+        alert("No valid schedule found for these courses with current constraints. Try removing a course.");
+      }
+    }, 100);
   };
 
   return (
@@ -127,6 +154,39 @@ const App: React.FC = () => {
                )}
              </div>
            </div>
+
+           {/* Optimization Controls */}
+           <div className="p-4 border-b border-slate-100 bg-white">
+              <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Optimization</h3>
+              <div className="space-y-2">
+                <label className="flex items-center space-x-2 text-sm text-slate-700 cursor-pointer select-none">
+                   <input 
+                      type="checkbox" 
+                      checked={optPrefs.compactDays} 
+                      onChange={(e) => setOptPrefs(p => ({ ...p, compactDays: e.target.checked }))} 
+                      className="rounded text-blue-600 focus:ring-blue-500" 
+                   />
+                   <span>Compact Schedule (Min Days)</span>
+                </label>
+                <label className="flex items-center space-x-2 text-sm text-slate-700 cursor-pointer select-none">
+                   <input 
+                      type="checkbox" 
+                      checked={optPrefs.no8am} 
+                      onChange={(e) => setOptPrefs(p => ({ ...p, no8am: e.target.checked }))} 
+                      className="rounded text-blue-600 focus:ring-blue-500" 
+                   />
+                   <span>No Early 8AM Classes</span>
+                </label>
+                <button 
+                  onClick={handleOptimize} 
+                  disabled={selections.length === 0 || isOptimizing}
+                  className="w-full mt-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                >
+                  <Sparkles size={16} />
+                  {isOptimizing ? 'Optimizing...' : 'Auto-Optimize'}
+                </button>
+              </div>
+            </div>
 
            {/* Selected Courses List */}
            <div className="flex-1 overflow-y-auto p-4 bg-slate-50/50">
