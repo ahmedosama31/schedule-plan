@@ -11,6 +11,7 @@ interface Props {
 interface RenderItem {
   id: string;
   name: string;
+  courseName: string;
   type: SectionType;
   day: DayOfWeek;
   start: number;
@@ -114,8 +115,9 @@ const DraggableEvent: React.FC<{ item: RenderItem, style: React.CSSProperties, c
     >
       <div className="font-bold truncate pointer-events-none flex items-center gap-1">
         {isOverlapping && <AlertCircle size={12} className="text-red-500 fill-white" />}
-        {item.name}
+        <span>{item.name}</span>
       </div>
+      <div className="text-[10px] opacity-80 truncate pointer-events-none">{item.courseName}</div>
       <div className="opacity-90 truncate text-[10px] pointer-events-none">{item.type.substring(0, 3)}</div>
       <div className="opacity-75 text-[10px] pointer-events-none">{formatTime(item.start)} - {formatTime(item.end)}</div>
       {item.location && (item.location.includes('الشيخ زايد') || item.location.includes('Sheikh Zayed')) && (
@@ -182,6 +184,7 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [] }) =
             // Let's attach unique key to draggable, but data points to real section ID.
 
             name: course.code,
+            courseName: course.name,
             type: section.type,
             day: session.day,
             start: session.startHour,
