@@ -1,3 +1,4 @@
+import { AlertCircle } from 'lucide-react';
 import React from 'react';
 import { useDroppable, useDraggable } from '@dnd-kit/core';
 import { CourseSelection, DayOfWeek, SectionType, CandidateItem } from '../types';
@@ -99,16 +100,22 @@ const DraggableEvent: React.FC<{ item: RenderItem, style: React.CSSProperties, c
     cursor: 'grabbing'
   } : { cursor: 'grab' };
 
+  // Detect overlap if the item is sharing space with others
+  const isOverlapping = item.totalColumns > 1;
+
   return (
     <div
       ref={setNodeRef}
       style={{ ...style, ...dragStyle }}
-      className={`${className} ${isDragging ? 'ring-2 ring-black shadow-xl' : ''}`}
+      className={`${className} ${isDragging ? 'ring-2 ring-black shadow-xl' : ''} ${isOverlapping ? 'border-red-400 border-2' : ''}`}
       {...listeners}
       {...attributes}
-      title={`${item.name} ${item.type}${item.isMTHS ? ' (Linked Group)' : ''}`}
+      title={`${item.name} ${item.type}${item.isMTHS ? ' (Linked Group)' : ''}${isOverlapping ? ' - OVERLAPPING' : ''}`}
     >
-      <div className="font-bold truncate pointer-events-none">{item.name}</div>
+      <div className="font-bold truncate pointer-events-none flex items-center gap-1">
+        {isOverlapping && <AlertCircle size={12} className="text-red-500 fill-white" />}
+        {item.name}
+      </div>
       <div className="opacity-90 truncate text-[10px] pointer-events-none">{item.type.substring(0, 3)}</div>
       <div className="opacity-75 text-[10px] pointer-events-none">{formatTime(item.start)} - {formatTime(item.end)}</div>
       {item.location && (item.location.includes('الشيخ زايد') || item.location.includes('Sheikh Zayed')) && (

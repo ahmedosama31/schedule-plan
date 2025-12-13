@@ -11,6 +11,7 @@ interface Props {
 }
 
 const DAYS: DayOfWeek[] = [
+    DayOfWeek.Saturday,
     DayOfWeek.Sunday,
     DayOfWeek.Monday,
     DayOfWeek.Tuesday,

@@ -44,6 +44,7 @@ export interface ConflictInfo {
 
 // Day order for sorting
 const DAY_ORDER: DayOfWeek[] = [
+    DayOfWeek.Saturday,
     DayOfWeek.Sunday,
     DayOfWeek.Monday,
     DayOfWeek.Tuesday,
