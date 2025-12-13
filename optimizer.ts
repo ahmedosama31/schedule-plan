@@ -331,15 +331,13 @@ export function optimizeSchedule(
         };
     });
 
+    // Filter out options with conflicts
+    const conflictFreeOptions = options.filter(o => !o.hasConflicts);
+
     // Sort by:
-    // 1. Conflict-free first
-    // 2. Fewer days is better
-    // 3. Lower gap score is better (if preferConsecutive)
-    options.sort((a, b) => {
-        // Conflict-free schedules come first
-        if (a.hasConflicts !== b.hasConflicts) {
-            return a.hasConflicts ? 1 : -1;
-        }
+    // 1. Fewer days is better
+    // 2. Lower gap score is better (if preferConsecutive)
+    conflictFreeOptions.sort((a, b) => {
         // Fewer days is better
         if (a.dayCount !== b.dayCount) {
             return a.dayCount - b.dayCount;
@@ -348,7 +346,7 @@ export function optimizeSchedule(
         return a.gapScore - b.gapScore;
     });
 
-    return options.slice(0, topN);
+    return conflictFreeOptions.slice(0, topN);
 }
 
 /**
