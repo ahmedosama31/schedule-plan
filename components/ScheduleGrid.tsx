@@ -23,7 +23,7 @@ interface RenderItem {
   location?: string;
 }
 
-const HOURS = Array.from({ length: 14 }, (_, i) => i + 7); // 7:00 to 20:00 (8pm)
+const HOURS = Array.from({ length: 13 }, (_, i) => i + 8); // 8:00 to 20:00 (8pm)
 const DAYS = [DayOfWeek.Saturday, DayOfWeek.Sunday, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday];
 
 // Check if two time ranges overlap
@@ -252,7 +252,7 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [] }) =
 
               {/* Render User Events */}
               {renderItems.filter((item) => item.day === day).map((item) => {
-                const top = (item.start - 7) * 64;
+                const top = (item.start - 8) * 64;
                 const height = (item.end - item.start) * 64;
                 const widthPercent = 100 / item.totalColumns;
                 const leftPercent = widthPercent * item.column;
@@ -275,7 +275,7 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [] }) =
 
               {/* Render Candidate Slots (Overlays) */}
               {candidateSections.filter(c => c.day === day).map((c) => {
-                const top = (c.start - 7) * 64;
+                const top = (c.start - 8) * 64;
                 const height = (c.end - c.start) * 64;
                 return (
                   <DroppableCandidate

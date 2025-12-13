@@ -300,7 +300,7 @@ export function optimizeSchedule(
     const allCombinations = cartesianProduct(choicesPerCourse);
 
     // Limit to prevent memory issues with too many combinations
-    const MAX_COMBINATIONS = 10000;
+    const MAX_COMBINATIONS = 500000;
     const combinationsToProcess = allCombinations.slice(0, MAX_COMBINATIONS);
 
     // DEBUG: Log preferences
