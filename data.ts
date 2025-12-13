@@ -52,7 +52,7 @@ export const COURSES: Course[] = [
     isMTHS: false,
     sections: [
       createSection('AETS482', SectionType.Lecture, '1', DayOfWeek.Wednesday, 9, 0, 9, 50, '[204072]20407 B -50-الجيزة الرئيسي'),
-      createSection('AETS482', SectionType.Tutorial, '1', DayOfWeek.Wednesday, 10, 0, 1, 50, '[204072]20407 B -50-الجيزة الرئيسي'),
+      createSection('AETS482', SectionType.Tutorial, '1', DayOfWeek.Wednesday, 10, 0, 13, 50, '[204072]20407 B -50-الجيزة الرئيسي'),
       createSection('AETS482', SectionType.Lecture, '2', DayOfWeek.Wednesday, 2, 0, 2, 50, '[204071]20407 A -60-الجيزة الرئيسي'),
       createSection('AETS482', SectionType.Tutorial, '2', DayOfWeek.Wednesday, 3, 0, 6, 50, '[204071]20407 A -60-الجيزة الرئيسي')
     ]
@@ -117,7 +117,7 @@ export const COURSES: Course[] = [
     isMTHS: false,
     sections: [
       createSection('ARCS203', SectionType.Lecture, '1', DayOfWeek.Wednesday, 11, 0, 11, 50, '[203072]20307 B -60-الجيزة الرئيسي'),
-      createSection('ARCS203', SectionType.Tutorial, '1', DayOfWeek.Wednesday, 12, 0, 1, 50, '[203072]20307 B -60-الجيزة الرئيسي')
+      createSection('ARCS203', SectionType.Tutorial, '1', DayOfWeek.Wednesday, 12, 0, 13, 50, '[203072]20307 B -60-الجيزة الرئيسي')
     ]
   },
   {
@@ -126,7 +126,7 @@ export const COURSES: Course[] = [
     isMTHS: false,
     sections: [
       createSection('ARCS207', SectionType.Lecture, '1', DayOfWeek.Thursday, 10, 0, 10, 50, '[203072]20307 B -60-الجيزة الرئيسي'),
-      createSection('ARCS207', SectionType.Tutorial, '1', DayOfWeek.Thursday, 11, 0, 2, 50, '[203072]20307 B -60-الجيزة الرئيسي')
+      createSection('ARCS207', SectionType.Tutorial, '1', DayOfWeek.Thursday, 11, 0, 14, 50, '[203072]20307 B -60-الجيزة الرئيسي')
     ]
   },
   {
@@ -162,7 +162,7 @@ export const COURSES: Course[] = [
     isMTHS: false,
     sections: [
       createSection('ARCS305', SectionType.Lecture, '1', DayOfWeek.Wednesday, 8, 0, 9, 50, '[20501]20501-70-الجيزة الرئيسي'),
-      createSection('ARCS305', SectionType.Tutorial, '1', DayOfWeek.Wednesday, 10, 0, 1, 50, '[20501]20501-70-الجيزة الرئيسي')
+      createSection('ARCS305', SectionType.Tutorial, '1', DayOfWeek.Wednesday, 10, 0, 13, 50, '[20501]20501-70-الجيزة الرئيسي')
     ]
   },
   {
@@ -171,7 +171,7 @@ export const COURSES: Course[] = [
     isMTHS: false,
     sections: [
       createSection('ARCS307', SectionType.Lecture, '1', DayOfWeek.Thursday, 8, 0, 9, 50, '[204071]20407 A -60-الجيزة الرئيسي'),
-      createSection('ARCS307', SectionType.Tutorial, '1', DayOfWeek.Thursday, 10, 0, 1, 50, '[204071]20407 A -60-الجيزة الرئيسي')
+      createSection('ARCS307', SectionType.Tutorial, '1', DayOfWeek.Thursday, 10, 0, 13, 50, '[204071]20407 A -60-الجيزة الرئيسي')
     ]
   },
   {
@@ -234,7 +234,7 @@ export const COURSES: Course[] = [
     isMTHS: false,
     sections: [
       createSection('ARCS405', SectionType.Lecture, '1', DayOfWeek.Thursday, 8, 0, 9, 50, '[3207]LAB AET1 (GIZA)-35-الجيزة الرئيسي'),
-      createSection('ARCS405', SectionType.Tutorial, '1', DayOfWeek.Thursday, 10, 0, 1, 50, '[3207]LAB AET1 (GIZA)-35-الجيزة الرئيسي')
+      createSection('ARCS405', SectionType.Tutorial, '1', DayOfWeek.Thursday, 10, 0, 13, 50, '[3207]LAB AET1 (GIZA)-35-الجيزة الرئيسي')
     ]
   },
   {
@@ -270,7 +270,7 @@ export const COURSES: Course[] = [
     isMTHS: false,
     sections: [
       createSection('ARCS470', SectionType.Lecture, '1', DayOfWeek.Thursday, 12, 0, 12, 50, '[204072]20407 B -50-الجيزة الرئيسي'),
-      createSection('ARCS470', SectionType.Tutorial, '1', DayOfWeek.Tuesday, 12, 0, 2, 50, '[20502]20502-70-الجيزة الرئيسي')
+      createSection('ARCS470', SectionType.Tutorial, '1', DayOfWeek.Tuesday, 12, 0, 14, 50, '[20502]20502-70-الجيزة الرئيسي')
     ]
   },
   {
@@ -368,7 +368,7 @@ export const COURSES: Course[] = [
     isMTHS: false,
     sections: [
       createSection('CHES203', SectionType.Lecture, '1', DayOfWeek.Thursday, 9, 0, 10, 50, '[33310]33310-60-ملحق كيمياء'),
-      createSection('CHES203', SectionType.Tutorial, '1', DayOfWeek.Thursday, 11, 0, 1, 50, '[33310]33310-60-ملحق كيمياء')
+      createSection('CHES203', SectionType.Tutorial, '1', DayOfWeek.Thursday, 11, 0, 13, 50, '[33310]33310-60-ملحق كيمياء')
     ]
   },
   {
@@ -634,7 +634,7 @@ export const COURSES: Course[] = [
     sections: [
       createSection('CMPS402', SectionType.Lecture, '1', DayOfWeek.Monday, 9, 0, 10, 50, '-----'),
       createSection('CMPS402', SectionType.Tutorial, '1', DayOfWeek.Sunday, 8, 0, 10, 50, '[3708]3708-45-الجيزة الرئيسي'),
-      createSection('CMPS402', SectionType.Tutorial, '2', DayOfWeek.Sunday, 11, 0, 1, 50, '[3708]3708-45-الجيزة الرئيسي')
+      createSection('CMPS402', SectionType.Tutorial, '2', DayOfWeek.Sunday, 11, 0, 13, 50, '[3708]3708-45-الجيزة الرئيسي')
     ]
   },
   {
@@ -960,7 +960,7 @@ export const COURSES: Course[] = [
       createSection('EMCS001', SectionType.Lecture, '10', DayOfWeek.Tuesday, 8, 0, 9, 50, '[51205]51205-60-الشيخ زايد'),
       createSection('EMCS001', SectionType.Tutorial, '10', DayOfWeek.Tuesday, 10, 0, 12, 50, '[51205]51205-60-الشيخ زايد'),
       createSection('EMCS001', SectionType.Lecture, '11', DayOfWeek.Wednesday, 8, 0, 9, 50, '[51115]51115-50-الشيخ زايد'),
-      createSection('EMCS001', SectionType.Tutorial, '11', DayOfWeek.Tuesday, 12, 0, 2, 50, '[51115]51115-50-الشيخ زايد')
+      createSection('EMCS001', SectionType.Tutorial, '11', DayOfWeek.Tuesday, 12, 0, 14, 50, '[51115]51115-50-الشيخ زايد')
     ]
   },
   {
@@ -977,12 +977,12 @@ export const COURSES: Course[] = [
       createSection('EMCS002', SectionType.Lecture, '4', DayOfWeek.Monday, 10, 0, 11, 50, '[51114]51114-50-الشيخ زايد'),
       createSection('EMCS002', SectionType.Tutorial, '4', DayOfWeek.Sunday, 1, 0, 2, 50, '[51114]51114-50-الشيخ زايد'),
       createSection('EMCS002', SectionType.Lecture, '5', DayOfWeek.Monday, 8, 0, 9, 50, '[51215]51215-60-الشيخ زايد'),
-      createSection('EMCS002', SectionType.Tutorial, '5', DayOfWeek.Sunday, 12, 0, 1, 50, '[51215]51215-60-الشيخ زايد'),
-      createSection('EMCS002', SectionType.Lecture, '6', DayOfWeek.Monday, 12, 0, 1, 50, '[51216]51216-الشيخ زايد'),
+      createSection('EMCS002', SectionType.Tutorial, '5', DayOfWeek.Sunday, 12, 0, 13, 50, '[51215]51215-60-الشيخ زايد'),
+      createSection('EMCS002', SectionType.Lecture, '6', DayOfWeek.Monday, 12, 0, 13, 50, '[51216]51216-الشيخ زايد'),
       createSection('EMCS002', SectionType.Tutorial, '6', DayOfWeek.Sunday, 8, 0, 9, 50, '[51216]51216-الشيخ زايد'),
       createSection('EMCS002', SectionType.Lecture, '7', DayOfWeek.Saturday, 10, 0, 11, 50, '[51117]51117-50-الشيخ زايد'),
       createSection('EMCS002', SectionType.Tutorial, '7', DayOfWeek.Sunday, 10, 0, 11, 50, '[51117]51117-50-الشيخ زايد'),
-      createSection('EMCS002', SectionType.Lecture, '8', DayOfWeek.Saturday, 12, 0, 1, 50, '[51118]51118-50-الشيخ زايد'),
+      createSection('EMCS002', SectionType.Lecture, '8', DayOfWeek.Saturday, 12, 0, 13, 50, '[51118]51118-50-الشيخ زايد'),
       createSection('EMCS002', SectionType.Tutorial, '8', DayOfWeek.Sunday, 8, 0, 9, 50, '[51118]51118-50-الشيخ زايد'),
       createSection('EMCS002', SectionType.Lecture, '9', DayOfWeek.Sunday, 1, 0, 2, 50, '[51119]51119-50-الشيخ زايد'),
       createSection('EMCS002', SectionType.Tutorial, '9', DayOfWeek.Monday, 1, 0, 2, 50, '[51119]51119-50-الشيخ زايد')
@@ -1244,10 +1244,10 @@ export const COURSES: Course[] = [
     name: 'Societal Issues',
     isMTHS: false,
     sections: [
-      createSection('GENS002', SectionType.Lecture, '1', DayOfWeek.Saturday, 12, 0, 1, 50, '[51201]51201-50-الشيخ زايد'),
-      createSection('GENS002', SectionType.Lecture, '2', DayOfWeek.Sunday, 12, 0, 1, 50, '[51202]51202-60-الشيخ زايد'),
+      createSection('GENS002', SectionType.Lecture, '1', DayOfWeek.Saturday, 12, 0, 13, 50, '[51201]51201-50-الشيخ زايد'),
+      createSection('GENS002', SectionType.Lecture, '2', DayOfWeek.Sunday, 12, 0, 13, 50, '[51202]51202-60-الشيخ زايد'),
       createSection('GENS002', SectionType.Lecture, '3', DayOfWeek.Monday, 10, 0, 11, 50, '[51113]51113-50-الشيخ زايد'),
-      createSection('GENS002', SectionType.Lecture, '4', DayOfWeek.Monday, 12, 0, 1, 50, '[51114]51114-50-الشيخ زايد'),
+      createSection('GENS002', SectionType.Lecture, '4', DayOfWeek.Monday, 12, 0, 13, 50, '[51114]51114-50-الشيخ زايد'),
       createSection('GENS002', SectionType.Lecture, '5', DayOfWeek.Sunday, 8, 0, 9, 50, '[51215]51215-60-الشيخ زايد'),
       createSection('GENS002', SectionType.Lecture, '6', DayOfWeek.Monday, 8, 0, 9, 50, '[51216]51216-الشيخ زايد'),
       createSection('GENS002', SectionType.Lecture, '7', DayOfWeek.Saturday, 8, 0, 9, 50, '[51117]51117-50-الشيخ زايد'),
@@ -1415,7 +1415,7 @@ export const COURSES: Course[] = [
     isMTHS: false,
     sections: [
       createSection('INTS005', SectionType.Lecture, '10', DayOfWeek.Monday, 11, 0, 11, 50, '[51213]LAB 1 (Zayed)-30-الشيخ زايد'),
-      createSection('INTS005', SectionType.Tutorial, '10', DayOfWeek.Monday, 12, 0, 2, 50, '[51213]LAB 1 (Zayed)-30-الشيخ زايد')
+      createSection('INTS005', SectionType.Tutorial, '10', DayOfWeek.Monday, 12, 0, 14, 50, '[51213]LAB 1 (Zayed)-30-الشيخ زايد')
     ]
   },
   {
@@ -1503,7 +1503,7 @@ export const COURSES: Course[] = [
     isMTHS: false,
     sections: [
       createSection('MDPS001', SectionType.Lecture, '11', DayOfWeek.Wednesday, 11, 0, 11, 50, '[51206]51206-60-الشيخ زايد'),
-      createSection('MDPS001', SectionType.Tutorial, '11', DayOfWeek.Wednesday, 12, 0, 2, 50, '[51206]51206-60-الشيخ زايد')
+      createSection('MDPS001', SectionType.Tutorial, '11', DayOfWeek.Wednesday, 12, 0, 14, 50, '[51206]51206-60-الشيخ زايد')
     ]
   },
   {
@@ -1621,7 +1621,7 @@ export const COURSES: Course[] = [
     isMTHS: false,
     sections: [
       createSection('MDPS374', SectionType.Lecture, '1', DayOfWeek.Sunday, 9, 0, 11, 50, '[18302]18302-60-الجيزة الرئيسي'),
-      createSection('MDPS374', SectionType.Lecture, '2', DayOfWeek.Sunday, 11, 0, 1, 50, '[18301]18301-45-الجيزة الرئيسي'),
+      createSection('MDPS374', SectionType.Lecture, '2', DayOfWeek.Sunday, 11, 0, 13, 50, '[18301]18301-45-الجيزة الرئيسي'),
       createSection('MDPS374', SectionType.Tutorial, '1', DayOfWeek.Thursday, 10, 0, 12, 50, '[18302]18302-60-الجيزة الرئيسي'),
       createSection('MDPS374', SectionType.Tutorial, '2', DayOfWeek.Thursday, 1, 0, 3, 50, '[18302]18302-60-الجيزة الرئيسي')
     ]
@@ -1748,7 +1748,7 @@ export const COURSES: Course[] = [
     isMTHS: false,
     sections: [
       createSection('MEPS209', SectionType.Lecture, '1', DayOfWeek.Sunday, 11, 0, 12, 50, '[0]17101-0-الجيزة الرئيسي'),
-      createSection('MEPS209', SectionType.Tutorial, '1', DayOfWeek.Monday, 11, 0, 1, 50, '[0]17101-0-الجيزة الرئيسي')
+      createSection('MEPS209', SectionType.Tutorial, '1', DayOfWeek.Monday, 11, 0, 13, 50, '[0]17101-0-الجيزة الرئيسي')
     ]
   },
   {
@@ -1876,7 +1876,7 @@ export const COURSES: Course[] = [
       createSection('MTHS002', SectionType.Lecture, '10', DayOfWeek.Tuesday, 1, 0, 2, 50, '[51205]51205-60-الشيخ زايد'),
       createSection('MTHS002', SectionType.Tutorial, '10', DayOfWeek.Wednesday, 10, 0, 12, 50, '[51205]51205-60-الشيخ زايد'),
       createSection('MTHS002', SectionType.Lecture, '11', DayOfWeek.Tuesday, 10, 0, 11, 50, '[51115]51115-50-الشيخ زايد'),
-      createSection('MTHS002', SectionType.Tutorial, '11', DayOfWeek.Saturday, 12, 0, 2, 50, '[51115]51115-50-الشيخ زايد')
+      createSection('MTHS002', SectionType.Tutorial, '11', DayOfWeek.Saturday, 12, 0, 14, 50, '[51115]51115-50-الشيخ زايد')
     ]
   },
   {
@@ -1885,7 +1885,7 @@ export const COURSES: Course[] = [
     isMTHS: true,
     sections: [
       createSection('MTHS003', SectionType.Lecture, '1', DayOfWeek.Sunday, 8, 0, 9, 50, '[51201]51201-50-الشيخ زايد'),
-      createSection('MTHS003', SectionType.Tutorial, '1', DayOfWeek.Monday, 12, 0, 2, 50, '[51201]51201-50-الشيخ زايد'),
+      createSection('MTHS003', SectionType.Tutorial, '1', DayOfWeek.Monday, 12, 0, 14, 50, '[51201]51201-50-الشيخ زايد'),
       createSection('MTHS003', SectionType.Lecture, '2', DayOfWeek.Sunday, 10, 0, 11, 50, '[51202]51202-60-الشيخ زايد'),
       createSection('MTHS003', SectionType.Tutorial, '2', DayOfWeek.Saturday, 10, 0, 12, 50, '[51202]51202-60-الشيخ زايد'),
       createSection('MTHS003', SectionType.Lecture, '3', DayOfWeek.Monday, 8, 0, 9, 50, '[51113]51113-50-الشيخ زايد'),
@@ -1896,8 +1896,8 @@ export const COURSES: Course[] = [
       createSection('MTHS003', SectionType.Tutorial, '5', DayOfWeek.Monday, 10, 0, 12, 50, '[51215]51215-60-الشيخ زايد'),
       createSection('MTHS003', SectionType.Lecture, '6', DayOfWeek.Monday, 10, 0, 11, 50, '[51216]51216-الشيخ زايد'),
       createSection('MTHS003', SectionType.Tutorial, '6', DayOfWeek.Sunday, 10, 0, 12, 50, '[51216]51216-الشيخ زايد'),
-      createSection('MTHS003', SectionType.Lecture, '7', DayOfWeek.Saturday, 12, 0, 1, 50, '[51117]51117-50-الشيخ زايد'),
-      createSection('MTHS003', SectionType.Tutorial, '7', DayOfWeek.Sunday, 12, 0, 2, 50, '[51117]51117-50-الشيخ زايد'),
+      createSection('MTHS003', SectionType.Lecture, '7', DayOfWeek.Saturday, 12, 0, 13, 50, '[51117]51117-50-الشيخ زايد'),
+      createSection('MTHS003', SectionType.Tutorial, '7', DayOfWeek.Sunday, 12, 0, 14, 50, '[51117]51117-50-الشيخ زايد'),
       createSection('MTHS003', SectionType.Lecture, '8', DayOfWeek.Saturday, 8, 0, 9, 50, '[51118]51118-50-الشيخ زايد'),
       createSection('MTHS003', SectionType.Tutorial, '8', DayOfWeek.Sunday, 10, 0, 12, 50, '[51118]51118-50-الشيخ زايد'),
       createSection('MTHS003', SectionType.Lecture, '9', DayOfWeek.Monday, 11, 0, 12, 50, '[51119]51119-50-الشيخ زايد'),
@@ -2033,9 +2033,9 @@ export const COURSES: Course[] = [
     isMTHS: false,
     sections: [
       createSection('PHYS001', SectionType.Lecture, '10', DayOfWeek.Wednesday, 8, 0, 9, 50, '[51205]51205-60-الشيخ زايد'),
-      createSection('PHYS001', SectionType.Tutorial, '10', DayOfWeek.Saturday, 12, 0, 2, 50, '[51205]51205-60-الشيخ زايد'),
+      createSection('PHYS001', SectionType.Tutorial, '10', DayOfWeek.Saturday, 12, 0, 14, 50, '[51205]51205-60-الشيخ زايد'),
       createSection('PHYS001', SectionType.Lecture, '11', DayOfWeek.Tuesday, 8, 0, 9, 50, '[51115]51115-50-الشيخ زايد'),
-      createSection('PHYS001', SectionType.Tutorial, '11', DayOfWeek.Wednesday, 11, 0, 1, 50, '[51115]51115-50-الشيخ زايد')
+      createSection('PHYS001', SectionType.Tutorial, '11', DayOfWeek.Wednesday, 11, 0, 13, 50, '[51115]51115-50-الشيخ زايد')
     ]
   },
   {
@@ -2046,9 +2046,9 @@ export const COURSES: Course[] = [
       createSection('PHYS002', SectionType.Lecture, '1', DayOfWeek.Monday, 10, 0, 11, 50, '[51201]51201-50-الشيخ زايد'),
       createSection('PHYS002', SectionType.Tutorial, '1', DayOfWeek.Sunday, 10, 0, 12, 50, '[51201]51201-50-الشيخ زايد'),
       createSection('PHYS002', SectionType.Lecture, '3', DayOfWeek.Saturday, 8, 0, 9, 50, '[51113]51113-50-الشيخ زايد'),
-      createSection('PHYS002', SectionType.Tutorial, '3', DayOfWeek.Sunday, 12, 0, 2, 50, '[51113]51113-50-الشيخ زايد'),
+      createSection('PHYS002', SectionType.Tutorial, '3', DayOfWeek.Sunday, 12, 0, 14, 50, '[51113]51113-50-الشيخ زايد'),
       createSection('PHYS002', SectionType.Lecture, '5', DayOfWeek.Sunday, 10, 0, 11, 50, '[51215]51215-60-الشيخ زايد'),
-      createSection('PHYS002', SectionType.Tutorial, '5', DayOfWeek.Saturday, 12, 0, 2, 50, '[51215]51215-60-الشيخ زايد'),
+      createSection('PHYS002', SectionType.Tutorial, '5', DayOfWeek.Saturday, 12, 0, 14, 50, '[51215]51215-60-الشيخ زايد'),
       createSection('PHYS002', SectionType.Lecture, '7', DayOfWeek.Sunday, 8, 0, 9, 50, '[51117]51117-50-الشيخ زايد'),
       createSection('PHYS002', SectionType.Tutorial, '7', DayOfWeek.Monday, 8, 0, 10, 50, '[51117]51117-50-الشيخ زايد'),
       createSection('PHYS002', SectionType.Lecture, '9', DayOfWeek.Sunday, 8, 0, 9, 50, '[51119]51119-50-الشيخ زايد'),
