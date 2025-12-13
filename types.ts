@@ -4,6 +4,8 @@ export enum DayOfWeek {
   Tuesday = 'Tuesday',
   Wednesday = 'Wednesday',
   Thursday = 'Thursday',
+  Friday = 'Friday',
+  Saturday = 'Saturday',
 }
 
 export enum SectionType {

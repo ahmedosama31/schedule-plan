@@ -23,7 +23,7 @@ interface RenderItem {
 }
 
 const HOURS = Array.from({ length: 14 }, (_, i) => i + 7); // 7:00 to 20:00 (8pm)
-const DAYS = [DayOfWeek.Sunday, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday];
+const DAYS = [DayOfWeek.Sunday, DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday];
 
 // Check if two time ranges overlap
 const timesOverlap = (start1: number, end1: number, start2: number, end2: number): boolean => {
@@ -215,7 +215,7 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [] }) =
     <div
       className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border-2 overflow-hidden flex flex-col h-full transition-colors border-slate-200 dark:border-slate-700"
     >
-      <div className="grid grid-cols-[50px_1fr_1fr_1fr_1fr_1fr] border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+      <div className="grid grid-cols-[50px_1fr_1fr_1fr_1fr_1fr_1fr_1fr] border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
         <div className="p-3 text-xs font-semibold text-slate-400 dark:text-slate-500 text-center border-r border-slate-100 dark:border-slate-700">Time</div>
         {DAYS.map(day => (
           <div key={day} className="p-3 text-sm font-semibold text-slate-700 dark:text-slate-300 text-center border-r border-slate-100 dark:border-slate-700 last:border-0">
@@ -225,7 +225,7 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [] }) =
       </div>
 
       <div className="flex-1 overflow-y-auto schedule-scroll relative">
-        <div className="grid grid-cols-[50px_1fr_1fr_1fr_1fr_1fr] min-h-[800px]">
+        <div className="grid grid-cols-[50px_1fr_1fr_1fr_1fr_1fr_1fr_1fr] min-h-[800px]">
           {/* Time Labels */}
           <div className="border-r border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
             {HOURS.map(hour => (
