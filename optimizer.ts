@@ -253,6 +253,34 @@ function violatesHardConstraints(choices: CourseChoice[], prefs: SchedulePrefere
             }
         }
     }
+
+    // Check "exclude single session days" constraint
+    if (prefs.excludeSingleSessionDays) {
+        // Count lectures and tutorials per day
+        const sessionsPerDay = new Map<DayOfWeek, number>();
+
+        for (const choice of choices) {
+            for (const section of choice.sections) {
+                // Only count lectures and tutorials, not labs
+                if (section.type === SectionType.Lecture || section.type === SectionType.Tutorial) {
+                    for (const session of section.sessions) {
+                        sessionsPerDay.set(
+                            session.day,
+                            (sessionsPerDay.get(session.day) || 0) + 1
+                        );
+                    }
+                }
+            }
+        }
+
+        // Check if any day has only 1 session
+        for (const [, count] of sessionsPerDay) {
+            if (count === 1) {
+                return true;
+            }
+        }
+    }
+
     return false;
 }
 

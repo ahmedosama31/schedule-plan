@@ -1,7 +1,7 @@
 import React from 'react';
 import { SchedulePreferences, DEFAULT_PREFERENCES } from '../preferences';
 import { DayOfWeek } from '../types';
-import { Settings, Clock, CalendarX, Zap, ChevronDown, ChevronUp } from 'lucide-react';
+import { Settings, Clock, CalendarX, Zap, ChevronDown, ChevronUp, UserX } from 'lucide-react';
 
 interface Props {
     preferences: SchedulePreferences;
@@ -21,7 +21,6 @@ const DAYS: DayOfWeek[] = [
 
 const TIME_OPTIONS = [
     { value: undefined, label: 'Any' },
-    { value: 8, label: '8:00 AM' },
     { value: 9, label: '9:00 AM' },
     { value: 10, label: '10:00 AM' },
     { value: 11, label: '11:00 AM' },
@@ -60,6 +59,10 @@ const PreferencesPanel: React.FC<Props> = ({ preferences, onChange, isExpanded, 
         onChange({ ...preferences, preferConsecutive: !preferences.preferConsecutive });
     };
 
+    const handleSingleSessionToggle = () => {
+        onChange({ ...preferences, excludeSingleSessionDays: !preferences.excludeSingleSessionDays });
+    };
+
     const handleReset = () => {
         onChange({ ...DEFAULT_PREFERENCES });
     };
@@ -70,6 +73,7 @@ const PreferencesPanel: React.FC<Props> = ({ preferences, onChange, isExpanded, 
         preferences.noClassesAfter !== undefined,
         (preferences.avoidDays?.length || 0) > 0,
         preferences.preferConsecutive,
+        preferences.excludeSingleSessionDays,
     ].filter(Boolean).length;
 
     return (
@@ -171,6 +175,24 @@ const PreferencesPanel: React.FC<Props> = ({ preferences, onChange, isExpanded, 
                         >
                             <span
                                 className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${preferences.preferConsecutive ? 'translate-x-4' : 'translate-x-0'
+                                    }`}
+                            />
+                        </button>
+                    </div>
+
+                    {/* Exclude Single Session Days */}
+                    <div className="flex items-center justify-between gap-2 p-2 bg-white dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600">
+                        <div className="flex items-center gap-2 flex-1 min-w-0">
+                            <UserX size={12} className="text-red-500 flex-shrink-0" />
+                            <span className="text-xs text-slate-600 dark:text-slate-300">Exclude days with only 1 class</span>
+                        </div>
+                        <button
+                            onClick={handleSingleSessionToggle}
+                            className={`w-10 h-5 rounded-full transition-colors relative flex-shrink-0 ${preferences.excludeSingleSessionDays ? 'bg-blue-500' : 'bg-slate-300 dark:bg-slate-600'
+                                }`}
+                        >
+                            <span
+                                className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${preferences.excludeSingleSessionDays ? 'translate-x-4' : 'translate-x-0'
                                     }`}
                             />
                         </button>
