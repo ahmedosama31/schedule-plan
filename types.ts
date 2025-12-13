@@ -18,6 +18,7 @@ export interface ClassSession {
   endHour: number;
   startString: string; // "13:00"
   endString: string; // "14:30"
+  location?: string;
 }
 
 export interface Section {

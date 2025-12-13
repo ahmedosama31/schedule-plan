@@ -19,6 +19,7 @@ interface RenderItem {
   // Tiling properties
   column: number;
   totalColumns: number;
+  location?: string;
 }
 
 const HOURS = Array.from({ length: 14 }, (_, i) => i + 7); // 7:00 to 20:00 (8pm)
@@ -110,6 +111,11 @@ const DraggableEvent: React.FC<{ item: RenderItem, style: React.CSSProperties, c
       <div className="font-bold truncate pointer-events-none">{item.name}</div>
       <div className="opacity-90 truncate text-[10px] pointer-events-none">{item.type.substring(0, 3)}</div>
       <div className="opacity-75 text-[10px] pointer-events-none">{formatTime(item.start)} - {formatTime(item.end)}</div>
+      {item.location && (item.location.includes('الشيخ زايد') || item.location.includes('Sheikh Zayed')) && (
+        <div className="mt-0.5 text-[9px] font-bold text-red-600 bg-red-100 rounded px-1 w-fit pointer-events-none">
+          Sheikh Zayed
+        </div>
+      )}
     </div>
   );
 };
@@ -174,7 +180,8 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [] }) =
             start: session.startHour,
             end: session.endHour,
             color: getColorForCourse(course.code),
-            isMTHS: course.isMTHS
+            isMTHS: course.isMTHS,
+            location: session.location
           });
         }
       }
