@@ -43,3 +43,14 @@ export interface CourseSelection {
   // For MTHS, we just track the group number since they are linked
   selectedMthsGroup?: string;
 }
+
+export interface CandidateItem {
+  id: string; // unique dnd key
+  sectionId: string; // actual section id
+  courseCode: string;
+  type: SectionType;
+  day: DayOfWeek;
+  start: number;
+  end: number;
+  label: string;
+}

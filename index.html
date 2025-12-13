@@ -5,9 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Spring 2026 Scheduler</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Configure Tailwind dark mode
+      tailwind.config = {
+        darkMode: 'class',
+      }
+      // Check for saved theme or system preference
+      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+    </script>
     <style>
       body {
         background-color: #f8fafc;
+      }
+      .dark body {
+        background-color: #0f172a;
       }
       /* Custom scrollbar for schedule container */
       .schedule-scroll::-webkit-scrollbar {
@@ -17,12 +32,21 @@
       .schedule-scroll::-webkit-scrollbar-track {
         background: #f1f5f9;
       }
+      .dark .schedule-scroll::-webkit-scrollbar-track {
+        background: #1e293b;
+      }
       .schedule-scroll::-webkit-scrollbar-thumb {
         background: #cbd5e1;
         border-radius: 4px;
       }
+      .dark .schedule-scroll::-webkit-scrollbar-thumb {
+        background: #475569;
+      }
       .schedule-scroll::-webkit-scrollbar-thumb:hover {
         background: #94a3b8;
+      }
+      .dark .schedule-scroll::-webkit-scrollbar-thumb:hover {
+        background: #64748b;
       }
     </style>
   <script type="importmap">

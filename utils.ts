@@ -14,29 +14,29 @@ export const getConflict = (
   currentSelections: CourseSelection[]
 ): string | null => {
   for (const selection of currentSelections) {
-    // Skip if it's the same course (we are replacing the selection, effectively)
+    // Skip same course - switching sections within a course should always be allowed
     if (selection.course.code === newSection.courseCode) continue;
 
     const sectionsToCheck: Section[] = [];
     const course = selection.course;
 
     if (course.isMTHS && selection.selectedMthsGroup) {
-        // Add both Lec and Tut for this group
-        const groupSections = course.sections.filter(s => s.group === selection.selectedMthsGroup);
-        sectionsToCheck.push(...groupSections);
+      // Add both Lec and Tut for this group
+      const groupSections = course.sections.filter(s => s.group === selection.selectedMthsGroup);
+      sectionsToCheck.push(...groupSections);
     } else {
-        if (selection.selectedLectureId) {
-            const s = course.sections.find(sec => sec.id === selection.selectedLectureId);
-            if (s) sectionsToCheck.push(s);
-        }
-        if (selection.selectedTutorialId) {
-            const s = course.sections.find(sec => sec.id === selection.selectedTutorialId);
-            if (s) sectionsToCheck.push(s);
-        }
-        if (selection.selectedLabId) {
-            const s = course.sections.find(sec => sec.id === selection.selectedLabId);
-            if (s) sectionsToCheck.push(s);
-        }
+      if (selection.selectedLectureId) {
+        const s = course.sections.find(sec => sec.id === selection.selectedLectureId);
+        if (s) sectionsToCheck.push(s);
+      }
+      if (selection.selectedTutorialId) {
+        const s = course.sections.find(sec => sec.id === selection.selectedTutorialId);
+        if (s) sectionsToCheck.push(s);
+      }
+      if (selection.selectedLabId) {
+        const s = course.sections.find(sec => sec.id === selection.selectedLabId);
+        if (s) sectionsToCheck.push(s);
+      }
     }
 
     for (const existingSection of sectionsToCheck) {
