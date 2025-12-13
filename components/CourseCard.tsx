@@ -54,7 +54,11 @@ const CourseCard: React.FC<Props> = ({ selection, allSelections, onRemove, onUpd
       }
     }
 
-    const details = groupSections.map(s => `${s.type.substring(0, 3)}: ${s.sessions[0].day.substring(0, 3)} ${s.sessions[0].startString}`).join(', ');
+    const details = groupSections.map(s => {
+      const session = s.sessions[0];
+      if (!session) return 'No schedule';
+      return `${s.type.substring(0, 3)}: ${session.day.substring(0, 3)} ${session.startString}`;
+    }).filter(Boolean).join(', ');
 
     return (
       <option key={group} value={group} disabled={!!conflict}>

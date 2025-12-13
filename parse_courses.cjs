@@ -77,6 +77,11 @@ function generateData() {
         const start = parseTime(startRaw);
         const end = parseTime(endRaw);
 
+        if (isNaN(start.h) || isNaN(start.m) || isNaN(end.h) || isNaN(end.m)) {
+            // console.warn(`Skipping line ${idx + 1}: Invalid time ${startRaw} - ${endRaw}`);
+            return;
+        }
+
         if (!coursesMap.has(code)) {
             coursesMap.set(code, {
                 code,
