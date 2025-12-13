@@ -121,7 +121,31 @@ const App: React.FC = () => {
     const courses = selections.map(s => s.course);
     const results = optimizeSchedule(courses, 5, preferences);
     if (results.length === 0) {
-      alert('No valid schedules found with your current preferences. Try relaxing your constraints.');
+      // Build detailed error message showing active preferences
+      const activePrefs: string[] = [];
+      if (preferences.noClassesBefore !== undefined) {
+        activePrefs.push(`No classes before ${preferences.noClassesBefore}:00`);
+      }
+      if (preferences.noClassesAfter !== undefined) {
+        activePrefs.push(`No classes after ${preferences.noClassesAfter}:00`);
+      }
+      if (preferences.avoidDays && preferences.avoidDays.length > 0) {
+        const days = preferences.avoidDays.map(d => d.substring(0, 3)).join(', ');
+        activePrefs.push(`Avoiding: ${days}`);
+      }
+      if (preferences.preferConsecutive) {
+        activePrefs.push('Preferring consecutive classes');
+      }
+
+      let errorMsg = '⚠️ No valid schedules found with your current preferences.';
+      if (activePrefs.length > 0) {
+        errorMsg += '\n\nActive constraints:\n• ' + activePrefs.join('\n• ');
+        errorMsg += '\n\nTry relaxing some of these constraints to find more options.';
+      } else {
+        errorMsg += '\n\nThis may be due to course section conflicts or limited availability.';
+      }
+
+      alert(errorMsg);
       return;
     }
     setOptimizerResults(results);
@@ -300,7 +324,7 @@ const App: React.FC = () => {
               {/* Preferences */}
               <PreferencesPanel
                 preferences={preferences}
-                onUpdate={setPreferences}
+                onChange={setPreferences}
                 isExpanded={isPreferencesExpanded}
                 onToggleExpand={() => setIsPreferencesExpanded(!isPreferencesExpanded)}
               />

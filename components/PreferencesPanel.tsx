@@ -158,18 +158,18 @@ const PreferencesPanel: React.FC<Props> = ({ preferences, onChange, isExpanded, 
                     </div>
 
                     {/* Prefer Consecutive */}
-                    <div className="flex items-center justify-between p-2 bg-white dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600">
-                        <div className="flex items-center gap-2">
-                            <Zap size={12} className="text-amber-500" />
+                    <div className="flex items-center justify-between gap-2 p-2 bg-white dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600">
+                        <div className="flex items-center gap-2 flex-1 min-w-0">
+                            <Zap size={12} className="text-amber-500 flex-shrink-0" />
                             <span className="text-xs text-slate-600 dark:text-slate-300">Prefer consecutive classes</span>
                         </div>
                         <button
                             onClick={handleConsecutiveToggle}
-                            className={`w-10 h-5 rounded-full transition-colors relative ${preferences.preferConsecutive ? 'bg-blue-500' : 'bg-slate-300 dark:bg-slate-600'
+                            className={`w-10 h-5 rounded-full transition-colors relative flex-shrink-0 ${preferences.preferConsecutive ? 'bg-blue-500' : 'bg-slate-300 dark:bg-slate-600'
                                 }`}
                         >
                             <span
-                                className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${preferences.preferConsecutive ? 'translate-x-5' : 'translate-x-0.5'
+                                className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${preferences.preferConsecutive ? 'translate-x-4' : 'translate-x-0'
                                     }`}
                             />
                         </button>
