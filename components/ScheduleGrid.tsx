@@ -234,8 +234,8 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [] }) =
         ))}
       </div>
 
-      <div className="flex-1 overflow-y-auto schedule-scroll relative">
-        <div className="grid grid-cols-[50px_1fr_1fr_1fr_1fr_1fr_1fr] min-h-[800px]">
+      <div className="flex-1 overflow-y-auto overflow-x-auto schedule-scroll relative">
+        <div className="grid grid-cols-[50px_1fr_1fr_1fr_1fr_1fr_1fr] min-w-[800px] min-h-[800px]">
           {/* Time Labels */}
           <div className="border-r border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
             {HOURS.map(hour => (

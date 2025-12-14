@@ -1,27 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Moon, Sun, Monitor } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 
-type Theme = 'light' | 'dark' | 'system';
+type Theme = 'light' | 'dark';
 
 const ThemeToggle: React.FC = () => {
     const [theme, setTheme] = useState<Theme>(() => {
         if (typeof window !== 'undefined') {
-            return (localStorage.getItem('theme') as Theme) || 'system';
+            const stored = localStorage.getItem('theme') as Theme | null;
+            if (stored) return stored;
+            // Default to system preference
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
-        return 'system';
+        return 'light';
     });
 
     useEffect(() => {
         const root = document.documentElement;
 
-        if (theme === 'system') {
-            localStorage.removeItem('theme');
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                root.classList.add('dark');
-            } else {
-                root.classList.remove('dark');
-            }
-        } else if (theme === 'dark') {
+        if (theme === 'dark') {
             localStorage.setItem('theme', 'dark');
             root.classList.add('dark');
         } else {
@@ -30,62 +26,34 @@ const ThemeToggle: React.FC = () => {
         }
     }, [theme]);
 
-    // Listen for system preference changes
+    // Listen for system preference changes only if no manual override
     useEffect(() => {
-        if (theme !== 'system') return;
+        const stored = localStorage.getItem('theme');
+        if (stored) return; // User has made a choice, don't override
 
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         const handleChange = (e: MediaQueryListEvent) => {
-            if (e.matches) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
+            setTheme(e.matches ? 'dark' : 'light');
         };
 
         mediaQuery.addEventListener('change', handleChange);
         return () => mediaQuery.removeEventListener('change', handleChange);
-    }, [theme]);
+    }, []);
 
-    const cycleTheme = () => {
-        const themes: Theme[] = ['light', 'dark', 'system'];
-        const currentIndex = themes.indexOf(theme);
-        const nextIndex = (currentIndex + 1) % themes.length;
-        setTheme(themes[nextIndex]);
-    };
-
-    const getIcon = () => {
-        switch (theme) {
-            case 'light':
-                return <Sun size={16} />;
-            case 'dark':
-                return <Moon size={16} />;
-            case 'system':
-                return <Monitor size={16} />;
-        }
-    };
-
-    const getLabel = () => {
-        switch (theme) {
-            case 'light':
-                return 'Light';
-            case 'dark':
-                return 'Dark';
-            case 'system':
-                return 'System';
-        }
+    const toggleTheme = () => {
+        setTheme(theme === 'light' ? 'dark' : 'light');
     };
 
     return (
         <button
-            onClick={cycleTheme}
+            onClick={toggleTheme}
             className="flex items-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-medium 
                  bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300
                  hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
-            title={`Theme: ${getLabel()}`}
+            title={`Theme: ${theme === 'light' ? 'Light' : 'Dark'}`}
         >
-            {getIcon()}
-            <span className="hidden sm:inline">{getLabel()}</span>
+            {theme === 'light' ? <Sun size={16} /> : <Moon size={16} />}
+            <span className="hidden sm:inline">{theme === 'light' ? 'Light' : 'Dark'}</span>
         </button>
     );
 };

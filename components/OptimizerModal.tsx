@@ -69,25 +69,12 @@ const OptimizerModal: React.FC<Props> = ({ isOpen, options, onClose, onApply }) 
                             <div
                                 key={idx}
                                 className={`rounded-xl border-2 p-4 transition-all hover:shadow-md ${option.hasConflicts
-                                        ? 'border-red-200 bg-red-50/50'
-                                        : idx === 0
-                                            ? 'border-emerald-300 bg-emerald-50/50'
-                                            : 'border-slate-200 bg-white hover:border-blue-300'
+                                    ? 'border-red-200 bg-red-50/50'
+                                    : 'border-slate-200 bg-white hover:border-blue-300'
                                     }`}
                             >
                                 <div className="flex justify-between items-start">
                                     <div className="flex-1">
-                                        {/* Rank badge */}
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${idx === 0 && !option.hasConflicts
-                                                    ? 'bg-emerald-500 text-white'
-                                                    : option.hasConflicts
-                                                        ? 'bg-red-500 text-white'
-                                                        : 'bg-slate-200 text-slate-600'
-                                                }`}>
-                                                #{idx + 1} {idx === 0 && !option.hasConflicts && '• Best'}
-                                            </span>
-                                        </div>
 
                                         {/* Stats */}
                                         <div className="flex flex-wrap gap-4 mb-3">
@@ -173,8 +160,8 @@ const OptimizerModal: React.FC<Props> = ({ isOpen, options, onClose, onApply }) 
                                     <button
                                         onClick={() => handleApply(option)}
                                         className={`ml-4 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${option.hasConflicts
-                                                ? 'bg-red-100 text-red-700 hover:bg-red-200'
-                                                : 'bg-blue-600 text-white hover:bg-blue-700 shadow-sm hover:shadow'
+                                            ? 'bg-red-100 text-red-700 hover:bg-red-200'
+                                            : 'bg-blue-600 text-white hover:bg-blue-700 shadow-sm hover:shadow'
                                             }`}
                                     >
                                         Apply
@@ -183,11 +170,6 @@ const OptimizerModal: React.FC<Props> = ({ isOpen, options, onClose, onApply }) 
                             </div>
                         ))
                     )}
-                </div>
-
-                {/* Footer */}
-                <div className="p-4 border-t border-slate-100 bg-slate-50 text-xs text-slate-400 text-center">
-                    Schedules ranked by: Conflict-free → Fewer days → Less gap time
                 </div>
             </div>
         </div>

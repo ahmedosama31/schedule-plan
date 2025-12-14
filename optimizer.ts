@@ -119,7 +119,8 @@ function sessionsOverlap(s1: ClassSession, s2: ClassSession): boolean {
 /**
  * Finds all conflicts within a set of course choices.
  */
-function findConflicts(choices: CourseChoice[]): ConflictInfo[] {
+// Export for external use
+export function findConflicts(choices: CourseChoice[]): ConflictInfo[] {
     const conflicts: ConflictInfo[] = [];
     const allSessions: Array<{ course: string; section: Section; session: ClassSession }> = [];
 
@@ -311,7 +312,7 @@ function calculatePreferencePenalty(choices: CourseChoice[], prefs: SchedulePref
  */
 export function optimizeSchedule(
     courses: Course[],
-    topN: number = 5,
+    topN: number = 10,
     preferences: SchedulePreferences = DEFAULT_PREFERENCES
 ): ScheduleOption[] {
     if (courses.length === 0) return [];
@@ -374,7 +375,17 @@ export function optimizeSchedule(
         return a.gapScore - b.gapScore;
     });
 
-    return conflictFreeOptions.slice(0, topN);
+    // Randomize the top results slightly to provide variety
+    // We take top N * 2 (candidate pool), shuffle them, then return top N
+    const candidatePool = conflictFreeOptions.slice(0, topN * 2);
+
+    // Fisher-Yates shuffle
+    for (let i = candidatePool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [candidatePool[i], candidatePool[j]] = [candidatePool[j], candidatePool[i]];
+    }
+
+    return candidatePool.slice(0, topN);
 }
 
 /**
@@ -396,5 +407,41 @@ export function optionToSelections(option: ScheduleOption): CourseSelection[] {
         }
 
         return selection;
+    });
+}
+
+/**
+ * Helper to convert selections to choices for conflict checking.
+ */
+export function selectionsToChoices(selections: CourseSelection[]): CourseChoice[] {
+    return selections.map(sel => {
+        const sections: Section[] = [];
+        const c = sel.course;
+
+        if (c.isMTHS && sel.selectedMthsGroup) {
+            const mthsSections = c.sections.filter(s => s.group === sel.selectedMthsGroup);
+            sections.push(...mthsSections);
+            return { course: c, sections, mthsGroup: sel.selectedMthsGroup };
+        } else {
+            if (sel.selectedLectureId) {
+                const s = c.sections.find(s => s.id === sel.selectedLectureId);
+                if (s) sections.push(s);
+            }
+            if (sel.selectedTutorialId) {
+                const s = c.sections.find(s => s.id === sel.selectedTutorialId);
+                if (s) sections.push(s);
+            }
+            if (sel.selectedLabId) {
+                const s = c.sections.find(s => s.id === sel.selectedLabId);
+                if (s) sections.push(s);
+            }
+            return {
+                course: c,
+                sections,
+                lectureId: sel.selectedLectureId,
+                tutorialId: sel.selectedTutorialId,
+                labId: sel.selectedLabId
+            };
+        }
     });
 }
