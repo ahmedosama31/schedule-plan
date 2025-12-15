@@ -96,7 +96,7 @@ const DraggableEvent: React.FC<{
 }> = ({ item, className, style, onMobileTap }) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: item.id,
-    data: { sectionId: item.id, courseCode: item.name, isMTHS: item.isMTHS }
+    data: { sectionId: item.id, name: item.name, courseCode: item.name, type: item.type, isMTHS: item.isMTHS }
   });
 
   const dragStyle = transform

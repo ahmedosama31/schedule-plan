@@ -38,9 +38,11 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({ isOpen, onSubmit }) => {
                             <User className="absolute left-3 top-3 text-slate-400" size={18} />
                             <input
                                 type="text"
+                                inputMode="numeric"
+                                pattern="[0-9]*"
                                 id="studentId"
                                 value={studentId}
-                                onChange={(e) => setStudentId(e.target.value)}
+                                onChange={(e) => setStudentId(e.target.value.replace(/\D/g, ''))}
                                 className="w-full pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-700 border-none rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 dark:text-slate-100"
                                 placeholder="e.g. 20240123"
                                 autoFocus
