@@ -276,24 +276,46 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [] }) =
                 );
               })}
 
-              {/* Render Candidate Slots (Overlays) */}
-              {candidateSections.filter(c => c.day === day).map((c) => {
-                const top = (c.start - 8) * 64;
-                const height = (c.end - c.start) * 64;
-                return (
-                  <DroppableCandidate
-                    key={c.id}
-                    item={c}
-                    style={{
-                      top: `${top}px`,
-                      height: `${height}px`,
-                      left: '2px',
-                      right: '2px',
-                      width: 'calc(100% - 4px)'
-                    }}
-                  />
-                );
-              })}
+              {/* Render Candidate Slots (Overlays) - Grouped to avoid overlap */}
+              {(() => {
+                // Group candidates for this day by time slot
+                const dayCandidates = candidateSections.filter(c => c.day === day);
+                const slotMap: Map<string, CandidateItem[]> = new Map();
+
+                dayCandidates.forEach(c => {
+                  const key = `${c.start}-${c.end}`;
+                  if (!slotMap.has(key)) {
+                    slotMap.set(key, []);
+                  }
+                  slotMap.get(key)!.push(c);
+                });
+
+                // Render each slot with proper width distribution
+                const elements: React.ReactElement[] = [];
+                slotMap.forEach((items) => {
+                  const itemCount = items.length;
+                  items.forEach((c, idx) => {
+                    const top = (c.start - 8) * 64;
+                    const height = (c.end - c.start) * 64;
+                    const widthPercent = 100 / itemCount;
+                    const leftPercent = widthPercent * idx;
+
+                    elements.push(
+                      <DroppableCandidate
+                        key={c.id}
+                        item={c}
+                        style={{
+                          top: `${top}px`,
+                          height: `${height}px`,
+                          left: `${leftPercent}%`,
+                          width: `${widthPercent}%`
+                        }}
+                      />
+                    );
+                  });
+                });
+                return elements;
+              })()}
             </div>
           ))}
         </div>
@@ -303,9 +325,11 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [] }) =
 };
 
 const formatTime = (decimal: number) => {
-  const h = Math.floor(decimal);
+  let h = Math.floor(decimal);
   const m = Math.round((decimal - h) * 60);
-  return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12; // Convert 0 to 12 for midnight, 13+ to 1-11
+  return `${h}:${m.toString().padStart(2, '0')} ${ampm}`;
 };
 
 const getColorForCourse = (code: string) => {

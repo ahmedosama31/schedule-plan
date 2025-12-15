@@ -8,7 +8,7 @@ import PreferencesPanel from '../components/PreferencesPanel';
 import ThemeToggle from '../components/ThemeToggle';
 import { optimizeSchedule, ScheduleOption, findConflicts, selectionsToChoices, ConflictInfo } from '../optimizer';
 import { SchedulePreferences, DEFAULT_PREFERENCES } from '../preferences';
-import { Search, Calendar, PlusCircle, ChevronDown, Save, Upload, Zap, Loader, LogOut, FileWarning, Share } from 'lucide-react';
+import { Search, Calendar, PlusCircle, ChevronDown, Save, RotateCcw, Zap, Loader, LogOut, FileWarning, Share, X } from 'lucide-react';
 import { fetchCourses, saveSchedule, loadSchedule, deleteSchedule, ScheduleResponse } from '../lib/api';
 import WelcomeModal from '../components/WelcomeModal';
 import { getConflict, getConflictAlternatives, ConflictSuggestion } from '../utils';
@@ -384,7 +384,16 @@ const SchedulerPage: React.FC = () => {
 
     const handleApplyOptimization = (newSelections: CourseSelection[]) => {
         setSelections(newSelections);
+        setIsOptimizerOpen(false);
         setIsDirty(true);
+
+        // Prompt to save after applying optimization
+        setTimeout(() => {
+            const shouldSave = confirm('Optimization applied! Would you like to save this schedule to the cloud now?');
+            if (shouldSave) {
+                handleSave();
+            }
+        }, 300);
     };
 
     const handleDragStart = (event: DragStartEvent) => {
@@ -500,7 +509,7 @@ const SchedulerPage: React.FC = () => {
                         <div className="bg-blue-600 p-2 rounded-lg text-white">
                             <Calendar size={24} />
                         </div>
-                        <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
+                        <h1 className="text-lg md:text-xl font-bold text-slate-900 dark:text-slate-100">
                             Spring 2026 Scheduler
                         </h1>
                     </div>
@@ -534,15 +543,25 @@ const SchedulerPage: React.FC = () => {
                             className="p-2 text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors"
                             title="Reload from Cloud"
                         >
-                            <Upload size={20} />
+                            <RotateCcw size={20} />
                         </button>
                     </div>
                 </header>
 
-                <div className="flex flex-1 overflow-hidden">
+                <div className="flex flex-1 overflow-hidden relative">
                     {/* Sidebar */}
-                    <div className={`w-96 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col transition-all duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-96 absolute h-full z-10'}`}>
+                    <div className={`w-full md:w-96 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 absolute md:relative h-full z-20`}>
                         <div className="p-4 border-b border-slate-200 dark:border-slate-700 space-y-4">
+                            {/* Mobile close button */}
+                            <div className="flex md:hidden justify-between items-center mb-2">
+                                <h2 className="font-bold text-lg">Course Planning</h2>
+                                <button
+                                    onClick={() => setIsSidebarOpen(false)}
+                                    className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md"
+                                >
+                                    <X size={20} />
+                                </button>
+                            </div>
                             {/* Search */}
                             <div ref={searchContainerRef} className="relative">
                                 <div className="relative">
