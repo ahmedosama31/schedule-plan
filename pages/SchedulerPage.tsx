@@ -721,7 +721,11 @@ const SchedulerPage: React.FC = () => {
                             </button>
                         )}
 
-                        <ScheduleGrid selections={selections} candidateSections={candidateSections} />
+                        <ScheduleGrid
+                            selections={selections}
+                            candidateSections={candidateSections}
+                            onUpdateSelection={updateSelection}
+                        />
 
                         {/* Sidebar Toggle for Desktop */}
                         <div className="absolute left-0 top-1/2 -translate-y-1/2 z-0 hidden lg:block">

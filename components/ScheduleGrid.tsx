@@ -6,7 +6,8 @@ import { CourseSelection, DayOfWeek, SectionType, CandidateItem } from '../types
 interface Props {
   selections: CourseSelection[];
   candidateSections?: CandidateItem[];
-  onMobileReschedule?: (sectionId: string) => void; // For tap-to-reschedule on mobile
+  onMobileReschedule?: (sectionId: string) => void;
+  onUpdateSelection?: (updated: CourseSelection) => void; // For mobile section changes
 }
 
 interface RenderItem {
@@ -157,7 +158,7 @@ const DroppableCandidate: React.FC<{ item: CandidateItem, style: React.CSSProper
 };
 
 
-const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onMobileReschedule }) => {
+const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onMobileReschedule, onUpdateSelection }) => {
   const [mobileRescheduleItem, setMobileRescheduleItem] = React.useState<RenderItem | null>(null);
   const [isMobile, setIsMobile] = React.useState(false);
 
@@ -168,6 +169,12 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onM
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Find the course selection for mobile reschedule
+  const mobileRescheduleSelection = React.useMemo(() => {
+    if (!mobileRescheduleItem) return null;
+    return selections.find(s => s.course.code === mobileRescheduleItem.name);
+  }, [mobileRescheduleItem, selections]);
 
   // Flatten all selected sections into renderable items
   const renderItems: RenderItem[] = React.useMemo(() => {
@@ -346,22 +353,87 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onM
       )}
 
       {/* Mobile Reschedule Modal */}
-      {mobileRescheduleItem && (
+      {mobileRescheduleItem && mobileRescheduleSelection && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
           <div className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-sm border border-slate-200 dark:border-slate-700">
             <div className="p-4 border-b border-slate-200 dark:border-slate-700">
               <h3 className="font-bold text-lg">{mobileRescheduleItem.name}</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400">{mobileRescheduleItem.type}</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400">{mobileRescheduleItem.courseName}</p>
             </div>
-            <div className="p-4">
-              <p className="text-sm text-center text-slate-600 dark:text-slate-400 mb-4">
-                To change the time for this {mobileRescheduleItem.type.toLowerCase()}, use the dropdown menu in the course card on the left sidebar.
+            <div className="p-4 space-y-3">
+              <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                Change {mobileRescheduleItem.type.toLowerCase()} time:
               </p>
+
+              {/* Section selector dropdown */}
+              {mobileRescheduleItem.type === 'Lecture' && (
+                <select
+                  value={mobileRescheduleSelection.selectedLectureId || ''}
+                  onChange={(e) => {
+                    if (onUpdateSelection) {
+                      onUpdateSelection({ ...mobileRescheduleSelection, selectedLectureId: e.target.value });
+                      setMobileRescheduleItem(null);
+                    }
+                  }}
+                  className="w-full p-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-sm"
+                >
+                  {mobileRescheduleSelection.course.sections
+                    .filter(s => s.type === 'Lecture')
+                    .map(section => (
+                      <option key={section.id} value={section.id}>
+                        Group {section.group}: {section.sessions.map(s => `${s.day.substring(0, 3)} ${s.startString}-${s.endString}`).join(', ')}
+                      </option>
+                    ))}
+                </select>
+              )}
+
+              {mobileRescheduleItem.type === 'Tutorial' && (
+                <select
+                  value={mobileRescheduleSelection.selectedTutorialId || ''}
+                  onChange={(e) => {
+                    if (onUpdateSelection) {
+                      onUpdateSelection({ ...mobileRescheduleSelection, selectedTutorialId: e.target.value });
+                      setMobileRescheduleItem(null);
+                    }
+                  }}
+                  className="w-full p-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-sm"
+                >
+                  {mobileRescheduleSelection.course.sections
+                    .filter(s => s.type === 'Tutorial')
+                    .map(section => (
+                      <option key={section.id} value={section.id}>
+                        Group {section.group}: {section.sessions.map(s => `${s.day.substring(0, 3)} ${s.startString}-${s.endString}`).join(', ')}
+                      </option>
+                    ))}
+                </select>
+              )}
+
+              {mobileRescheduleItem.type === 'Laboratory' && (
+                <select
+                  value={mobileRescheduleSelection.selectedLabId || ''}
+                  onChange={(e) => {
+                    if (onUpdateSelection) {
+                      onUpdateSelection({ ...mobileRescheduleSelection, selectedLabId: e.target.value });
+                      setMobileRescheduleItem(null);
+                    }
+                  }}
+                  className="w-full p-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-sm"
+                >
+                  {mobileRescheduleSelection.course.sections
+                    .filter(s => s.type === 'Lab')
+                    .map(section => (
+                      <option key={section.id} value={section.id}>
+                        Group {section.group}: {section.sessions.map(s => `${s.day.substring(0, 3)} ${s.startString}-${s.endString}`).join(', ')}
+                      </option>
+                    ))}
+                </select>
+              )}
+
               <button
                 onClick={() => setMobileRescheduleItem(null)}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-semibold"
+                className="w-full bg-slate-200 hover:bg-slate-300 dark:bg-slate-600 dark:hover:bg-slate-500 text-slate-800 dark:text-slate-100 py-2 px-4 rounded-lg font-semibold mt-2"
               >
-                Got it
+                Cancel
               </button>
             </div>
           </div>
