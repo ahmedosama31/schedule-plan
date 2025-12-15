@@ -553,25 +553,11 @@ const SchedulerPage: React.FC = () => {
                     {/* Sidebar - Show on desktop always, on mobile only when mobileTab === 'courses' */}
                     <div className={`w-full md:w-96 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col relative ${mobileTab === 'courses' ? 'flex' : 'hidden md:flex'}`}>
                         <div className="p-4 border-b border-slate-200 dark:border-slate-700 space-y-4">
-                            {/* Mobile close button - More Prominent */}
+                            {/* Mobile header */}
                             <div className="flex md:hidden justify-between items-center mb-2">
                                 <h2 className="font-bold text-lg">Course Planning</h2>
-                                <button
-                                    onClick={() => setIsSidebarOpen(false)}
-                                    className="p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md flex items-center gap-1 font-medium"
-                                >
-                                    <X size={18} />
-                                    <span className="text-sm">Close</span>
-                                </button>
                             </div>
 
-                            {/* Mobile: Edge tap hint */}
-                            <div className="md:hidden absolute right-0 top-1/2 -translate-y-1/2 -mr-8 w-8 h-24 bg-gradient-to-r from-transparent to-blue-600/20 rounded-r-lg flex items-center justify-center"
-                                onClick={() => setIsSidebarOpen(false)}
-                                style={{ cursor: 'pointer' }}
-                            >
-                                <div className="w-1 h-12 bg-blue-600 rounded-full"></div>
-                            </div>
                             {/* Search */}
                             <div ref={searchContainerRef} className="relative">
                                 <div className="relative">
