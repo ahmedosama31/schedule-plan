@@ -1,4 +1,4 @@
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Clock } from 'lucide-react';
 import React from 'react';
 import { useDroppable, useDraggable } from '@dnd-kit/core';
 import { CourseSelection, DayOfWeek, SectionType, CandidateItem } from '../types';
@@ -6,6 +6,7 @@ import { CourseSelection, DayOfWeek, SectionType, CandidateItem } from '../types
 interface Props {
   selections: CourseSelection[];
   candidateSections?: CandidateItem[];
+  onMobileReschedule?: (sectionId: string) => void; // For tap-to-reschedule on mobile
 }
 
 interface RenderItem {
@@ -86,20 +87,23 @@ const tileEvents = (items: Omit<RenderItem, 'column' | 'totalColumns'>[]): Rende
   return tiledItems;
 };
 
-const DraggableEvent: React.FC<{ item: RenderItem, style: React.CSSProperties, className: string }> = ({ item, style, className }) => {
+const DraggableEvent: React.FC<{
+  item: RenderItem;
+  className: string;
+  style: React.CSSProperties;
+  onMobileTap?: () => void;
+}> = ({ item, className, style, onMobileTap }) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: item.id,
-    data: item,
-
+    data: { sectionId: item.id, courseCode: item.name, isMTHS: item.isMTHS }
   });
 
-  const dragStyle = transform ? {
-    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-    transition: 'none', // Disable CSS transitions while dragging for smooth movement
-    zIndex: 50,
-    opacity: 0.8,
-    cursor: 'grabbing'
-  } : { cursor: 'grab' };
+  const dragStyle = transform
+    ? {
+      transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+      zIndex: 1000
+    }
+    : undefined;
 
   // Detect overlap if the item is sharing space with others
   const isOverlapping = item.totalColumns > 1;
@@ -109,7 +113,7 @@ const DraggableEvent: React.FC<{ item: RenderItem, style: React.CSSProperties, c
       ref={setNodeRef}
       style={{ ...style, ...dragStyle }}
       className={`${className} ${isDragging ? 'ring-2 ring-black shadow-xl' : ''} ${isOverlapping ? 'border-red-400 border-2' : ''}`}
-      {...listeners}
+      {...(onMobileTap ? { onClick: onMobileTap } : listeners)}
       {...attributes}
       title={`${item.name} ${item.type}${item.isMTHS ? ' (Linked Group)' : ''}${isOverlapping ? ' - OVERLAPPING' : ''}`}
     >
@@ -153,7 +157,18 @@ const DroppableCandidate: React.FC<{ item: CandidateItem, style: React.CSSProper
 };
 
 
-const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [] }) => {
+const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onMobileReschedule }) => {
+  const [mobileRescheduleItem, setMobileRescheduleItem] = React.useState<RenderItem | null>(null);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  // Detect mobile
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   // Flatten all selected sections into renderable items
   const renderItems: RenderItem[] = React.useMemo(() => {
     const rawItems: Omit<RenderItem, 'column' | 'totalColumns'>[] = [];
@@ -272,6 +287,7 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [] }) =
                       left: `calc(${leftPercent}% + ${padding}px)`,
                       width: `calc(${widthPercent}% - ${padding * 2}px)`
                     }}
+                    onMobileTap={isMobile && !item.isMTHS ? () => setMobileRescheduleItem(item) : undefined}
                   />
                 );
               })}
@@ -320,6 +336,37 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [] }) =
           ))}
         </div>
       </div>
+
+      {/* Mobile: Tap to reschedule hint */}
+      {isMobile && selections.length > 0 && (
+        <div className="md:hidden mt-2 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800 text-xs text-blue-800 dark:text-blue-200 flex items-center gap-2">
+          <Clock size={14} />
+          <span>Tap any course card to change its time</span>
+        </div>
+      )}
+
+      {/* Mobile Reschedule Modal */}
+      {mobileRescheduleItem && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-sm border border-slate-200 dark:border-slate-700">
+            <div className="p-4 border-b border-slate-200 dark:border-slate-700">
+              <h3 className="font-bold text-lg">{mobileRescheduleItem.name}</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400">{mobileRescheduleItem.type}</p>
+            </div>
+            <div className="p-4">
+              <p className="text-sm text-center text-slate-600 dark:text-slate-400 mb-4">
+                To change the time for this {mobileRescheduleItem.type.toLowerCase()}, use the dropdown menu in the course card on the left sidebar.
+              </p>
+              <button
+                onClick={() => setMobileRescheduleItem(null)}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-semibold"
+              >
+                Got it
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

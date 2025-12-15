@@ -98,15 +98,20 @@ const PinModal: React.FC<PinModalProps> = ({ isOpen, mode, scheduleName, onSubmi
                     )}
 
                     <div className="space-y-1">
-                        <label className="text-xs font-bold text-slate-500 uppercase">PIN Code</label>
+                        <label className="text-xs font-bold text-slate-500 uppercase">4-Digit PIN (Numbers Only)</label>
                         <input
-                            type="password"
+                            type="tel"
+                            inputMode="numeric"
+                            pattern="[0-9]*"
                             autoFocus
                             value={pin}
-                            onChange={(e) => setPin(e.target.value)}
+                            onChange={(e) => {
+                                const value = e.target.value.replace(/[^0-9]/g, '');
+                                setPin(value);
+                            }}
                             className="w-full text-center text-2xl tracking-widest py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 dark:text-slate-100"
-                            placeholder="••••"
-                            maxLength={8}
+                            placeholder="0000"
+                            maxLength={4}
                         />
                     </div>
 

@@ -7,7 +7,7 @@ import ScheduleViewerModal from '../components/ScheduleViewerModal';
 import { CourseSelection } from '../types';
 import { COURSES } from '../data';
 
-type Tab = 'overview' | 'schedules' | 'data';
+type Tab = 'overview' | 'schedules' | 'data' | 'compare';
 
 const AdminPage: React.FC = () => {
     const navigate = useNavigate();
@@ -27,6 +27,11 @@ const AdminPage: React.FC = () => {
     const [selectedSectionStudents, setSelectedSectionStudents] = useState<string[] | null>(null);
     const [selectedScheduleData, setSelectedScheduleData] = useState<CourseSelection[] | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
+
+    // Comparison feature
+    const [compareId1, setCompareId1] = useState('');
+    const [compareId2, setCompareId2] = useState('');
+    const [comparisonResult, setComparisonResult] = useState<any>(null);
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
@@ -172,6 +177,81 @@ const AdminPage: React.FC = () => {
     const coursesToShow = showAllCourses ? stats?.courseStats : stats?.courseStats.slice(0, 5);
     const sectionsToShow = showAllSections ? stats?.sectionStats : stats?.sectionStats?.slice(0, 10);
 
+    // Compare schedules function
+    const handleCompare = () => {
+        const schedule1 = schedules.find(s => s.student_id === compareId1);
+        const schedule2 = schedules.find(s => s.student_id === compareId2);
+
+        if (!schedule1 || !schedule2) {
+            alert('One or both student IDs not found');
+            return;
+        }
+
+        try {
+            const parsed1 = JSON.parse(schedule1.schedule_json);
+            const parsed2 = JSON.parse(schedule2.schedule_json);
+
+            // Find common sections
+            const commonSections: any[] = [];
+
+            for (const item1 of parsed1) {
+                for (const item2 of parsed2) {
+                    if (item1.courseCode === item2.courseCode) {
+                        // Check lecture
+                        if (item1.selectedLectureId && item1.selectedLectureId === item2.selectedLectureId) {
+                            const course = COURSES.find(c => c.code === item1.courseCode);
+                            const section = course?.sections.find(s => s.id === item1.selectedLectureId);
+                            if (section) {
+                                commonSections.push({
+                                    course: item1.courseCode,
+                                    type: 'Lecture',
+                                    group: section.group,
+                                    times: section.sessions.map(s => `${s.day.substring(0, 3)} ${s.startString}-${s.endString}`).join(', ')
+                                });
+                            }
+                        }
+                        // Check tutorial
+                        if (item1.selectedTutorialId && item1.selectedTutorialId === item2.selectedTutorialId) {
+                            const course = COURSES.find(c => c.code === item1.courseCode);
+                            const section = course?.sections.find(s => s.id === item1.selectedTutorialId);
+                            if (section) {
+                                commonSections.push({
+                                    course: item1.courseCode,
+                                    type: 'Tutorial',
+                                    group: section.group,
+                                    times: section.sessions.map(s => `${s.day.substring(0, 3)} ${s.startString}-${s.endString}`).join(', ')
+                                });
+                            }
+                        }
+                        // Check MTHS groups
+                        if (item1.selectedMthsGroup && item1.selectedMthsGroup === item2.selectedMthsGroup) {
+                            const course = COURSES.find(c => c.code === item1.courseCode);
+                            if (course) {
+                                const groupSections = course.sections.filter(s => s.group === item1.selectedMthsGroup);
+                                commonSections.push({
+                                    course: item1.courseCode,
+                                    type: `MTHS Group ${item1.selectedMthsGroup}`,
+                                    group: item1.selectedMthsGroup,
+                                    times: groupSections.map(s =>
+                                        `${s.type}: ${s.sessions[0]?.day.substring(0, 3)} ${s.sessions[0]?.startString}`
+                                    ).join(', ')
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+
+            setComparisonResult({
+                id1: compareId1,
+                id2: compareId2,
+                commonSections
+            });
+        } catch (e) {
+            alert('Error parsing schedules');
+        }
+    };
+
     return (
         <div className="min-h-screen bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 p-4 md:p-8 font-sans">
             <div className="max-w-6xl mx-auto">
@@ -227,6 +307,12 @@ const AdminPage: React.FC = () => {
                                 className={`px-6 py-3 rounded-lg font-bold flex items-center gap-2 transition-all ${activeTab === 'data' ? 'bg-blue-600 text-white shadow-md' : 'bg-white dark:bg-slate-800 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700'}`}
                             >
                                 <Database size={20} /> Course Data
+                            </button>
+                            <button
+                                onClick={() => setActiveTab('compare')}
+                                className={`px-6 py-3 rounded-lg font-bold flex items-center gap-2 transition-all ${activeTab === 'compare' ? 'bg-blue-600 text-white shadow-md' : 'bg-white dark:bg-slate-800 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700'}`}
+                            >
+                                <Users size={20} /> Compare
                             </button>
                         </div>
 
@@ -468,50 +554,137 @@ const AdminPage: React.FC = () => {
                                 </div>
                             )}
 
+                            {/* COMPARE TAB */}
+                            {activeTab === 'compare' && (
+                                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                    <div className="flex justify-between items-center">
+                                        <h2 className="text-2xl font-bold">Compare Schedules</h2>
+                                    </div>
+
+                                    <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                                        <p className="text-sm text-blue-800 dark:text-blue-200">
+                                            <strong>Find Common Classes:</strong> Enter two student IDs to see which lectures and tutorials they share together.
+                                        </p>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-semibold mb-2">Student ID 1</label>
+                                            <input
+                                                type="text"
+                                                value={compareId1}
+                                                onChange={(e) => setCompareId1(e.target.value)}
+                                                className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                                                placeholder="Enter first student ID"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-semibold mb-2">Student ID 2</label>
+                                            <input
+                                                type="text"
+                                                value={compareId2}
+                                                onChange={(e) => setCompareId2(e.target.value)}
+                                                className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                                                placeholder="Enter second student ID"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        onClick={handleCompare}
+                                        disabled={!compareId1 || !compareId2}
+                                        className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-bold shadow-lg transition-all hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 flex items-center justify-center gap-2"
+                                    >
+                                        <Users size={20} />
+                                        Compare Schedules
+                                    </button>
+
+                                    {comparisonResult && (
+                                        <div className="mt-6 bg-white dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600 p-6">
+                                            <h3 className="text-lg font-bold mb-4">
+                                                Common Sections: {comparisonResult.id1} & {comparisonResult.id2}
+                                            </h3>
+                                            {comparisonResult.commonSections.length === 0 ? (
+                                                <p className="text-center text-slate-500 dark:text-slate-400 py-8">
+                                                    No common sections found
+                                                </p>
+                                            ) : (
+                                                <div className="overflow-x-auto">
+                                                    <table className="w-full text-sm">
+                                                        <thead className="bg-slate-100 dark:bg-slate-800 text-slate-500 uppercase text-xs">
+                                                            <tr>
+                                                                <th className="px-4 py-3 text-left">Course</th>
+                                                                <th className="px-4 py-3 text-left">Type</th>
+                                                                <th className="px-4 py-3 text-left">Group</th>
+                                                                <th className="px-4 py-3 text-left">Times</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
+                                                            {comparisonResult.commonSections.map((section: any, idx: number) => (
+                                                                <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                                                                    <td className="px-4 py-3 font-bold">{section.course}</td>
+                                                                    <td className="px-4 py-3">{section.type}</td>
+                                                                    <td className="px-4 py-3">{section.group}</td>
+                                                                    <td className="px-4 py-3 text-sm">{section.times}</td>
+                                                                </tr>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
                         </div>
                     </div>
                 )}
             </div>
 
             {/* Student IDs Modal */}
-            {selectedSectionStudents && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-                    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-md border border-slate-200 dark:border-slate-700">
-                        <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
-                            <h3 className="text-lg font-bold">Enrolled Students ({selectedSectionStudents.length})</h3>
-                            <button
-                                onClick={() => setSelectedSectionStudents(null)}
-                                className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md transition-colors"
-                            >
-                                <X size={20} className="text-slate-500" />
-                            </button>
-                        </div>
-                        <div className="p-4 max-h-96 overflow-y-auto">
-                            {selectedSectionStudents.length === 0 ? (
-                                <p className="text-center text-slate-500 py-4">No students enrolled</p>
-                            ) : (
-                                <div className="space-y-2">
-                                    {selectedSectionStudents.map((id, idx) => (
-                                        <div key={idx} className="px-4 py-2 bg-slate-50 dark:bg-slate-700 rounded-lg font-mono text-sm">
-                                            {id}
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
+            {
+                selectedSectionStudents && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-md border border-slate-200 dark:border-slate-700">
+                            <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
+                                <h3 className="text-lg font-bold">Enrolled Students ({selectedSectionStudents.length})</h3>
+                                <button
+                                    onClick={() => setSelectedSectionStudents(null)}
+                                    className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md transition-colors"
+                                >
+                                    <X size={20} className="text-slate-500" />
+                                </button>
+                            </div>
+                            <div className="p-4 max-h-96 overflow-y-auto">
+                                {selectedSectionStudents.length === 0 ? (
+                                    <p className="text-center text-slate-500 py-4">No students enrolled</p>
+                                ) : (
+                                    <div className="space-y-2">
+                                        {selectedSectionStudents.map((id, idx) => (
+                                            <div key={idx} className="px-4 py-2 bg-slate-50 dark:bg-slate-700 rounded-lg font-mono text-sm">
+                                                {id}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )
+            }
 
             {/* Schedule Viewer Modal */}
-            {selectedScheduleData && (
-                <ScheduleViewerModal
-                    isOpen={true}
-                    onClose={() => setSelectedScheduleData(null)}
-                    scheduleData={selectedScheduleData}
-                />
-            )}
-        </div>
+            {
+                selectedScheduleData && (
+                    <ScheduleViewerModal
+                        isOpen={true}
+                        onClose={() => setSelectedScheduleData(null)}
+                        scheduleData={selectedScheduleData}
+                    />
+                )
+            }
+        </div >
     );
 };
 
