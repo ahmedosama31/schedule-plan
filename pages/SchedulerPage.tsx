@@ -8,7 +8,7 @@ import PreferencesPanel from '../components/PreferencesPanel';
 import ThemeToggle from '../components/ThemeToggle';
 import { optimizeSchedule, ScheduleOption, findConflicts, selectionsToChoices, ConflictInfo } from '../optimizer';
 import { SchedulePreferences, DEFAULT_PREFERENCES } from '../preferences';
-import { Search, Calendar, PlusCircle, ChevronDown, Save, RotateCcw, Zap, Loader, LogOut, FileWarning, Share, X } from 'lucide-react';
+import { Search, Calendar, PlusCircle, ChevronDown, Save, RotateCcw, Zap, Loader, LogOut, FileWarning, Share, X, BookOpen, Grid3x3 } from 'lucide-react';
 import { fetchCourses, saveSchedule, loadSchedule, deleteSchedule, ScheduleResponse } from '../lib/api';
 import WelcomeModal from '../components/WelcomeModal';
 import { getConflict, getConflictAlternatives, ConflictSuggestion } from '../utils';
@@ -29,6 +29,7 @@ const SchedulerPage: React.FC = () => {
     const [selections, setSelections] = useState<CourseSelection[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [mobileTab, setMobileTab] = useState<'courses' | 'schedule'>('courses'); // Mobile-only tab state
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isOptimizerOpen, setIsOptimizerOpen] = useState(false);
     const [optimizerResults, setOptimizerResults] = useState<ScheduleOption[]>([]);
@@ -548,9 +549,9 @@ const SchedulerPage: React.FC = () => {
                     </div>
                 </header>
 
-                <div className="flex flex-1 overflow-hidden relative">
-                    {/* Sidebar */}
-                    <div className={`w-full md:w-96 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 absolute md:relative h-full z-20`}>
+                <div className="flex flex-1 overflow-hidden relative pb-16 md:pb-0">
+                    {/* Sidebar - Show on desktop always, on mobile only when mobileTab === 'courses' */}
+                    <div className={`w-full md:w-96 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col relative ${mobileTab === 'courses' ? 'flex' : 'hidden md:flex'}`}>
                         <div className="p-4 border-b border-slate-200 dark:border-slate-700 space-y-4">
                             {/* Mobile close button - More Prominent */}
                             <div className="flex md:hidden justify-between items-center mb-2">
@@ -709,8 +710,8 @@ const SchedulerPage: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Main Content */}
-                    <div className="flex-1 relative bg-slate-50 dark:bg-slate-900 p-4 overflow-hidden">
+                    {/* Main Schedule Grid - Show on desktop always, on mobile only when mobileTab === 'schedule' */}
+                    <div className={`flex-1 relative bg-slate-50 dark:bg-slate-900 p-4 overflow-hidden ${mobileTab === 'schedule' ? 'block' : 'hidden md:block'}`}>
                         {!isSidebarOpen && (
                             <button
                                 onClick={() => setIsSidebarOpen(true)}
@@ -725,6 +726,32 @@ const SchedulerPage: React.FC = () => {
                         {/* Sidebar Toggle for Desktop */}
                         <div className="absolute left-0 top-1/2 -translate-y-1/2 z-0 hidden lg:block">
                             {/* This is just a visual area where sidebar sits */}
+                        </div>
+                    </div>
+
+                    {/* Mobile Bottom Tab Navigation */}
+                    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 z-30 safe-area-bottom">
+                        <div className="grid grid-cols-2 h-16">
+                            <button
+                                onClick={() => setMobileTab('courses')}
+                                className={`flex flex-col items-center justify-center gap-1 transition-colors ${mobileTab === 'courses'
+                                    ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
+                                    : 'text-slate-500 dark:text-slate-400'
+                                    }`}
+                            >
+                                <BookOpen size={24} />
+                                <span className="text-xs font-semibold">Courses</span>
+                            </button>
+                            <button
+                                onClick={() => setMobileTab('schedule')}
+                                className={`flex flex-col items-center justify-center gap-1 transition-colors ${mobileTab === 'schedule'
+                                    ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
+                                    : 'text-slate-500 dark:text-slate-400'
+                                    }`}
+                            >
+                                <Grid3x3 size={24} />
+                                <span className="text-xs font-semibold">Schedule</span>
+                            </button>
                         </div>
                     </div>
                 </div>
