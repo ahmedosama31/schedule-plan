@@ -395,7 +395,7 @@ const SchedulerPage: React.FC = () => {
             return;
         }
         const courses = selections.map(s => s.course);
-        const results = optimizeSchedule(courses, 5, preferences);
+        const results = optimizeSchedule(courses, 5, preferences, selections);
         if (results.length === 0) {
             // Build detailed error message showing active preferences
             const activePrefs: string[] = [];
@@ -529,6 +529,24 @@ const SchedulerPage: React.FC = () => {
             }));
             setIsDirty(true);
         }
+    };
+
+    // Toggle lock on a specific section for a course
+    const handleToggleLock = (courseCode: string, sectionType: SectionType) => {
+        setSelections(prev => prev.map(sel => {
+            if (sel.course.code === courseCode) {
+                const updated = { ...sel };
+                if (sel.course.isMTHS) {
+                    updated.lockedMthsGroup = !sel.lockedMthsGroup;
+                } else {
+                    if (sectionType === SectionType.Lecture) updated.lockedLecture = !sel.lockedLecture;
+                    else if (sectionType === SectionType.Tutorial) updated.lockedTutorial = !sel.lockedTutorial;
+                    else if (sectionType === SectionType.Lab) updated.lockedLab = !sel.lockedLab;
+                }
+                return updated;
+            }
+            return sel;
+        }));
     };
 
     return (
@@ -749,6 +767,7 @@ const SchedulerPage: React.FC = () => {
                             selections={selections}
                             candidateSections={candidateSections}
                             onUpdateSelection={updateSelection}
+                            onToggleLock={handleToggleLock}
                         />
 
                         {/* Sidebar Toggle for Desktop */}

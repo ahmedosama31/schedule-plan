@@ -44,6 +44,11 @@ export interface CourseSelection {
   selectedLabId?: string;
   // For MTHS, we just track the group number since they are linked
   selectedMthsGroup?: string;
+  // Lock flags - locked sections won't be changed by optimizer
+  lockedLecture?: boolean;
+  lockedTutorial?: boolean;
+  lockedLab?: boolean;
+  lockedMthsGroup?: boolean;
 }
 
 export interface CandidateItem {

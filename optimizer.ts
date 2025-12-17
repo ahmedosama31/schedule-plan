@@ -304,21 +304,66 @@ function calculatePreferencePenalty(choices: CourseChoice[], prefs: SchedulePref
 /**
  * Main optimization function.
  * Generates all possible schedule combinations, scores them, and returns the top N.
+ * Respects locked selections - locked sections are kept fixed.
  * 
  * @param courses - Array of courses to optimize
  * @param topN - Number of top results to return (default 5)
  * @param preferences - User preferences for filtering and scoring
+ * @param lockedSelections - Optional array of selections with lock flags
  * @returns Sorted array of ScheduleOption, best first
  */
 export function optimizeSchedule(
     courses: Course[],
     topN: number = 10,
-    preferences: SchedulePreferences = DEFAULT_PREFERENCES
+    preferences: SchedulePreferences = DEFAULT_PREFERENCES,
+    lockedSelections?: CourseSelection[]
 ): ScheduleOption[] {
     if (courses.length === 0) return [];
 
-    // Get all choices for each course
-    const choicesPerCourse = courses.map(c => getAllChoicesForCourse(c));
+    // Get all choices for each course, respecting locked selections
+    const choicesPerCourse = courses.map(c => {
+        const lockedSel = lockedSelections?.find(s => s.course.code === c.code);
+
+        // Check if this course has any locked sections
+        const hasLockedSections = lockedSel && (
+            lockedSel.lockedLecture ||
+            lockedSel.lockedTutorial ||
+            lockedSel.lockedLab ||
+            lockedSel.lockedMthsGroup
+        );
+
+        if (hasLockedSections && lockedSel) {
+            // Build fixed choice from locked selections
+            const sections: Section[] = [];
+            let lectureId = lockedSel.lockedLecture ? lockedSel.selectedLectureId : undefined;
+            let tutorialId = lockedSel.lockedTutorial ? lockedSel.selectedTutorialId : undefined;
+            let labId = lockedSel.lockedLab ? lockedSel.selectedLabId : undefined;
+            let mthsGroup = lockedSel.lockedMthsGroup ? lockedSel.selectedMthsGroup : undefined;
+
+            if (c.isMTHS && mthsGroup) {
+                // MTHS: use the locked group
+                const mthsSections = c.sections.filter(s => s.group === mthsGroup);
+                sections.push(...mthsSections);
+                return [{ course: c, sections, mthsGroup }];
+            } else {
+                // Regular course: mix locked and unlocked sections
+                const allChoices = getAllChoicesForCourse(c);
+
+                // Filter choices to only those matching locked sections
+                const filteredChoices = allChoices.filter(choice => {
+                    if (lectureId && choice.lectureId !== lectureId) return false;
+                    if (tutorialId && choice.tutorialId !== tutorialId) return false;
+                    if (labId && choice.labId !== labId) return false;
+                    return true;
+                });
+
+                return filteredChoices.length > 0 ? filteredChoices : allChoices;
+            }
+        } else {
+            // No locked sections, generate all choices
+            return getAllChoicesForCourse(c);
+        }
+    });
 
     // Check for empty choices (shouldn't happen, but safety check)
     if (choicesPerCourse.some(choices => choices.length === 0)) {

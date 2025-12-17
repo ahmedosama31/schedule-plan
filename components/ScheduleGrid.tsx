@@ -1,4 +1,4 @@
-import { AlertCircle, Clock } from 'lucide-react';
+import { AlertCircle, Clock, Lock, Unlock } from 'lucide-react';
 import React from 'react';
 import { useDroppable, useDraggable } from '@dnd-kit/core';
 import { CourseSelection, DayOfWeek, SectionType, CandidateItem } from '../types';
@@ -7,7 +7,8 @@ interface Props {
   selections: CourseSelection[];
   candidateSections?: CandidateItem[];
   onMobileReschedule?: (sectionId: string) => void;
-  onUpdateSelection?: (updated: CourseSelection) => void; // For mobile section changes
+  onUpdateSelection?: (updated: CourseSelection) => void;
+  onToggleLock?: (courseCode: string, sectionType: SectionType) => void;
 }
 
 interface RenderItem {
@@ -20,6 +21,7 @@ interface RenderItem {
   end: number;
   color: string;
   isMTHS: boolean;
+  isLocked: boolean;
   // Tiling properties
   column: number;
   totalColumns: number;
@@ -93,7 +95,8 @@ const DraggableEvent: React.FC<{
   className: string;
   style: React.CSSProperties;
   onMobileTap?: () => void;
-}> = ({ item, className, style, onMobileTap }) => {
+  onToggleLock?: () => void;
+}> = ({ item, className, style, onMobileTap, onToggleLock }) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: item.id,
     data: { sectionId: item.id, name: item.name, courseCode: item.name, type: item.type, isMTHS: item.isMTHS }
@@ -109,18 +112,33 @@ const DraggableEvent: React.FC<{
   // Detect overlap if the item is sharing space with others
   const isOverlapping = item.totalColumns > 1;
 
+  const handleLockClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onToggleLock?.();
+  };
+
   return (
     <div
       ref={setNodeRef}
       style={{ ...style, ...dragStyle }}
-      className={`${className} ${isDragging ? 'ring-2 ring-black shadow-xl' : ''} ${isOverlapping ? 'border-red-400 border-2' : ''}`}
+      className={`${className} ${isDragging ? 'ring-2 ring-black shadow-xl' : ''} ${isOverlapping ? 'border-red-400 border-2' : ''} ${item.isLocked ? 'ring-2 ring-yellow-500' : ''}`}
       {...(onMobileTap ? { onClick: onMobileTap } : listeners)}
       {...attributes}
-      title={`${item.name} ${item.type}${item.isMTHS ? ' (Linked Group)' : ''}${isOverlapping ? ' - OVERLAPPING' : ''}`}
+      title={`${item.name} ${item.type}${item.isMTHS ? ' (Linked Group)' : ''}${isOverlapping ? ' - OVERLAPPING' : ''}${item.isLocked ? ' - LOCKED' : ''}`}
     >
       <div className="font-bold truncate pointer-events-none flex items-center gap-1">
         {isOverlapping && <AlertCircle size={12} className="text-red-500 fill-white" />}
         <span>{item.name}</span>
+        {/* Lock icon button */}
+        {onToggleLock && (
+          <button
+            onClick={handleLockClick}
+            className={`ml-auto pointer-events-auto p-0.5 rounded transition-colors ${item.isLocked ? 'text-yellow-600 bg-yellow-100' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
+            title={item.isLocked ? 'Click to unlock from optimization' : 'Click to lock (keep during optimization)'}
+          >
+            {item.isLocked ? <Lock size={12} /> : <Unlock size={12} />}
+          </button>
+        )}
       </div>
       <div className="text-[10px] opacity-80 truncate pointer-events-none">{item.courseName}</div>
       <div className="opacity-90 truncate text-[10px] pointer-events-none">{item.type.substring(0, 3)}</div>
@@ -158,7 +176,7 @@ const DroppableCandidate: React.FC<{ item: CandidateItem, style: React.CSSProper
 };
 
 
-const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onMobileReschedule, onUpdateSelection }) => {
+const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onMobileReschedule, onUpdateSelection, onToggleLock }) => {
   const [mobileRescheduleItem, setMobileRescheduleItem] = React.useState<RenderItem | null>(null);
   const [isMobile, setIsMobile] = React.useState(false);
 
@@ -196,6 +214,16 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onM
       sectionsToRender = sectionsToRender.filter(Boolean);
 
       for (const section of sectionsToRender) {
+        // Determine if this section is locked
+        let isLocked = false;
+        if (course.isMTHS) {
+          isLocked = !!selection.lockedMthsGroup;
+        } else {
+          if (section.type === SectionType.Lecture) isLocked = !!selection.lockedLecture;
+          else if (section.type === SectionType.Tutorial) isLocked = !!selection.lockedTutorial;
+          else if (section.type === SectionType.Lab) isLocked = !!selection.lockedLab;
+        }
+
         for (const session of section.sessions) {
           rawItems.push({
             id: section.id, // NOTE: Multiple sessions share this ID. This is bad for dnd-kit draggable ID!
@@ -213,6 +241,7 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onM
             end: session.endHour,
             color: getColorForCourse(course.code),
             isMTHS: course.isMTHS,
+            isLocked,
             location: session.location
           });
         }
@@ -297,6 +326,7 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onM
                         width: `calc(${widthPercent}% - ${padding * 2}px)`
                       }}
                       onMobileTap={isMobile && !item.isMTHS ? () => setMobileRescheduleItem(item) : undefined}
+                      onToggleLock={onToggleLock ? () => onToggleLock(item.name, item.type) : undefined}
                     />
                   );
                 })}
