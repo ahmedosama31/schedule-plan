@@ -40,6 +40,7 @@ const SchedulerPage: React.FC = () => {
     const [isShareModalOpen, setIsShareModalOpen] = useState(false);
     const [isDirty, setIsDirty] = useState(false);
     const [isNewUser, setIsNewUser] = useState(false); // Track first-time users for autosave
+    const [hasPromptedForPin, setHasPromptedForPin] = useState(false); // Track if we've prompted for PIN this session
 
     // Unsaved changes warning
     useEffect(() => {
@@ -270,33 +271,56 @@ const SchedulerPage: React.FC = () => {
         setShowWelcome(true);
     };
 
-    // Autosave for first-time users: silently save course list without requiring PIN
+    // Autosave for first-time users: silently save course list (codes only, not times) without requiring PIN
     useEffect(() => {
         // Only autosave if: user is logged in, is a new user, and has at least one course
         if (!studentId || !isNewUser || selections.length === 0) return;
 
         const timeoutId = setTimeout(async () => {
+            // Save ONLY course codes - not time selections
             const dataToSave = selections.map(s => ({
-                courseCode: s.course.code,
-                selectedLectureId: s.selectedLectureId,
-                selectedTutorialId: s.selectedTutorialId,
-                selectedLabId: s.selectedLabId,
-                selectedMthsGroup: s.selectedMthsGroup
+                courseCode: s.course.code
+                // Intentionally NOT saving: selectedLectureId, selectedTutorialId, etc.
             }));
 
             // Save without PIN (creates unprotected schedule)
             const result = await saveSchedule(studentId, JSON.stringify(dataToSave), undefined, 'spring26');
 
             if (result.success) {
-                console.log('Autosaved for new user');
+                console.log('Autosaved course list for new user');
                 setIsDirty(false);
-                // After first autosave, user is no longer "new" - they have a schedule in DB
-                setIsNewUser(false);
             }
         }, 1000); // Debounce by 1 second
 
         return () => clearTimeout(timeoutId);
     }, [selections, studentId, isNewUser]);
+
+    // Detect when schedule is complete (all required sections selected)
+    const isScheduleComplete = useMemo(() => {
+        if (selections.length === 0) return false;
+        return selections.every(sel => {
+            const course = sel.course;
+            if (course.isMTHS) return !!sel.selectedMthsGroup;
+
+            const hasLectures = course.sections.some(s => s.type === SectionType.Lecture);
+            const hasTutorials = course.sections.some(s => s.type === SectionType.Tutorial);
+            const hasLabs = course.sections.some(s => s.type === SectionType.Lab);
+
+            return (!hasLectures || !!sel.selectedLectureId) &&
+                (!hasTutorials || !!sel.selectedTutorialId) &&
+                (!hasLabs || !!sel.selectedLabId);
+        });
+    }, [selections]);
+
+    // Prompt for PIN when schedule becomes complete (all times selected) - only for new users
+    useEffect(() => {
+        if (!studentId || !isNewUser || hasPromptedForPin || !isScheduleComplete) return;
+
+        // Schedule is complete - prompt to save with PIN
+        setHasPromptedForPin(true);
+        setPinMode('create');
+        setShowPinModal(true);
+    }, [isScheduleComplete, studentId, isNewUser, hasPromptedForPin]);
 
     // Filter available courses to add (exclude already selected)
     const availableCourses = useMemo(() => {
@@ -421,8 +445,19 @@ const SchedulerPage: React.FC = () => {
 
         // Prompt to save after applying optimization
         setTimeout(() => {
-            const shouldSave = confirm('Optimization applied! Would you like to save this schedule to the cloud now?');
-            if (shouldSave) {
+            if (isNewUser && !hasPromptedForPin) {
+                // New user: show PIN modal to protect schedule
+                setHasPromptedForPin(true);
+                setPinMode('create');
+                setShowPinModal(true);
+            } else if (sessionPin) {
+                // Returning user with PIN: ask if they want to save
+                const shouldSave = confirm('Optimization applied! Would you like to save this schedule to the cloud now?');
+                if (shouldSave) {
+                    handleSave();
+                }
+            } else {
+                // User without PIN (unprotected schedule): just save
                 handleSave();
             }
         }, 300);

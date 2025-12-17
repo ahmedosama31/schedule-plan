@@ -16,9 +16,12 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
             return new Response("Missing student_id or schedule_json", { status: 400 });
         }
 
+        const scheduleName = body.schedule_name || "spring26";
+
+        // Check for existing schedule with this name
         const existing = await env.DB.prepare(
-            "SELECT pin FROM schedules WHERE student_id = ?"
-        ).bind(body.student_id).first();
+            "SELECT pin FROM schedules WHERE student_id = ? AND schedule_name = ?"
+        ).bind(body.student_id, scheduleName).first();
 
         if (existing) {
             if (existing.pin) {
@@ -34,28 +37,24 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
                 }
             }
 
-            // Update
+            // Update existing schedule
             const { success } = await env.DB.prepare(
                 `UPDATE schedules SET 
                     schedule_json = ?, 
-                    pin = COALESCE(?, pin), 
-                    schedule_name = COALESCE(?, schedule_name),
+                    pin = COALESCE(?, pin),
                     updated_at = unixepoch() 
-                WHERE student_id = ?`
+                WHERE student_id = ? AND schedule_name = ?`
             )
-                .bind(body.schedule_json, body.pin || null, body.schedule_name || null, body.student_id)
+                .bind(body.schedule_json, body.pin || null, body.student_id, scheduleName)
                 .run();
 
             if (!success) return new Response("Failed to update", { status: 500 });
         } else {
             // New schedule - PIN is optional (for autosave support)
-            // If no PIN provided, creates an unprotected schedule
-            const name = body.schedule_name || "My Schedule";
-
             const { success } = await env.DB.prepare(
                 `INSERT INTO schedules (student_id, schedule_json, pin, schedule_name, updated_at) VALUES (?, ?, ?, ?, unixepoch())`
             )
-                .bind(body.student_id, body.schedule_json, body.pin || null, name)
+                .bind(body.student_id, body.schedule_json, body.pin || null, scheduleName)
                 .run();
 
             if (!success) return new Response("Failed to create", { status: 500 });
@@ -73,16 +72,36 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     const { request, env } = context;
     const url = new URL(request.url);
     const studentId = url.searchParams.get("student_id");
+    const scheduleName = url.searchParams.get("schedule_name") || "spring26";
+    const listAll = url.searchParams.get("list_all") === "true";
     const pin = request.headers.get("X-Auth-Pin");
 
     if (!studentId) {
         return new Response("Missing student_id param", { status: 400 });
     }
 
+    // If list_all, return all schedule names for this user
+    if (listAll) {
+        const results = await env.DB.prepare(
+            "SELECT schedule_name, created_at, updated_at, pin IS NOT NULL as protected FROM schedules WHERE student_id = ? ORDER BY updated_at DESC"
+        ).bind(studentId).all();
+
+        return new Response(JSON.stringify({
+            schedules: results.results.map(r => ({
+                name: r.schedule_name,
+                protected: !!r.protected,
+                created_at: r.created_at,
+                updated_at: r.updated_at
+            }))
+        }), {
+            headers: { "Content-Type": "application/json" },
+        });
+    }
+
     const result = await env.DB.prepare(
-        "SELECT schedule_json, pin, schedule_name FROM schedules WHERE student_id = ?"
+        "SELECT schedule_json, pin, schedule_name FROM schedules WHERE student_id = ? AND schedule_name = ?"
     )
-        .bind(studentId)
+        .bind(studentId, scheduleName)
         .first();
 
     if (!result) {
@@ -94,7 +113,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     const responseBase = {
         exists: true,
         protected: !!result.pin,
-        schedule_name: result.schedule_name || "My Schedule"
+        schedule_name: result.schedule_name || "spring26"
     };
 
     if (result.pin) {
@@ -123,6 +142,7 @@ export const onRequestDelete: PagesFunction<Env> = async (context) => {
     const { request, env } = context;
     const url = new URL(request.url);
     const studentId = url.searchParams.get("student_id");
+    const scheduleName = url.searchParams.get("schedule_name") || "spring26";
 
     if (!studentId) {
         return new Response("Missing student_id param", { status: 400 });
@@ -130,8 +150,8 @@ export const onRequestDelete: PagesFunction<Env> = async (context) => {
 
     try {
         const { success } = await env.DB.prepare(
-            "DELETE FROM schedules WHERE student_id = ?"
-        ).bind(studentId).run();
+            "DELETE FROM schedules WHERE student_id = ? AND schedule_name = ?"
+        ).bind(studentId, scheduleName).run();
 
         return new Response(JSON.stringify({ success }), {
             headers: { "Content-Type": "application/json" },

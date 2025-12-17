@@ -2,14 +2,16 @@ DROP TABLE IF EXISTS schedules;
 DROP TABLE IF EXISTS course_data;
 DROP TABLE IF EXISTS stats_courses;
 
--- schedules: Stores user saved schedules
+-- schedules: Stores user saved schedules (supports multiple per user)
 CREATE TABLE schedules (
-  student_id TEXT PRIMARY KEY,
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  student_id TEXT NOT NULL,
   pin TEXT,
-  schedule_name TEXT,
+  schedule_name TEXT NOT NULL DEFAULT 'spring26',
   schedule_json TEXT NOT NULL, 
   created_at INTEGER DEFAULT (unixepoch()),
-  updated_at INTEGER DEFAULT (unixepoch())
+  updated_at INTEGER DEFAULT (unixepoch()),
+  UNIQUE(student_id, schedule_name)
 );
 
 -- course_data: Stores the raw course text blob

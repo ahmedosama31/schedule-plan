@@ -38,12 +38,20 @@ export type ScheduleResponse =
     | { exists: true, protected: true, schedule_json?: string, schedule_name?: string }
     | { exists: true, protected: false, schedule_json: string, schedule_name?: string };
 
-export const loadSchedule = async (studentId: string, pin?: string): Promise<ScheduleResponse | null> => {
+export interface UserScheduleInfo {
+    name: string;
+    protected: boolean;
+    created_at: number;
+    updated_at: number;
+}
+
+export const loadSchedule = async (studentId: string, pin?: string, scheduleName?: string): Promise<ScheduleResponse | null> => {
     try {
         const headers: Record<string, string> = {};
         if (pin) headers['X-Auth-Pin'] = pin;
 
-        const response = await fetch(`${API_BASE}/schedules?student_id=${studentId}`, { headers });
+        const nameParam = scheduleName ? `&schedule_name=${encodeURIComponent(scheduleName)}` : '';
+        const response = await fetch(`${API_BASE}/schedules?student_id=${studentId}${nameParam}`, { headers });
         if (!response.ok) return null;
         const data = await response.json();
         return data as ScheduleResponse;
@@ -53,10 +61,22 @@ export const loadSchedule = async (studentId: string, pin?: string): Promise<Sch
     }
 }
 
-
-export const deleteSchedule = async (studentId: string): Promise<boolean> => {
+export const fetchUserSchedules = async (studentId: string): Promise<UserScheduleInfo[]> => {
     try {
-        const response = await fetch(`${API_BASE}/schedules?student_id=${studentId}`, {
+        const response = await fetch(`${API_BASE}/schedules?student_id=${studentId}&list_all=true`);
+        if (!response.ok) return [];
+        const data = await response.json() as { schedules: UserScheduleInfo[] };
+        return data.schedules;
+    } catch (e) {
+        console.error("Fetch user schedules failed", e);
+        return [];
+    }
+}
+
+export const deleteSchedule = async (studentId: string, scheduleName?: string): Promise<boolean> => {
+    try {
+        const nameParam = scheduleName ? `&schedule_name=${encodeURIComponent(scheduleName)}` : '';
+        const response = await fetch(`${API_BASE}/schedules?student_id=${studentId}${nameParam}`, {
             method: 'DELETE'
         });
         return response.ok;
