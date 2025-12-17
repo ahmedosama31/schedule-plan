@@ -33,6 +33,9 @@ const AdminPage: React.FC = () => {
     const [compareId2, setCompareId2] = useState('');
     const [comparisonResult, setComparisonResult] = useState<any>(null);
 
+    // Student names cache
+    const [studentNames, setStudentNames] = useState<Record<string, string>>({});
+
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
         if (password === '12345678') {
@@ -64,6 +67,45 @@ const AdminPage: React.FC = () => {
             if (activeTab === 'schedules') loadSchedules();
         }
     }, [activeTab, isAuthenticated]);
+
+    // Function to fetch student name from API
+    const fetchStudentName = async (studentId: string): Promise<string | null> => {
+        try {
+            const res = await fetch(`https://osa539.pythonanywhere.com/search?query=${encodeURIComponent(studentId)}`);
+            const data = await res.json() as { student?: { NameEn?: string } };
+            return data.student?.NameEn || null;
+        } catch (e) {
+            console.error('Failed to fetch student name:', e);
+            return null;
+        }
+    };
+
+    // Load student names when schedules are loaded
+    useEffect(() => {
+        if (schedules.length === 0) return;
+
+        // Load names for students we don't have cached yet
+        const loadNames = async () => {
+            const newNames: Record<string, string> = { ...studentNames };
+            let hasNew = false;
+
+            for (const schedule of schedules) {
+                if (!newNames[schedule.student_id]) {
+                    const name = await fetchStudentName(schedule.student_id);
+                    if (name) {
+                        newNames[schedule.student_id] = name;
+                        hasNew = true;
+                    }
+                }
+            }
+
+            if (hasNew) {
+                setStudentNames(newNames);
+            }
+        };
+
+        loadNames();
+    }, [schedules]);
 
     const handleUpdateCourses = async () => {
         if (!rawText) return;
@@ -470,6 +512,7 @@ const AdminPage: React.FC = () => {
                                             <thead className="bg-slate-100 dark:bg-slate-800 text-slate-500 uppercase text-xs">
                                                 <tr>
                                                     <th className="px-6 py-3 font-bold">Student ID</th>
+                                                    <th className="px-6 py-3 font-bold">Student Name</th>
                                                     <th className="px-6 py-3 font-bold">Schedule Name</th>
                                                     <th className="px-6 py-3 font-bold">Last Updated</th>
                                                     <th className="px-6 py-3 font-bold text-right">Actions</th>
@@ -479,6 +522,9 @@ const AdminPage: React.FC = () => {
                                                 {filteredSchedules.map((schedule) => (
                                                     <tr key={schedule.student_id} className="hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                                                         <td className="px-6 py-4 font-mono font-medium">{schedule.student_id}</td>
+                                                        <td className="px-6 py-4">
+                                                            {studentNames[schedule.student_id] || <span className="text-slate-400 italic text-sm">Loading...</span>}
+                                                        </td>
                                                         <td className="px-6 py-4">{schedule.schedule_name || <span className="text-slate-400 italic">Untitled</span>}</td>
                                                         <td className="px-6 py-4 text-slate-500 block">
                                                             <div className="flex items-center gap-1">
@@ -506,7 +552,7 @@ const AdminPage: React.FC = () => {
                                                 ))}
                                                 {filteredSchedules.length === 0 && !isLoading && (
                                                     <tr>
-                                                        <td colSpan={4} className="px-6 py-12 text-center text-slate-500">
+                                                        <td colSpan={5} className="px-6 py-12 text-center text-slate-500">
                                                             {searchTerm ? `No schedules match "${searchTerm}"` : 'No schedules found in the database.'}
                                                         </td>
                                                     </tr>
