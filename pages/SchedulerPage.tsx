@@ -429,7 +429,21 @@ const SchedulerPage: React.FC = () => {
     };
 
     const handleApplyOptimization = (newSelections: CourseSelection[]) => {
-        setSelections(newSelections);
+        // Preserve lock flags from current selections
+        const selectionsWithLocks = newSelections.map(newSel => {
+            const oldSel = selections.find(s => s.course.code === newSel.course.code);
+            if (oldSel) {
+                return {
+                    ...newSel,
+                    lockedLecture: oldSel.lockedLecture,
+                    lockedTutorial: oldSel.lockedTutorial,
+                    lockedLab: oldSel.lockedLab,
+                    lockedMthsGroup: oldSel.lockedMthsGroup
+                };
+            }
+            return newSel;
+        });
+        setSelections(selectionsWithLocks);
         setIsOptimizerOpen(false);
         setIsDirty(true);
         // Autosave will handle saving automatically via the useEffect
