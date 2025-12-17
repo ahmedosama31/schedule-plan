@@ -24,37 +24,36 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         ).bind(body.student_id, scheduleName).first();
 
         if (existing) {
-            if (existing.pin) {
-                // Robust comparison
-                const storedPin = String(existing.pin).trim();
-                const providedPin = body.pin ? String(body.pin).trim() : "";
+            // PIN check DISABLED - allowing all saves without PIN verification
+            // Original PIN check code preserved for future re-activation:
+            // if (existing.pin) {
+            //     const storedPin = String(existing.pin).trim();
+            //     const providedPin = body.pin ? String(body.pin).trim() : "";
+            //     if (providedPin !== storedPin) {
+            //         return new Response(JSON.stringify({ error: "Invalid PIN" }), {
+            //             status: 401, headers: { "Content-Type": "application/json" }
+            //         });
+            //     }
+            // }
 
-                if (providedPin !== storedPin) {
-                    return new Response(JSON.stringify({ error: "Invalid PIN" }), {
-                        status: 401,
-                        headers: { "Content-Type": "application/json" }
-                    });
-                }
-            }
-
-            // Update existing schedule
+            // Update existing schedule (clear PIN since feature is disabled)
             const { success } = await env.DB.prepare(
                 `UPDATE schedules SET 
                     schedule_json = ?, 
-                    pin = COALESCE(?, pin),
+                    pin = NULL,
                     updated_at = unixepoch() 
                 WHERE student_id = ? AND schedule_name = ?`
             )
-                .bind(body.schedule_json, body.pin || null, body.student_id, scheduleName)
+                .bind(body.schedule_json, body.student_id, scheduleName)
                 .run();
 
             if (!success) return new Response("Failed to update", { status: 500 });
         } else {
-            // New schedule - PIN is optional (for autosave support)
+            // New schedule - no PIN (feature disabled)
             const { success } = await env.DB.prepare(
-                `INSERT INTO schedules (student_id, schedule_json, pin, schedule_name, updated_at) VALUES (?, ?, ?, ?, unixepoch())`
+                `INSERT INTO schedules (student_id, schedule_json, pin, schedule_name, updated_at) VALUES (?, ?, NULL, ?, unixepoch())`
             )
-                .bind(body.student_id, body.schedule_json, body.pin || null, scheduleName)
+                .bind(body.student_id, body.schedule_json, scheduleName)
                 .run();
 
             if (!success) return new Response("Failed to create", { status: 500 });
@@ -116,18 +115,17 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         schedule_name: result.schedule_name || "spring26"
     };
 
-    if (result.pin) {
-        // Robust comparison: handle potential type differences or whitespace
-        const storedPin = String(result.pin).trim();
-        const providedPin = pin ? String(pin).trim() : "";
-
-        if (!providedPin || providedPin !== storedPin) {
-            // Return base info (name) but no JSON
-            return new Response(JSON.stringify({ ...responseBase, protected: true }), {
-                headers: { "Content-Type": "application/json" },
-            });
-        }
-    }
+    // PIN check DISABLED - always return schedule data regardless of PIN
+    // Original PIN check code preserved for future re-activation:
+    // if (result.pin) {
+    //     const storedPin = String(result.pin).trim();
+    //     const providedPin = pin ? String(pin).trim() : "";
+    //     if (!providedPin || providedPin !== storedPin) {
+    //         return new Response(JSON.stringify({ ...responseBase, protected: true }), {
+    //             headers: { "Content-Type": "application/json" },
+    //         });
+    //     }
+    // }
 
     return new Response(JSON.stringify({
         ...responseBase,

@@ -183,28 +183,27 @@ const SchedulerPage: React.FC = () => {
             return;
         }
 
-        if (status.exists && status.protected) {
-            setPendingId(id);
-            setPendingName(status.schedule_name || null);
-            setPinMode('login');
-            setShowPinModal(true);
-            setShowWelcome(false);
+        // PIN feature DISABLED - log in directly for all users
+        // Original PIN check code preserved for future re-activation:
+        // if (status.exists && status.protected) {
+        //     setPendingId(id);
+        //     setPinMode('login');
+        //     setShowPinModal(true);
+        //     setShowWelcome(false);
+        //     return;
+        // }
+
+        setStudentId(id);
+        localStorage.setItem('student_id', id);
+        setShowWelcome(false);
+        setSessionPin(null);
+        setScheduleName(status.exists ? status.schedule_name || null : null);
+        setIsNewUser(!status.exists);
+
+        if (status.exists && status.schedule_json) {
+            setSelections(parseScheduleData(status.schedule_json, courses));
         } else {
-            // New user or unprotected
-            setStudentId(id);
-            localStorage.setItem('student_id', id);
-            setShowWelcome(false);
-            setSessionPin(null);
-            setScheduleName(status.exists ? status.schedule_name || null : null);
-
-            // Track if this is a brand new user (no existing schedule)
-            setIsNewUser(!status.exists);
-
-            if (status.exists && status.schedule_json) {
-                setSelections(parseScheduleData(status.schedule_json, courses));
-            } else {
-                setSelections([]);
-            }
+            setSelections([]);
         }
     };
 
