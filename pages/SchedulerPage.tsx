@@ -230,8 +230,8 @@ const SchedulerPage: React.FC = () => {
                 setShowWelcome(true);
             }
         } else if (pinMode === 'create' && studentId) {
-            // Saving with new PIN and Name
-            await performSave(pin, name);
+            // Saving (PIN feature disabled, but keeping flow intact)
+            await performSave();
         }
     };
 
@@ -271,29 +271,32 @@ const SchedulerPage: React.FC = () => {
         setShowWelcome(true);
     };
 
-    // Autosave for first-time users: silently save course list (codes only, not times) without requiring PIN
+    // Autosave for ALL users - silently save full schedule data
     useEffect(() => {
-        // Only autosave if: user is logged in, is a new user, and has at least one course
-        if (!studentId || !isNewUser || selections.length === 0) return;
+        // Autosave for ALL logged-in users with at least one course
+        if (!studentId || selections.length === 0) return;
 
         const timeoutId = setTimeout(async () => {
-            // Save ONLY course codes - not time selections
+            // Save full schedule data including time selections
             const dataToSave = selections.map(s => ({
-                courseCode: s.course.code
-                // Intentionally NOT saving: selectedLectureId, selectedTutorialId, etc.
+                courseCode: s.course.code,
+                selectedLectureId: s.selectedLectureId,
+                selectedTutorialId: s.selectedTutorialId,
+                selectedLabId: s.selectedLabId,
+                selectedMthsGroup: s.selectedMthsGroup
             }));
 
-            // Save without PIN (creates unprotected schedule)
+            // Save without PIN - single schedule per ID (always 'spring26')
             const result = await saveSchedule(studentId, JSON.stringify(dataToSave), undefined, 'spring26');
 
             if (result.success) {
-                console.log('Autosaved course list for new user');
+                console.log('Autosaved schedule');
                 setIsDirty(false);
             }
-        }, 1000); // Debounce by 1 second
+        }, 1500); // Debounce by 1.5 seconds
 
         return () => clearTimeout(timeoutId);
-    }, [selections, studentId, isNewUser]);
+    }, [selections, studentId]);
 
     // Detect when schedule is complete (all required sections selected)
     const isScheduleComplete = useMemo(() => {
@@ -312,15 +315,13 @@ const SchedulerPage: React.FC = () => {
         });
     }, [selections]);
 
-    // Prompt for PIN when schedule becomes complete (all times selected) - only for new users
-    useEffect(() => {
-        if (!studentId || !isNewUser || hasPromptedForPin || !isScheduleComplete) return;
-
-        // Schedule is complete - prompt to save with PIN
-        setHasPromptedForPin(true);
-        setPinMode('create');
-        setShowPinModal(true);
-    }, [isScheduleComplete, studentId, isNewUser, hasPromptedForPin]);
+    // PIN prompt on schedule completion - DISABLED (can be re-enabled later)
+    // useEffect(() => {
+    //     if (!studentId || !isNewUser || hasPromptedForPin || !isScheduleComplete) return;
+    //     setHasPromptedForPin(true);
+    //     setPinMode('create');
+    //     setShowPinModal(true);
+    // }, [isScheduleComplete, studentId, isNewUser, hasPromptedForPin]);
 
     // Filter available courses to add (exclude already selected)
     const availableCourses = useMemo(() => {
@@ -357,7 +358,7 @@ const SchedulerPage: React.FC = () => {
         setIsDirty(true);
     };
 
-    const performSave = async (pin?: string, name?: string) => {
+    const performSave = async () => {
         if (!studentId) return;
 
         const dataToSave = selections.map(s => ({
@@ -368,16 +369,11 @@ const SchedulerPage: React.FC = () => {
             selectedMthsGroup: s.selectedMthsGroup
         }));
 
-        const pinToUse = pin || sessionPin;
-        // Use provided name or existing name, default to 'spring26'
-        const nameToUse = name || scheduleName || 'spring26';
-
-        const result = await saveSchedule(studentId, JSON.stringify(dataToSave), pinToUse || undefined, nameToUse);
+        // Single schedule per ID - always use 'spring26', no PIN
+        const result = await saveSchedule(studentId, JSON.stringify(dataToSave), undefined, 'spring26');
 
         if (result.success) {
             setIsDirty(false);
-            if (pin) setSessionPin(pin);
-            if (name) setScheduleName(name);
             alert('Schedule saved successfully!');
         } else {
             alert(`Failed to save: ${result.message}`);
@@ -386,13 +382,8 @@ const SchedulerPage: React.FC = () => {
 
     const handleSave = async () => {
         if (!studentId) return;
-
-        if (!sessionPin) {
-            setPinMode('create');
-            setShowPinModal(true);
-        } else {
-            performSave();
-        }
+        // Save directly without PIN (PIN feature disabled for now)
+        performSave();
     };
 
     const handleLoad = async () => {
@@ -442,25 +433,7 @@ const SchedulerPage: React.FC = () => {
         setSelections(newSelections);
         setIsOptimizerOpen(false);
         setIsDirty(true);
-
-        // Prompt to save after applying optimization
-        setTimeout(() => {
-            if (isNewUser && !hasPromptedForPin) {
-                // New user: show PIN modal to protect schedule
-                setHasPromptedForPin(true);
-                setPinMode('create');
-                setShowPinModal(true);
-            } else if (sessionPin) {
-                // Returning user with PIN: ask if they want to save
-                const shouldSave = confirm('Optimization applied! Would you like to save this schedule to the cloud now?');
-                if (shouldSave) {
-                    handleSave();
-                }
-            } else {
-                // User without PIN (unprotected schedule): just save
-                handleSave();
-            }
-        }, 300);
+        // Autosave will handle saving automatically via the useEffect
     };
 
     const handleDragStart = (event: DragStartEvent) => {
