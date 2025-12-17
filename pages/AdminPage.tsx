@@ -52,7 +52,7 @@ const AdminPage: React.FC = () => {
 
     const loadSchedules = async () => {
         setIsLoading(true);
-        const data = await fetchAllSchedules();
+        const data = await fetchAllSchedules(password);
         setSchedules(data);
         setIsLoading(false);
     };

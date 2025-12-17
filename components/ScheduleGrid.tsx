@@ -380,7 +380,7 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onM
                     className="w-full p-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-sm"
                   >
                     {mobileRescheduleSelection.course.sections
-                      .filter(s => s.type === 'Lecture')
+                      .filter(s => s.type === SectionType.Lecture)
                       .map(section => (
                         <option key={section.id} value={section.id}>
                           Group {section.group}: {section.sessions.map(s => `${s.day.substring(0, 3)} ${s.startString}-${s.endString}`).join(', ')}
@@ -401,7 +401,7 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onM
                     className="w-full p-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-sm"
                   >
                     {mobileRescheduleSelection.course.sections
-                      .filter(s => s.type === 'Tutorial')
+                      .filter(s => s.type === SectionType.Tutorial)
                       .map(section => (
                         <option key={section.id} value={section.id}>
                           Group {section.group}: {section.sessions.map(s => `${s.day.substring(0, 3)} ${s.startString}-${s.endString}`).join(', ')}
@@ -422,7 +422,7 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onM
                     className="w-full p-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-sm"
                   >
                     {mobileRescheduleSelection.course.sections
-                      .filter(s => s.type === 'Lab')
+                      .filter(s => s.type === SectionType.Lab)
                       .map(section => (
                         <option key={section.id} value={section.id}>
                           Group {section.group}: {section.sessions.map(s => `${s.day.substring(0, 3)} ${s.startString}-${s.endString}`).join(', ')}

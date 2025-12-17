@@ -285,7 +285,6 @@ const SchedulerPage: React.FC = () => {
     const addCourse = (courseCode: string) => {
         const course = courses.find(c => c.code === courseCode);
         if (!course) return;
-        if (!course) return;
         setSelections([...selections, { course }]);
         setSearchTerm('');
         setIsDropdownOpen(false);

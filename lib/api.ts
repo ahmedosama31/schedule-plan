@@ -23,7 +23,7 @@ export const saveSchedule = async (studentId: string, scheduleJson: string, pin?
             body: JSON.stringify({ student_id: studentId, schedule_json: scheduleJson, pin, schedule_name: scheduleName })
         });
         if (!response.ok) {
-            const err = await response.json().catch(() => ({ error: 'Unknown error' }));
+            const err = await response.json().catch(() => ({ error: 'Unknown error' })) as { error?: string };
             return { success: false, message: err.error || response.statusText };
         }
         return { success: true };
@@ -100,10 +100,17 @@ export const fetchStats = async (): Promise<StatsResponse | null> => {
     }
 }
 
-export const fetchAllSchedules = async (): Promise<AdminSchedule[]> => {
+export const fetchAllSchedules = async (adminPassword: string): Promise<AdminSchedule[]> => {
     try {
-        const response = await fetch(`${API_BASE}/admin/schedules`);
-        if (!response.ok) throw new Error("Failed to fetch schedules");
+        const response = await fetch(`${API_BASE}/admin/schedules`, {
+            headers: {
+                'Authorization': `Bearer ${adminPassword}`
+            }
+        });
+        if (!response.ok) {
+            if (response.status === 401) throw new Error("Unauthorized");
+            throw new Error("Failed to fetch schedules");
+        }
         return await response.json() as AdminSchedule[];
     } catch (e) {
         console.error("Fetch all schedules failed", e);

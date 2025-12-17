@@ -1,5 +1,32 @@
+interface Env {
+    DB: D1Database;
+}
+
+// Admin password - in production, use environment variables or a secure auth system
+const ADMIN_PASSWORD = "12345678";
+
+/**
+ * Validates the admin authorization header.
+ * Expects: Authorization: Bearer <password>
+ */
+const validateAdminAuth = (request: Request): boolean => {
+    const authHeader = request.headers.get("Authorization");
+    if (!authHeader) return false;
+
+    const [type, token] = authHeader.split(" ");
+    if (type !== "Bearer" || !token) return false;
+
+    return token === ADMIN_PASSWORD;
+};
+
 export const onRequestGet: PagesFunction<Env> = async (context) => {
-    // In a real app, verify Admin Auth header here.
+    // Verify admin authentication
+    if (!validateAdminAuth(context.request)) {
+        return new Response(JSON.stringify({ error: "Unauthorized" }), {
+            status: 401,
+            headers: { "Content-Type": "application/json" }
+        });
+    }
 
     try {
         const { results } = await context.env.DB.prepare(
@@ -10,6 +37,6 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
             headers: { "Content-Type": "application/json" }
         });
     } catch (e) {
-        return new Response(JSON.stringify({ error: e.message }), { status: 500 });
+        return new Response(JSON.stringify({ error: (e as Error).message }), { status: 500 });
     }
 };
