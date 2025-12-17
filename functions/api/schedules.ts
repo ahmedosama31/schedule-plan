@@ -48,21 +48,14 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
             if (!success) return new Response("Failed to update", { status: 500 });
         } else {
-            // New
-            if (!body.pin) {
-                return new Response(JSON.stringify({ error: "PIN required for new schedules" }), {
-                    status: 400,
-                    headers: { "Content-Type": "application/json" }
-                });
-            }
-
-            // Name is optional but recommended
+            // New schedule - PIN is optional (for autosave support)
+            // If no PIN provided, creates an unprotected schedule
             const name = body.schedule_name || "My Schedule";
 
             const { success } = await env.DB.prepare(
                 `INSERT INTO schedules (student_id, schedule_json, pin, schedule_name, updated_at) VALUES (?, ?, ?, ?, unixepoch())`
             )
-                .bind(body.student_id, body.schedule_json, body.pin, name)
+                .bind(body.student_id, body.schedule_json, body.pin || null, name)
                 .run();
 
             if (!success) return new Response("Failed to create", { status: 500 });

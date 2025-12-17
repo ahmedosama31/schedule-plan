@@ -39,6 +39,7 @@ const SchedulerPage: React.FC = () => {
     const [candidateSections, setCandidateSections] = useState<CandidateItem[]>([]);
     const [isShareModalOpen, setIsShareModalOpen] = useState(false);
     const [isDirty, setIsDirty] = useState(false);
+    const [isNewUser, setIsNewUser] = useState(false); // Track first-time users for autosave
 
     // Unsaved changes warning
     useEffect(() => {
@@ -195,6 +196,9 @@ const SchedulerPage: React.FC = () => {
             setSessionPin(null);
             setScheduleName(status.exists ? status.schedule_name || null : null);
 
+            // Track if this is a brand new user (no existing schedule)
+            setIsNewUser(!status.exists);
+
             if (status.exists && status.schedule_json) {
                 setSelections(parseScheduleData(status.schedule_json, courses));
             } else {
@@ -265,6 +269,34 @@ const SchedulerPage: React.FC = () => {
         setIsDirty(false);
         setShowWelcome(true);
     };
+
+    // Autosave for first-time users: silently save course list without requiring PIN
+    useEffect(() => {
+        // Only autosave if: user is logged in, is a new user, and has at least one course
+        if (!studentId || !isNewUser || selections.length === 0) return;
+
+        const timeoutId = setTimeout(async () => {
+            const dataToSave = selections.map(s => ({
+                courseCode: s.course.code,
+                selectedLectureId: s.selectedLectureId,
+                selectedTutorialId: s.selectedTutorialId,
+                selectedLabId: s.selectedLabId,
+                selectedMthsGroup: s.selectedMthsGroup
+            }));
+
+            // Save without PIN (creates unprotected schedule)
+            const result = await saveSchedule(studentId, JSON.stringify(dataToSave), undefined, 'spring26');
+
+            if (result.success) {
+                console.log('Autosaved for new user');
+                setIsDirty(false);
+                // After first autosave, user is no longer "new" - they have a schedule in DB
+                setIsNewUser(false);
+            }
+        }, 1000); // Debounce by 1 second
+
+        return () => clearTimeout(timeoutId);
+    }, [selections, studentId, isNewUser]);
 
     // Filter available courses to add (exclude already selected)
     const availableCourses = useMemo(() => {
