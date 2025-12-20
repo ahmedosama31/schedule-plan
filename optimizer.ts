@@ -374,8 +374,10 @@ export function optimizeSchedule(
     const generator = generateCombinations(choicesPerCourse);
 
     // Limits
-    const MAX_COMBINATIONS_CHECKED = 200000; // Stop checking after this many
-    const MAX_VALID_SCHEDULES = 2000; // Stop if we found enough valid conflict-free schedules
+    const MAX_COMBINATIONS_CHECKED = 2000000; // Increased to 2M to find deeper options
+    const MAX_VALID_SCHEDULES = 5000; // Increased to 5k
+    const MAX_TIME_MS = 2000; // stop after 2 seconds to prevent freezing
+    const startTime = performance.now();
 
     let checkedCount = 0;
     const validOptions: ScheduleOption[] = [];
@@ -385,8 +387,16 @@ export function optimizeSchedule(
 
     for (const choices of generator) {
         checkedCount++;
+
+        // Check limits
         if (checkedCount > MAX_COMBINATIONS_CHECKED) break;
         if (validOptions.length >= MAX_VALID_SCHEDULES) break;
+
+        // Time check every 1000 items to avoid perf hit
+        if (checkedCount % 1000 === 0 && (performance.now() - startTime > MAX_TIME_MS)) {
+            console.log('Optimizer time limit reached');
+            break;
+        }
 
         // 1. Check hard constraints (filtering)
         if (violatesHardConstraints(choices, preferences)) {
