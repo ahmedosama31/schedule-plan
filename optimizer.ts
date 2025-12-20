@@ -429,26 +429,57 @@ export function optimizeSchedule(
     console.log(`Checked ${checkedCount} combinations. Found ${validOptions.length} valid schedules.`);
 
     // Sort by:
-    // 1. Health Score (Higher is better) - PRIMARY
-    // 2. Fewer days is better (Secondary)
-    // 3. Lower gap score is better (Tertiary)
+    // 1. Fewer days is better - PRIMARY
+    // 2. Lower gap score is better - SECONDARY  
+    // 3. Health Score (Higher is better) - TERTIARY
     validOptions.sort((a, b) => {
-        // 1. Health Score (Higher is better)
-        if (a.healthScore !== b.healthScore) {
-            return b.healthScore - a.healthScore;
-        }
-
-        // 2. Day Count
+        // 1. Day Count (Fewer is better)
         if (a.dayCount !== b.dayCount) {
             return a.dayCount - b.dayCount;
         }
 
-        // 3. Gap Score (Lower is better)
-        return a.gapScore - b.gapScore;
+        // 2. Gap Score (Lower is better)
+        if (a.gapScore !== b.gapScore) {
+            return a.gapScore - b.gapScore;
+        }
+
+        // 3. Health Score (Higher is better)
+        return b.healthScore - a.healthScore;
     });
 
-    // Return unique top N results
-    return validOptions.slice(0, topN);
+    // Group schedules into quality tiers and shuffle within each tier
+    // This adds variety without sacrificing the best options
+    const tieredResults: ScheduleOption[] = [];
+    let currentTierStart = 0;
+
+    for (let i = 1; i <= validOptions.length && tieredResults.length < topN; i++) {
+        // Check if we've moved to a different tier (different day count or significantly different gap)
+        const isTierBoundary = i === validOptions.length ||
+            validOptions[i].dayCount !== validOptions[currentTierStart].dayCount ||
+            Math.abs(validOptions[i].gapScore - validOptions[currentTierStart].gapScore) > 1.5;
+
+        if (isTierBoundary) {
+            // Get items in this tier
+            const tierItems = validOptions.slice(currentTierStart, i);
+
+            // Light shuffle within tier (Fisher-Yates on a subset)
+            for (let j = tierItems.length - 1; j > 0; j--) {
+                const k = Math.floor(Math.random() * (j + 1));
+                [tierItems[j], tierItems[k]] = [tierItems[k], tierItems[j]];
+            }
+
+            // Add shuffled tier items to results
+            for (const item of tierItems) {
+                if (tieredResults.length < topN) {
+                    tieredResults.push(item);
+                }
+            }
+
+            currentTierStart = i;
+        }
+    }
+
+    return tieredResults;
 }
 
 /**
