@@ -30,7 +30,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
     try {
         const { results } = await context.env.DB.prepare(
-            "SELECT student_id, schedule_name, schedule_json, created_at, updated_at FROM schedules ORDER BY updated_at DESC"
+            "SELECT student_id, schedule_name, schedule_json, created_at, updated_at FROM schedules ORDER BY updated_at DESC LIMIT 1000"
         ).all();
 
         return new Response(JSON.stringify(results), {

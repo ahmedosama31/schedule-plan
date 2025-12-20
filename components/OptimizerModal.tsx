@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScheduleOption, optionToSelections } from '../optimizer';
 import { CourseSelection, DayOfWeek } from '../types';
-import { X, Calendar, Clock, AlertTriangle, CheckCircle, Zap } from 'lucide-react';
+import { X, Calendar, Clock, AlertTriangle, CheckCircle, Zap, Heart } from 'lucide-react';
 
 interface Props {
     isOpen: boolean;
@@ -77,102 +77,108 @@ const OptimizerModal: React.FC<Props> = ({ isOpen, options, onClose, onApply }) 
                                     <div className="flex-1">
 
                                         {/* Stats */}
-                                        <div className="flex flex-wrap gap-4 mb-3">
-                                            {/* Days */}
-                                            <div className="flex items-center gap-2">
-                                                <Calendar size={16} className="text-blue-500" />
-                                                <span className="text-sm font-semibold text-slate-700">
-                                                    {option.dayCount} day{option.dayCount !== 1 ? 's' : ''}
-                                                </span>
-                                                <span className="text-xs text-slate-400">
-                                                    ({formatDays(option.daysUsed)})
-                                                </span>
-                                            </div>
-
-                                            {/* Gap */}
-                                            <div className="flex items-center gap-2">
-                                                <Clock size={16} className="text-amber-500" />
-                                                <span className="text-sm text-slate-600">
-                                                    {formatGap(option.gapScore)}
-                                                </span>
-                                            </div>
-
-                                            {/* Conflict status */}
-                                            <div className="flex items-center gap-2">
-                                                {option.hasConflicts ? (
-                                                    <>
-                                                        <AlertTriangle size={16} className="text-red-500" />
-                                                        <span className="text-sm text-red-600 font-medium">
-                                                            {option.conflicts.length} conflict{option.conflicts.length !== 1 ? 's' : ''}
-                                                        </span>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <CheckCircle size={16} className="text-emerald-500" />
-                                                        <span className="text-sm text-emerald-600 font-medium">
-                                                            No conflicts
-                                                        </span>
-                                                    </>
-                                                )}
-                                            </div>
+                                        {/* Health Score */}
+                                        <div className="flex items-center gap-2" title="Health Score (0-100): Higher is better. Based on balanced days, lunch breaks, and reasonable hours.">
+                                            <Heart size={16} className={`${option.healthScore >= 80 ? 'text-rose-500' : option.healthScore >= 50 ? 'text-orange-500' : 'text-slate-400'}`} fill={option.healthScore >= 80 ? "currentColor" : "none"} />
+                                            <span className={`text-sm font-bold ${option.healthScore >= 80 ? 'text-rose-600' : option.healthScore >= 50 ? 'text-orange-600' : 'text-slate-500'}`}>
+                                                {option.healthScore}% Quality
+                                            </span>
                                         </div>
 
-                                        {/* Conflict details */}
-                                        {option.hasConflicts && (
-                                            <div className="bg-red-100 rounded-lg p-2 mb-3">
-                                                <div className="text-xs text-red-700 space-y-1">
-                                                    {option.conflicts.slice(0, 3).map((conflict, cIdx) => (
-                                                        <div key={cIdx} className="flex items-center gap-1">
-                                                            <AlertTriangle size={10} />
-                                                            <span>
-                                                                <strong>{conflict.course1}</strong> {conflict.section1Type.substring(0, 3)} conflicts with{' '}
-                                                                <strong>{conflict.course2}</strong> {conflict.section2Type.substring(0, 3)} on {conflict.day.substring(0, 3)} @ {conflict.time}
-                                                            </span>
-                                                        </div>
-                                                    ))}
-                                                    {option.conflicts.length > 3 && (
-                                                        <div className="text-red-500">
-                                                            +{option.conflicts.length - 3} more conflicts...
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        )}
+                                        {/* Days */}
+                                        <div className="flex items-center gap-2">
+                                            <Calendar size={16} className="text-blue-500" />
+                                            <span className="text-sm font-semibold text-slate-700">
+                                                {option.dayCount} day{option.dayCount !== 1 ? 's' : ''}
+                                            </span>
+                                            <span className="text-xs text-slate-400">
+                                                ({formatDays(option.daysUsed)})
+                                            </span>
+                                        </div>
 
-                                        {/* Section summary */}
-                                        <div className="flex flex-wrap gap-1">
-                                            {option.choices.map((choice, cIdx) => (
-                                                <span
-                                                    key={cIdx}
-                                                    className="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600"
-                                                >
-                                                    {choice.course.code}
-                                                    {choice.mthsGroup
-                                                        ? ` G${choice.mthsGroup}`
-                                                        : ` L${choice.lectureId ? choice.sections.find(s => s.id === choice.lectureId)?.group : '-'}${choice.tutorialId ? `/T${choice.sections.find(s => s.id === choice.tutorialId)?.group}` : ''}`
-                                                    }
-                                                </span>
-                                            ))}
+                                        {/* Gap */}
+                                        <div className="flex items-center gap-2">
+                                            <Clock size={16} className="text-amber-500" />
+                                            <span className="text-sm text-slate-600">
+                                                {formatGap(option.gapScore)}
+                                            </span>
+                                        </div>
+
+                                        {/* Conflict status */}
+                                        <div className="flex items-center gap-2">
+                                            {option.hasConflicts ? (
+                                                <>
+                                                    <AlertTriangle size={16} className="text-red-500" />
+                                                    <span className="text-sm text-red-600 font-medium">
+                                                        {option.conflicts.length} conflict{option.conflicts.length !== 1 ? 's' : ''}
+                                                    </span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <CheckCircle size={16} className="text-emerald-500" />
+                                                    <span className="text-sm text-emerald-600 font-medium">
+                                                        No conflicts
+                                                    </span>
+                                                </>
+                                            )}
                                         </div>
                                     </div>
 
-                                    {/* Apply button */}
-                                    <button
-                                        onClick={() => handleApply(option)}
-                                        className={`ml-4 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${option.hasConflicts
-                                            ? 'bg-red-100 text-red-700 hover:bg-red-200'
-                                            : 'bg-blue-600 text-white hover:bg-blue-700 shadow-sm hover:shadow'
-                                            }`}
-                                    >
-                                        Apply
-                                    </button>
+                                    {/* Conflict details */}
+                                    {option.hasConflicts && (
+                                        <div className="bg-red-100 rounded-lg p-2 mb-3">
+                                            <div className="text-xs text-red-700 space-y-1">
+                                                {option.conflicts.slice(0, 3).map((conflict, cIdx) => (
+                                                    <div key={cIdx} className="flex items-center gap-1">
+                                                        <AlertTriangle size={10} />
+                                                        <span>
+                                                            <strong>{conflict.course1}</strong> {conflict.section1Type.substring(0, 3)} conflicts with{' '}
+                                                            <strong>{conflict.course2}</strong> {conflict.section2Type.substring(0, 3)} on {conflict.day.substring(0, 3)} @ {conflict.time}
+                                                        </span>
+                                                    </div>
+                                                ))}
+                                                {option.conflicts.length > 3 && (
+                                                    <div className="text-red-500">
+                                                        +{option.conflicts.length - 3} more conflicts...
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Section summary */}
+                                    <div className="flex flex-wrap gap-1">
+                                        {option.choices.map((choice, cIdx) => (
+                                            <span
+                                                key={cIdx}
+                                                className="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600"
+                                            >
+                                                {choice.course.code}
+                                                {choice.mthsGroup
+                                                    ? ` G${choice.mthsGroup}`
+                                                    : ` L${choice.lectureId ? choice.sections.find(s => s.id === choice.lectureId)?.group : '-'}${choice.tutorialId ? `/T${choice.sections.find(s => s.id === choice.tutorialId)?.group}` : ''}`
+                                                }
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
+
+                                {/* Apply button */}
+                                <button
+                                    onClick={() => handleApply(option)}
+                                    className={`ml-4 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${option.hasConflicts
+                                        ? 'bg-red-100 text-red-700 hover:bg-red-200'
+                                        : 'bg-blue-600 text-white hover:bg-blue-700 shadow-sm hover:shadow'
+                                        }`}
+                                >
+                                    Apply
+                                </button>
                             </div>
                         ))
                     )}
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

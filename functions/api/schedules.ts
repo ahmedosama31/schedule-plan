@@ -18,46 +18,20 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
         const scheduleName = body.schedule_name || "spring26";
 
-        // Check for existing schedule with this name
-        const existing = await env.DB.prepare(
-            "SELECT pin FROM schedules WHERE student_id = ? AND schedule_name = ?"
-        ).bind(body.student_id, scheduleName).first();
+        // Efficiently Upsert (Insert or Update) using ON CONFLICT provided by SQLite/D1
+        // We set pin to NULL as the feature is currently disabled
+        const { success } = await env.DB.prepare(
+            `INSERT INTO schedules (student_id, schedule_json, pin, schedule_name, updated_at) 
+             VALUES (?, ?, NULL, ?, unixepoch())
+             ON CONFLICT(student_id, schedule_name) DO UPDATE SET 
+                schedule_json = excluded.schedule_json,
+                pin = NULL, 
+                updated_at = unixepoch()`
+        )
+            .bind(body.student_id, body.schedule_json, scheduleName)
+            .run();
 
-        if (existing) {
-            // PIN check DISABLED - allowing all saves without PIN verification
-            // Original PIN check code preserved for future re-activation:
-            // if (existing.pin) {
-            //     const storedPin = String(existing.pin).trim();
-            //     const providedPin = body.pin ? String(body.pin).trim() : "";
-            //     if (providedPin !== storedPin) {
-            //         return new Response(JSON.stringify({ error: "Invalid PIN" }), {
-            //             status: 401, headers: { "Content-Type": "application/json" }
-            //         });
-            //     }
-            // }
-
-            // Update existing schedule (clear PIN since feature is disabled)
-            const { success } = await env.DB.prepare(
-                `UPDATE schedules SET 
-                    schedule_json = ?, 
-                    pin = NULL,
-                    updated_at = unixepoch() 
-                WHERE student_id = ? AND schedule_name = ?`
-            )
-                .bind(body.schedule_json, body.student_id, scheduleName)
-                .run();
-
-            if (!success) return new Response("Failed to update", { status: 500 });
-        } else {
-            // New schedule - no PIN (feature disabled)
-            const { success } = await env.DB.prepare(
-                `INSERT INTO schedules (student_id, schedule_json, pin, schedule_name, updated_at) VALUES (?, ?, NULL, ?, unixepoch())`
-            )
-                .bind(body.student_id, body.schedule_json, scheduleName)
-                .run();
-
-            if (!success) return new Response("Failed to create", { status: 500 });
-        }
+        if (!success) return new Response("Failed to save schedule", { status: 500 });
 
         return new Response(JSON.stringify({ success: true }), {
             headers: { "Content-Type": "application/json" },

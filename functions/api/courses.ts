@@ -45,6 +45,15 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
             return new Response("Failed to insert course data", { status: 500 });
         }
 
+        // Cleanup: Keep only the last 10 entries to save space
+        // This runs asynchronously in the background from the user's perspective if we don't await it,
+        // but for safety in serverless function lifecycle, we should await or use context.waitUntil
+        context.waitUntil(
+            env.DB.prepare(
+                "DELETE FROM course_data WHERE id NOT IN (SELECT id FROM course_data ORDER BY id DESC LIMIT 10)"
+            ).run()
+        );
+
         return new Response(JSON.stringify({ success: true }), {
             headers: { "Content-Type": "application/json" }
         });

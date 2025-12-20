@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Upload, Lock, RefreshCw, ArrowLeft, Users, FileText, Database, ChevronRight, Clock, Search, Eye, X } from 'lucide-react';
-import { fetchStats, fetchAllSchedules, updateCourseData, StatsResponse, AdminSchedule } from '../lib/api';
+import { fetchStats, fetchAllSchedules, updateCourseData, StatsResponse, AdminSchedule, fetchCourses } from '../lib/api';
 import { useNavigate } from 'react-router-dom';
 import { parseRawCourseData } from '../lib/parser';
 import ScheduleViewerModal from '../components/ScheduleViewerModal';
-import { CourseSelection } from '../types';
+import { CourseSelection, Course } from '../types';
 import { COURSES } from '../data';
 
 type Tab = 'overview' | 'schedules' | 'data' | 'compare';
@@ -17,6 +17,7 @@ const AdminPage: React.FC = () => {
     const [schedules, setSchedules] = useState<AdminSchedule[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [activeTab, setActiveTab] = useState<Tab>('overview');
+    const [allCourses, setAllCourses] = useState<Course[]>(COURSES);
 
     // Data Management Props
     const [rawText, setRawText] = useState('');
@@ -60,9 +61,19 @@ const AdminPage: React.FC = () => {
         setIsLoading(false);
     };
 
+    const loadCourses = async () => {
+        try {
+            const data = await fetchCourses();
+            setAllCourses(data);
+        } catch (e) {
+            console.error("Failed to load courses", e);
+        }
+    };
+
     // Effect to load data when tab changes
     useEffect(() => {
         if (isAuthenticated) {
+            loadCourses(); // Always load courses when authenticated
             if (activeTab === 'overview') loadStats();
             if (activeTab === 'schedules') loadSchedules();
         }
@@ -181,7 +192,7 @@ const AdminPage: React.FC = () => {
         try {
             const parsed = JSON.parse(scheduleJson);
             return parsed.map((item: any) => {
-                const course = COURSES.find(c => c.code === item.courseCode);
+                const course = allCourses.find(c => c.code === item.courseCode);
                 if (!course) return null;
                 return {
                     course,
@@ -241,7 +252,7 @@ const AdminPage: React.FC = () => {
                     if (item1.courseCode === item2.courseCode) {
                         // Check lecture
                         if (item1.selectedLectureId && item1.selectedLectureId === item2.selectedLectureId) {
-                            const course = COURSES.find(c => c.code === item1.courseCode);
+                            const course = allCourses.find(c => c.code === item1.courseCode);
                             const section = course?.sections.find(s => s.id === item1.selectedLectureId);
                             if (section) {
                                 commonSections.push({
@@ -254,7 +265,7 @@ const AdminPage: React.FC = () => {
                         }
                         // Check tutorial
                         if (item1.selectedTutorialId && item1.selectedTutorialId === item2.selectedTutorialId) {
-                            const course = COURSES.find(c => c.code === item1.courseCode);
+                            const course = allCourses.find(c => c.code === item1.courseCode);
                             const section = course?.sections.find(s => s.id === item1.selectedTutorialId);
                             if (section) {
                                 commonSections.push({
@@ -267,7 +278,7 @@ const AdminPage: React.FC = () => {
                         }
                         // Check MTHS groups
                         if (item1.selectedMthsGroup && item1.selectedMthsGroup === item2.selectedMthsGroup) {
-                            const course = COURSES.find(c => c.code === item1.courseCode);
+                            const course = allCourses.find(c => c.code === item1.courseCode);
                             if (course) {
                                 const groupSections = course.sections.filter(s => s.group === item1.selectedMthsGroup);
                                 commonSections.push({

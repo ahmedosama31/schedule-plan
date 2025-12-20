@@ -27,3 +27,6 @@ CREATE TABLE stats_courses (
   course_code TEXT PRIMARY KEY,
   selection_count INTEGER DEFAULT 0
 );
+
+-- Index for efficient schedule listing
+CREATE INDEX IF NOT EXISTS idx_schedules_student_updated ON schedules(student_id, updated_at DESC);

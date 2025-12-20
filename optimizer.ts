@@ -31,6 +31,7 @@ export interface ScheduleOption {
     gapScore: number;       // Lower is better (less gap time)
     hasConflicts: boolean;
     conflicts: ConflictInfo[];
+    healthScore: number; // 0-100 score indicating schedule quality
 }
 
 export interface ConflictInfo {
@@ -393,13 +394,15 @@ export function optimizeSchedule(
         const conflicts = findConflicts(choices);
         const daysUsed = getDaysUsed(choices);
         const gapScore = calculateGapScore(choices);
-        const preferencePenalty = calculatePreferencePenalty(choices, preferences);
+        // Calculate health score (0-100)
+        const healthScore = calculateHealthScore(choices, daysUsed);
 
         return {
             choices,
             daysUsed,
             dayCount: daysUsed.length,
-            gapScore: preferences.preferConsecutive ? gapScore : 0, // Only count gaps if preferred
+            gapScore,
+            healthScore,
             hasConflicts: conflicts.length > 0,
             conflicts
         };
@@ -409,28 +412,137 @@ export function optimizeSchedule(
     const conflictFreeOptions = options.filter(o => !o.hasConflicts);
 
     // Sort by:
-    // 1. Fewer days is better
-    // 2. Lower gap score is better (if preferConsecutive)
+    // 1. Fewer days is better (primary)
+    // 2. Higher Health Score is better (secondary)
+    // 3. Lower gap score is better (tertiary - only if preferConsecutive)
     conflictFreeOptions.sort((a, b) => {
-        // Fewer days is better
+        // 1. Day Count
         if (a.dayCount !== b.dayCount) {
             return a.dayCount - b.dayCount;
         }
-        // Less gap time is better
-        return a.gapScore - b.gapScore;
+
+        // 2. Health Score (Higher is better)
+        // Weight the difference to make it significant
+        const healthDiff = b.healthScore - a.healthScore;
+        if (Math.abs(healthDiff) > 5) { // Only prioritize if difference is significant > 5%
+            return healthDiff;
+        }
+
+        // 3. Gap Score (Lower is better) - Tiebreaker
+        if (preferences.preferConsecutive) {
+            return a.gapScore - b.gapScore;
+        }
+
+        return 0;
     });
 
-    // Randomize the top results slightly to provide variety
-    // We take top N * 2 (candidate pool), shuffle them, then return top N
-    const candidatePool = conflictFreeOptions.slice(0, topN * 2);
+    // Return unique top N results (deterministic)
+    return conflictFreeOptions.slice(0, topN);
+}
 
-    // Fisher-Yates shuffle
-    for (let i = candidatePool.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [candidatePool[i], candidatePool[j]] = [candidatePool[j], candidatePool[i]];
+/**
+ * Calculates a 'Health Score' (0-100) for a schedule.
+ * Considers:
+ * - Day balance (variance in day length)
+ * - Lunch breaks (finding gaps between 11:00-14:00)
+ * - Early starts / Late ends
+ * - Excessive gaps
+ */
+function calculateHealthScore(choices: CourseChoice[], daysUsed: DayOfWeek[]): number {
+    let score = 100;
+    const sessionsByDay = new Map<DayOfWeek, { start: number; end: number }[]>();
+
+    // 1. Populate daily sessions
+    for (const choice of choices) {
+        for (const section of choice.sections) {
+            for (const session of section.sessions) {
+                if (!sessionsByDay.has(session.day)) sessionsByDay.set(session.day, []);
+                sessionsByDay.get(session.day)!.push({
+                    start: session.startHour,
+                    end: session.endHour
+                });
+            }
+        }
     }
 
-    return candidatePool.slice(0, topN);
+    // 2. Analyze each day
+    let totalDayDuration = 0;
+    let dayDurations: number[] = [];
+
+    for (const [day, sessions] of sessionsByDay) {
+        if (sessions.length === 0) continue;
+        sessions.sort((a, b) => a.start - b.start);
+
+        const firstStart = sessions[0].start;
+        const lastEnd = sessions[sessions.length - 1].end;
+        const duration = lastEnd - firstStart; // Total time explicitly on campus/in-class span
+
+        totalDayDuration += duration;
+        dayDurations.push(duration);
+
+        // -- Penalties --
+
+        // Early Start Penalty (before 9:00 AM)
+        if (firstStart < 9) score -= 5;
+
+        // Late End Penalty (after 5:00 PM / 17:00)
+        if (lastEnd > 17) score -= 5;
+
+        // Long Day Penalty (more than 8 hours on campus)
+        if (duration > 8) score -= 10;
+
+        // "Survival" Check: Continuous blocks without breaks
+        let maxContinuousBlock = 0;
+        let currentBlock = 0;
+
+        for (let i = 0; i < sessions.length; i++) {
+            const current = sessions[i];
+            const duration = current.end - current.start;
+
+            // Check gap before this session (if not first)
+            if (i > 0) {
+                const prev = sessions[i - 1];
+                const gap = current.start - prev.end;
+
+                if (gap > 0) {
+                    // Reset continuous block
+                    currentBlock = 0;
+
+                    // Huge Gap Penalty (> 3 hours)
+                    if (gap > 3) score -= 8;
+                }
+            }
+
+            currentBlock += duration;
+            maxContinuousBlock = Math.max(maxContinuousBlock, currentBlock);
+        }
+
+        // Penalty for grueling continuous blocks (> 4 hours straight)
+        if (maxContinuousBlock > 4) score -= 15;
+    }
+
+    // 3. Weekly Balance Bonus
+    // Standard Deviation of day durations?
+    if (dayDurations.length > 1) {
+        const mean = totalDayDuration / dayDurations.length;
+        const variance = dayDurations.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / dayDurations.length;
+        const stdDev = Math.sqrt(variance);
+
+        // If days are very balanced (stdDev < 1 hour), small bonus
+        if (stdDev < 1) score += 5;
+        // If days are wild (stdDev > 3 hours), penalty
+        if (stdDev > 3) score -= 5;
+    }
+
+    // 4. Free Day Bonus (already handled by dayCount sort, but nice for score appearance)
+    const weekendDays = [DayOfWeek.Saturday, DayOfWeek.Sunday]; // Based on region, usually Fri/Sat are off or Sat/Sun
+    // Assuming Standard 5-day week Mon-Fri (or Sun-Thu).
+    // Let's just reward keeping dayCount low relative to course load
+    // If we have < 5 days, big bonus
+    if (daysUsed.length <= 4) score += 10;
+    if (daysUsed.length <= 3) score += 15;
+
+    return Math.max(0, Math.min(100, Math.round(score)));
 }
 
 /**
@@ -440,7 +552,8 @@ export function optimizeSchedule(
 export function optionToSelections(option: ScheduleOption): CourseSelection[] {
     return option.choices.map(choice => {
         const selection: CourseSelection = {
-            course: choice.course
+            course: choice.course,
+            // Preserve locks if we had context, but here we just return the selection
         };
 
         if (choice.mthsGroup) {

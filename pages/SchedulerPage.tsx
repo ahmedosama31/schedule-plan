@@ -41,6 +41,7 @@ const SchedulerPage: React.FC = () => {
     const [isDirty, setIsDirty] = useState(false);
     const [isNewUser, setIsNewUser] = useState(false); // Track first-time users for autosave
     const [hasPromptedForPin, setHasPromptedForPin] = useState(false); // Track if we've prompted for PIN this session
+    const autosaveChangeCount = useRef(0);
 
     // Unsaved changes warning
     useEffect(() => {
@@ -271,11 +272,14 @@ const SchedulerPage: React.FC = () => {
     };
 
     // Autosave for ALL users - silently save full schedule data
+    // Autosave for ALL users - silently save full schedule data
     useEffect(() => {
-        // Autosave for ALL logged-in users with at least one course
-        if (!studentId || selections.length === 0) return;
+        // Autosave for ALL logged-in users with at least one course. Only if dirty.
+        if (!studentId || selections.length === 0 || !isDirty) return;
 
-        const timeoutId = setTimeout(async () => {
+        autosaveChangeCount.current += 1;
+
+        const save = async () => {
             // Save full schedule data including time selections
             const dataToSave = selections.map(s => ({
                 courseCode: s.course.code,
@@ -291,11 +295,20 @@ const SchedulerPage: React.FC = () => {
             if (result.success) {
                 console.log('Autosaved schedule');
                 setIsDirty(false);
+                autosaveChangeCount.current = 0;
             }
-        }, 1500); // Debounce by 1.5 seconds
+        };
 
-        return () => clearTimeout(timeoutId);
-    }, [selections, studentId]);
+        if (autosaveChangeCount.current >= 5) {
+            // Immediate save after 5 changes
+            save();
+            return;
+        } else {
+            // Debounce for 600ms
+            const timeoutId = setTimeout(save, 600);
+            return () => clearTimeout(timeoutId);
+        }
+    }, [selections, studentId, isDirty]);
 
     // Detect when schedule is complete (all required sections selected)
     const isScheduleComplete = useMemo(() => {

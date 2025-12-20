@@ -6,9 +6,9 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     const { env } = context;
 
     try {
-        // Fetch all schedules
+        // Fetch all schedules (limited to 2000 most recent for performance)
         const { results } = await env.DB.prepare(
-            "SELECT schedule_json FROM schedules"
+            "SELECT schedule_json FROM schedules ORDER BY updated_at DESC LIMIT 2000"
         ).all();
 
         if (!results || results.length === 0) {

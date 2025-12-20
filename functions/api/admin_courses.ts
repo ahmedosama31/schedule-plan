@@ -30,6 +30,13 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
             .bind(body.raw_text, JSON.stringify(body.parsed_json))
             .run();
 
+        // Cleanup: Keep only the last 10 entries
+        context.waitUntil(
+            env.DB.prepare(
+                "DELETE FROM course_data WHERE id NOT IN (SELECT id FROM course_data ORDER BY id DESC LIMIT 10)"
+            ).run()
+        );
+
         return new Response(JSON.stringify({ success }), {
             headers: { "Content-Type": "application/json" }
         });
