@@ -572,17 +572,21 @@ function calculateHealthAndFlags(choices: CourseChoice[], daysUsed: DayOfWeek[])
     // --- Generate Flags ---
     // Only positive flags for "Why is this better?"
 
+    // Primary: Day Count (Most important)
     if (daysUsed.length <= 3) {
-        flags.push("3 Days/Week");
+        flags.push("3 Days Only");
     } else if (daysUsed.length <= 4) {
-        flags.push("4 Days/Week");
+        flags.push("4 Days Only");
     }
 
-    if (!hasEarlyStart) flags.push("No Early Starts");
-    if (!hasLateEnd) flags.push("Ends Early");
-    if (totalGapHours < 1.0) flags.push("Minimal Gaps");
-    if (isBalanced) flags.push("Balanced Load");
-    if (!hasLongDay && !hasGruelingBlock) flags.push("Comfortable Pacing");
+    // Secondary: Time conveniences
+    if (!hasEarlyStart) flags.push("Late Mornings"); // No 8am/9am starts
+    if (!hasLateEnd) flags.push("Early Finish"); // Ends by 5pm
+
+    // Tertiary: Schedule density/feel
+    if (totalGapHours < 1.0) flags.push("Compact"); // Little to no gaps
+    if (isBalanced) flags.push("Balanced"); // Even spread of work
+    if (!hasLongDay && !hasGruelingBlock) flags.push("Relaxed Pace"); // No 10h+ days or 4h+ continuous blocks
 
     return {
         score: Math.max(0, Math.min(100, Math.round(score))),
