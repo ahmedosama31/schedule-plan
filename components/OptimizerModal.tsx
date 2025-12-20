@@ -73,36 +73,27 @@ const OptimizerModal: React.FC<Props> = ({ isOpen, options, onClose, onApply }) 
                                 <div className="flex items-center justify-between p-5">
                                     <div className="flex items-center gap-6">
                                         {/* Quality Score */}
-                                        <div className="flex flex-col items-center min-w-[4rem]">
-                                            <div className="relative flex items-center justify-center">
-                                                <svg className="w-14 h-14 transform -rotate-90">
-                                                    <circle
-                                                        className="text-slate-100"
-                                                        strokeWidth="4"
-                                                        stroke="currentColor"
-                                                        fill="transparent"
-                                                        r="24"
-                                                        cx="28"
-                                                        cy="28"
-                                                    />
-                                                    <circle
-                                                        className={`${option.healthScore >= 80 ? 'text-emerald-500' : option.healthScore >= 50 ? 'text-blue-500' : 'text-amber-500'}`}
-                                                        strokeWidth="4"
-                                                        strokeDasharray={150}
-                                                        strokeDashoffset={150 - (150 * option.healthScore) / 100}
-                                                        strokeLinecap="round"
-                                                        stroke="currentColor"
-                                                        fill="transparent"
-                                                        r="24"
-                                                        cx="28"
-                                                        cy="28"
-                                                    />
-                                                </svg>
-                                                <span className={`absolute text-sm font-bold ${option.healthScore >= 80 ? 'text-emerald-600' : option.healthScore >= 50 ? 'text-blue-600' : 'text-amber-600'}`}>
-                                                    {option.healthScore}%
-                                                </span>
+                                        <div className="flex flex-col gap-2 min-w-[200px]">
+                                            <div className="flex flex-wrap gap-1.5">
+                                                {option.flags && option.flags.length > 0 ? (
+                                                    option.flags.map((flag, fIdx) => (
+                                                        <span
+                                                            key={fIdx}
+                                                            className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-100"
+                                                        >
+                                                            {flag}
+                                                        </span>
+                                                    ))
+                                                ) : (
+                                                    <span className="text-xs text-slate-400 italic">Standard Schedule</span>
+                                                )}
                                             </div>
-                                            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-1">Quality</span>
+                                            {idx === 0 && (
+                                                <div className="flex items-center gap-1 text-xs font-bold text-emerald-600">
+                                                    <CheckCircle size={12} />
+                                                    <span>Top Recommendation</span>
+                                                </div>
+                                            )}
                                         </div>
 
                                         {/* Stats */}

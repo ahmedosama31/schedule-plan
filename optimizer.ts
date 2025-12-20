@@ -32,6 +32,7 @@ export interface ScheduleOption {
     hasConflicts: boolean;
     conflicts: ConflictInfo[];
     healthScore: number; // 0-100 score indicating schedule quality
+    flags: string[]; // Descriptive tags for why this schedule is good/bad
 }
 
 export interface ConflictInfo {
@@ -221,15 +222,29 @@ function calculateGapScore(choices: CourseChoice[]): number {
 }
 
 /**
- * Generates cartesian product of multiple arrays.
+ * Generator that lazily yields Cartesian product combinations.
+ * Significantly more memory efficient than generating all combinations array.
  */
-function cartesianProduct<T>(arrays: T[][]): T[][] {
-    if (arrays.length === 0) return [[]];
+function* generateCombinations<T>(arrays: T[][]): Generator<T[]> {
+    if (arrays.length === 0) {
+        yield [];
+        return;
+    }
 
-    return arrays.reduce<T[][]>(
-        (acc, arr) => acc.flatMap(combo => arr.map(item => [...combo, item])),
-        [[]]
-    );
+    const [first, ...rest] = arrays;
+
+    if (rest.length === 0) {
+        for (const item of first) {
+            yield [item];
+        }
+        return;
+    }
+
+    for (const item of first) {
+        for (const dims of generateCombinations(rest)) {
+            yield [item, ...dims];
+        }
+    }
 }
 
 /**
@@ -287,24 +302,8 @@ function violatesHardConstraints(choices: CourseChoice[], prefs: SchedulePrefere
 }
 
 /**
- * Calculate preference-based penalty score.
- * Higher score = worse (more penalty).
- */
-function calculatePreferencePenalty(choices: CourseChoice[], prefs: SchedulePreferences): number {
-    let penalty = 0;
-    const daysUsed = getDaysUsed(choices);
-
-    // Penalty for exceeding max days (soft constraint)
-    if (prefs.maxDaysPerWeek !== undefined && daysUsed.length > prefs.maxDaysPerWeek) {
-        penalty += (daysUsed.length - prefs.maxDaysPerWeek) * 10;
-    }
-
-    return penalty;
-}
-
-/**
  * Main optimization function.
- * Generates all possible schedule combinations, scores them, and returns the top N.
+ * Generates combinations lazily, scores them, and returns the top N.
  * Respects locked selections - locked sections are kept fixed.
  * 
  * @param courses - Array of courses to optimize
@@ -366,90 +365,89 @@ export function optimizeSchedule(
         }
     });
 
-    // Check for empty choices (shouldn't happen, but safety check)
+    // Check for empty choices
     if (choicesPerCourse.some(choices => choices.length === 0)) {
         return [];
     }
 
-    // Generate all combinations (cartesian product)
-    const allCombinations = cartesianProduct(choicesPerCourse);
+    // Use generator to iterate combinations without creating massive array
+    const generator = generateCombinations(choicesPerCourse);
 
-    // Limit to prevent memory issues with too many combinations
-    const MAX_COMBINATIONS = 500000;
-    const combinationsToProcess = allCombinations.slice(0, MAX_COMBINATIONS);
+    // Limits
+    const MAX_COMBINATIONS_CHECKED = 200000; // Stop checking after this many
+    const MAX_VALID_SCHEDULES = 2000; // Stop if we found enough valid conflict-free schedules
+
+    let checkedCount = 0;
+    const validOptions: ScheduleOption[] = [];
 
     // DEBUG: Log preferences
     console.log('Optimizer called with preferences:', JSON.stringify(preferences));
-    console.log('Total combinations before filter:', combinationsToProcess.length);
 
-    // Filter by hard constraints first
-    const validCombinations = combinationsToProcess.filter(
-        choices => !violatesHardConstraints(choices, preferences)
-    );
+    for (const choices of generator) {
+        checkedCount++;
+        if (checkedCount > MAX_COMBINATIONS_CHECKED) break;
+        if (validOptions.length >= MAX_VALID_SCHEDULES) break;
 
-    console.log('Valid combinations after filter:', validCombinations.length);
+        // 1. Check hard constraints (filtering)
+        if (violatesHardConstraints(choices, preferences)) {
+            continue;
+        }
 
-    // Score each combination
-    const options: ScheduleOption[] = validCombinations.map(choices => {
+        // 2. Check conflicts
         const conflicts = findConflicts(choices);
+        if (conflicts.length > 0) {
+            continue; // Skip conflicting schedules
+        }
+
+        // 3. Analyze and Score
         const daysUsed = getDaysUsed(choices);
         const gapScore = calculateGapScore(choices);
-        // Calculate health score (0-100)
-        const healthScore = calculateHealthScore(choices, daysUsed);
+        const { score: healthScore, flags } = calculateHealthAndFlags(choices, daysUsed);
 
-        return {
+        validOptions.push({
             choices,
             daysUsed,
             dayCount: daysUsed.length,
             gapScore,
             healthScore,
-            hasConflicts: conflicts.length > 0,
-            conflicts
-        };
-    });
+            hasConflicts: false,
+            conflicts: [],
+            flags
+        });
+    }
 
-    // Filter out options with conflicts
-    const conflictFreeOptions = options.filter(o => !o.hasConflicts);
+    console.log(`Checked ${checkedCount} combinations. Found ${validOptions.length} valid schedules.`);
 
     // Sort by:
-    // 1. Fewer days is better (primary)
-    // 2. Higher Health Score is better (secondary)
-    // 3. Lower gap score is better (tertiary - only if preferConsecutive)
-    conflictFreeOptions.sort((a, b) => {
-        // 1. Day Count
+    // 1. Health Score (Higher is better) - PRIMARY
+    // 2. Fewer days is better (Secondary)
+    // 3. Lower gap score is better (Tertiary)
+    validOptions.sort((a, b) => {
+        // 1. Health Score (Higher is better)
+        if (a.healthScore !== b.healthScore) {
+            return b.healthScore - a.healthScore;
+        }
+
+        // 2. Day Count
         if (a.dayCount !== b.dayCount) {
             return a.dayCount - b.dayCount;
         }
 
-        // 2. Health Score (Higher is better)
-        // Weight the difference to make it significant
-        const healthDiff = b.healthScore - a.healthScore;
-        if (Math.abs(healthDiff) > 5) { // Only prioritize if difference is significant > 5%
-            return healthDiff;
-        }
-
-        // 3. Gap Score (Lower is better) - Tiebreaker
-        if (preferences.preferConsecutive) {
-            return a.gapScore - b.gapScore;
-        }
-
-        return 0;
+        // 3. Gap Score (Lower is better)
+        return a.gapScore - b.gapScore;
     });
 
-    // Return unique top N results (deterministic)
-    return conflictFreeOptions.slice(0, topN);
+    // Return unique top N results
+    return validOptions.slice(0, topN);
 }
 
 /**
- * Calculates a 'Health Score' (0-100) for a schedule.
- * Considers:
- * - Day balance (variance in day length)
- * - Lunch breaks (finding gaps between 11:00-14:00)
- * - Early starts / Late ends
- * - Excessive gaps
+ * Calculates a 'Health Score' (0-100) and generates descriptive flags.
  */
-function calculateHealthScore(choices: CourseChoice[], daysUsed: DayOfWeek[]): number {
+function calculateHealthAndFlags(choices: CourseChoice[], daysUsed: DayOfWeek[]): { score: number, flags: string[] } {
     let score = 100;
+    const flags: string[] = [];
+
     const sessionsByDay = new Map<DayOfWeek, { start: number; end: number }[]>();
 
     // 1. Populate daily sessions
@@ -468,6 +466,11 @@ function calculateHealthScore(choices: CourseChoice[], daysUsed: DayOfWeek[]): n
     // 2. Analyze each day
     let totalDayDuration = 0;
     let dayDurations: number[] = [];
+    let hasEarlyStart = false;
+    let hasLateEnd = false;
+    let hasLongDay = false;
+    let hasHugeGap = false;
+    let hasGruelingBlock = false;
 
     for (const [day, sessions] of sessionsByDay) {
         if (sessions.length === 0) continue;
@@ -475,7 +478,7 @@ function calculateHealthScore(choices: CourseChoice[], daysUsed: DayOfWeek[]): n
 
         const firstStart = sessions[0].start;
         const lastEnd = sessions[sessions.length - 1].end;
-        const duration = lastEnd - firstStart; // Total time explicitly on campus/in-class span
+        const duration = lastEnd - firstStart;
 
         totalDayDuration += duration;
         dayDurations.push(duration);
@@ -483,21 +486,24 @@ function calculateHealthScore(choices: CourseChoice[], daysUsed: DayOfWeek[]): n
         // -- Penalties --
 
         // Early Start Penalty (before 9:00 AM)
-        // ONLY penalize if it's not a short day (ends after 3 PM)
-        if (firstStart < 9 && lastEnd > 15) score -= 5;
-
-        // Late End Penalty (after 5:00 PM / 17:00)
-        if (lastEnd > 17) score -= 5;
-
-        // Long Day Penalty
-        // User guideline: "8am-4pm is okay" (8h). "8am-7pm is horrible" (11h).
-        if (duration > 10) {
-            score -= 25; // Severe penalty for > 10 hours
-        } else if (duration > 9) {
-            score -= 10; // Moderate penalty for > 9 hours
+        if (firstStart < 9 && lastEnd > 13) {
+            score -= 5;
+            hasEarlyStart = true;
         }
 
-        // "Survival" Check: Continuous blocks without breaks
+        // Late End Penalty (after 5:00 PM / 17:00)
+        if (lastEnd > 17) {
+            score -= 5;
+            hasLateEnd = true;
+        }
+
+        // Long Day Penalty
+        if (duration > 9) {
+            score -= 15;
+            hasLongDay = true;
+        }
+
+        // Continuous blocks check
         let maxContinuousBlock = 0;
         let currentBlock = 0;
 
@@ -505,56 +511,53 @@ function calculateHealthScore(choices: CourseChoice[], daysUsed: DayOfWeek[]): n
             const current = sessions[i];
             const duration = current.end - current.start;
 
-            // Check gap before this session (if not first)
             if (i > 0) {
                 const prev = sessions[i - 1];
                 const gap = current.start - prev.end;
 
                 if (gap > 0) {
-                    // Reset continuous block
                     currentBlock = 0;
-
-                    // Huge Gap Penalty (> 3 hours)
-                    if (gap > 3) score -= 8;
+                    if (gap > 3) {
+                        score -= 8;
+                        hasHugeGap = true;
+                    }
                 }
             }
-
             currentBlock += duration;
             maxContinuousBlock = Math.max(maxContinuousBlock, currentBlock);
         }
 
-        // Penalty for grueling continuous blocks (> 4 hours straight)
-        if (maxContinuousBlock > 4) score -= 15;
+        if (maxContinuousBlock > 4) {
+            score -= 15;
+            hasGruelingBlock = true;
+        }
     }
 
-    // Add a small random jitter (0-3%) to "shuffle" results slightly
-    // This prevents every student from getting the exact same #1 schedule
-    score += Math.floor(Math.random() * 4);
-
-    // 3. Weekly Balance Bonus
-    // Standard Deviation of day durations?
+    // 3. Balance Bonus
+    let isBalanced = false;
     if (dayDurations.length > 1) {
         const mean = totalDayDuration / dayDurations.length;
         const variance = dayDurations.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / dayDurations.length;
         const stdDev = Math.sqrt(variance);
 
-        // If days are very balanced (stdDev < 1 hour), small bonus
-        if (stdDev < 1) score += 5;
-        // If days are wild (stdDev > 3 hours), penalty
+        if (stdDev < 1.2) {
+            score += 5;
+            isBalanced = true;
+        }
         if (stdDev > 3) score -= 5;
     }
 
-    // 4. Free Day Bonus (already handled by dayCount sort, but nice for score appearance)
-    const weekendDays = [DayOfWeek.Saturday, DayOfWeek.Sunday]; // Based on region, usually Fri/Sat are off or Sat/Sun
-    // Assuming Standard 5-day week Mon-Fri (or Sun-Thu).
-    // Let's just reward keeping dayCount low relative to course load
-    // If we have < 5 days, big bonus
-    if (daysUsed.length <= 4) score += 15; // Increased from 10
-    if (daysUsed.length <= 3) score += 20; // Increased from 15 (Cumulative +35)
+    // 4. Free Day Bonus
+    const daysOffCount = 5 - daysUsed.length; // Assuming 5 day standard week for "days off" metric (Sat-Wed or Sun-Thu context?)
+    // Actually just use daysUsed.length
+
+    if (daysUsed.length <= 3) {
+        score += 20;
+    } else if (daysUsed.length <= 4) {
+        score += 10;
+    }
 
     // 5. Total Gap Penalty
-    // Penalize total gap time across all days to prefer tighter schedules
-    // 2 points per hour of gap
     let totalGapHours = 0;
     for (const [day, sessions] of sessionsByDay) {
         if (sessions.length <= 1) continue;
@@ -566,7 +569,25 @@ function calculateHealthScore(choices: CourseChoice[], daysUsed: DayOfWeek[]): n
     }
     score -= Math.round(totalGapHours * 2);
 
-    return Math.max(0, Math.min(100, Math.round(score)));
+    // --- Generate Flags ---
+    // Only positive flags for "Why is this better?"
+
+    if (daysUsed.length <= 3) {
+        flags.push("3 Days/Week");
+    } else if (daysUsed.length <= 4) {
+        flags.push("4 Days/Week");
+    }
+
+    if (!hasEarlyStart) flags.push("No Early Starts");
+    if (!hasLateEnd) flags.push("Ends Early");
+    if (totalGapHours < 1.0) flags.push("Minimal Gaps");
+    if (isBalanced) flags.push("Balanced Load");
+    if (!hasLongDay && !hasGruelingBlock) flags.push("Comfortable Pacing");
+
+    return {
+        score: Math.max(0, Math.min(100, Math.round(score))),
+        flags
+    };
 }
 
 /**
@@ -577,7 +598,6 @@ export function optionToSelections(option: ScheduleOption): CourseSelection[] {
     return option.choices.map(choice => {
         const selection: CourseSelection = {
             course: choice.course,
-            // Preserve locks if we had context, but here we just return the selection
         };
 
         if (choice.mthsGroup) {
