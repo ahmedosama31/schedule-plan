@@ -68,111 +68,96 @@ const OptimizerModal: React.FC<Props> = ({ isOpen, options, onClose, onApply }) 
                         options.map((option, idx) => (
                             <div
                                 key={idx}
-                                className={`rounded-xl border-2 p-4 transition-all hover:shadow-md ${option.hasConflicts
-                                    ? 'border-red-200 bg-red-50/50'
-                                    : 'border-slate-200 bg-white hover:border-blue-300'
-                                    }`}
+                                className={`rounded-xl border hover:border-blue-400 transition-all bg-white hover:shadow-lg group overflow-hidden ${option.hasConflicts ? 'border-red-200 bg-red-50/30' : 'border-slate-200'}`}
                             >
-                                <div className="flex justify-between items-start">
-                                    <div className="flex-1">
+                                <div className="flex items-center justify-between p-5">
+                                    <div className="flex items-center gap-6">
+                                        {/* Quality Score */}
+                                        <div className="flex flex-col items-center min-w-[4rem]">
+                                            <div className="relative flex items-center justify-center">
+                                                <svg className="w-14 h-14 transform -rotate-90">
+                                                    <circle
+                                                        className="text-slate-100"
+                                                        strokeWidth="4"
+                                                        stroke="currentColor"
+                                                        fill="transparent"
+                                                        r="24"
+                                                        cx="28"
+                                                        cy="28"
+                                                    />
+                                                    <circle
+                                                        className={`${option.healthScore >= 80 ? 'text-emerald-500' : option.healthScore >= 50 ? 'text-blue-500' : 'text-amber-500'}`}
+                                                        strokeWidth="4"
+                                                        strokeDasharray={150}
+                                                        strokeDashoffset={150 - (150 * option.healthScore) / 100}
+                                                        strokeLinecap="round"
+                                                        stroke="currentColor"
+                                                        fill="transparent"
+                                                        r="24"
+                                                        cx="28"
+                                                        cy="28"
+                                                    />
+                                                </svg>
+                                                <span className={`absolute text-sm font-bold ${option.healthScore >= 80 ? 'text-emerald-600' : option.healthScore >= 50 ? 'text-blue-600' : 'text-amber-600'}`}>
+                                                    {option.healthScore}%
+                                                </span>
+                                            </div>
+                                            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mt-1">Quality</span>
+                                        </div>
 
                                         {/* Stats */}
-                                        {/* Health Score */}
-                                        <div className="flex items-center gap-2" title="Health Score (0-100): Higher is better. Based on balanced days, lunch breaks, and reasonable hours.">
-                                            <Heart size={16} className={`${option.healthScore >= 80 ? 'text-rose-500' : option.healthScore >= 50 ? 'text-orange-500' : 'text-slate-400'}`} fill={option.healthScore >= 80 ? "currentColor" : "none"} />
-                                            <span className={`text-sm font-bold ${option.healthScore >= 80 ? 'text-rose-600' : option.healthScore >= 50 ? 'text-orange-600' : 'text-slate-500'}`}>
-                                                {option.healthScore}% Quality
-                                            </span>
-                                        </div>
-
-                                        {/* Days */}
-                                        <div className="flex items-center gap-2">
-                                            <Calendar size={16} className="text-blue-500" />
-                                            <span className="text-sm font-semibold text-slate-700">
-                                                {option.dayCount} day{option.dayCount !== 1 ? 's' : ''}
-                                            </span>
-                                            <span className="text-xs text-slate-400">
-                                                ({formatDays(option.daysUsed)})
-                                            </span>
-                                        </div>
-
-                                        {/* Gap */}
-                                        <div className="flex items-center gap-2">
-                                            <Clock size={16} className="text-amber-500" />
-                                            <span className="text-sm text-slate-600">
-                                                {formatGap(option.gapScore)}
-                                            </span>
-                                        </div>
-
-                                        {/* Conflict status */}
-                                        <div className="flex items-center gap-2">
-                                            {option.hasConflicts ? (
-                                                <>
-                                                    <AlertTriangle size={16} className="text-red-500" />
-                                                    <span className="text-sm text-red-600 font-medium">
-                                                        {option.conflicts.length} conflict{option.conflicts.length !== 1 ? 's' : ''}
+                                        <div className="space-y-1.5 border-l border-slate-100 pl-6">
+                                            <div className="flex items-center gap-2">
+                                                <Calendar size={16} className="text-slate-400" />
+                                                <span className="text-sm font-medium text-slate-700">
+                                                    {option.dayCount} Days
+                                                    <span className="text-slate-400 font-normal ml-1">({formatDays(option.daysUsed)})</span>
+                                                </span>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <Clock size={16} className="text-slate-400" />
+                                                <span className="text-sm font-medium text-slate-700">
+                                                    {formatGap(option.gapScore)}
+                                                </span>
+                                            </div>
+                                            {option.hasConflicts && (
+                                                <div className="flex items-center gap-2 text-red-600">
+                                                    <AlertTriangle size={16} />
+                                                    <span className="text-sm font-medium">
+                                                        {option.conflicts.length} Conflicts
                                                     </span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <CheckCircle size={16} className="text-emerald-500" />
-                                                    <span className="text-sm text-emerald-600 font-medium">
-                                                        No conflicts
-                                                    </span>
-                                                </>
+                                                </div>
                                             )}
                                         </div>
                                     </div>
 
-                                    {/* Conflict details */}
-                                    {option.hasConflicts && (
-                                        <div className="bg-red-100 rounded-lg p-2 mb-3">
-                                            <div className="text-xs text-red-700 space-y-1">
-                                                {option.conflicts.slice(0, 3).map((conflict, cIdx) => (
-                                                    <div key={cIdx} className="flex items-center gap-1">
-                                                        <AlertTriangle size={10} />
-                                                        <span>
-                                                            <strong>{conflict.course1}</strong> {conflict.section1Type.substring(0, 3)} conflicts with{' '}
-                                                            <strong>{conflict.course2}</strong> {conflict.section2Type.substring(0, 3)} on {conflict.day.substring(0, 3)} @ {conflict.time}
-                                                        </span>
-                                                    </div>
-                                                ))}
-                                                {option.conflicts.length > 3 && (
-                                                    <div className="text-red-500">
-                                                        +{option.conflicts.length - 3} more conflicts...
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {/* Section summary */}
-                                    <div className="flex flex-wrap gap-1">
-                                        {option.choices.map((choice, cIdx) => (
-                                            <span
-                                                key={cIdx}
-                                                className="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600"
-                                            >
-                                                {choice.course.code}
-                                                {choice.mthsGroup
-                                                    ? ` G${choice.mthsGroup}`
-                                                    : ` L${choice.lectureId ? choice.sections.find(s => s.id === choice.lectureId)?.group : '-'}${choice.tutorialId ? `/T${choice.sections.find(s => s.id === choice.tutorialId)?.group}` : ''}`
-                                                }
-                                            </span>
-                                        ))}
-                                    </div>
+                                    {/* Action */}
+                                    <button
+                                        onClick={() => handleApply(option)}
+                                        className="px-6 py-2.5 bg-slate-900 hover:bg-black text-white text-sm font-semibold rounded-lg shadow-sm hover:shadow-md transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+                                    >
+                                        Apply Schedule
+                                    </button>
                                 </div>
 
-                                {/* Apply button */}
-                                <button
-                                    onClick={() => handleApply(option)}
-                                    className={`ml-4 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${option.hasConflicts
-                                        ? 'bg-red-100 text-red-700 hover:bg-red-200'
-                                        : 'bg-blue-600 text-white hover:bg-blue-700 shadow-sm hover:shadow'
-                                        }`}
-                                >
-                                    Apply
-                                </button>
+                                {/* Conflict Details (only if present) - kept minimal */}
+                                {option.hasConflicts && (
+                                    <div className="bg-red-50/50 px-5 py-3 border-t border-red-100">
+                                        <div className="text-xs text-red-600 space-y-1">
+                                            {option.conflicts.slice(0, 2).map((conflict, cIdx) => (
+                                                <div key={cIdx} className="flex items-center gap-1">
+                                                    <AlertTriangle size={12} />
+                                                    <span>
+                                                        Conflict: {conflict.course1} & {conflict.course2} ({conflict.day.substring(0, 3)} {conflict.time})
+                                                    </span>
+                                                </div>
+                                            ))}
+                                            {option.conflicts.length > 2 && (
+                                                <div className="pl-4">+{option.conflicts.length - 2} more...</div>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         ))
                     )}

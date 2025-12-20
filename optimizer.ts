@@ -483,13 +483,19 @@ function calculateHealthScore(choices: CourseChoice[], daysUsed: DayOfWeek[]): n
         // -- Penalties --
 
         // Early Start Penalty (before 9:00 AM)
-        if (firstStart < 9) score -= 5;
+        // ONLY penalize if it's not a short day (ends after 3 PM)
+        if (firstStart < 9 && lastEnd > 15) score -= 5;
 
         // Late End Penalty (after 5:00 PM / 17:00)
         if (lastEnd > 17) score -= 5;
 
-        // Long Day Penalty (more than 8 hours on campus)
-        if (duration > 8) score -= 10;
+        // Long Day Penalty
+        // User guideline: "8am-4pm is okay" (8h). "8am-7pm is horrible" (11h).
+        if (duration > 10) {
+            score -= 25; // Severe penalty for > 10 hours
+        } else if (duration > 9) {
+            score -= 10; // Moderate penalty for > 9 hours
+        }
 
         // "Survival" Check: Continuous blocks without breaks
         let maxContinuousBlock = 0;
@@ -521,6 +527,10 @@ function calculateHealthScore(choices: CourseChoice[], daysUsed: DayOfWeek[]): n
         if (maxContinuousBlock > 4) score -= 15;
     }
 
+    // Add a small random jitter (0-3%) to "shuffle" results slightly
+    // This prevents every student from getting the exact same #1 schedule
+    score += Math.floor(Math.random() * 4);
+
     // 3. Weekly Balance Bonus
     // Standard Deviation of day durations?
     if (dayDurations.length > 1) {
@@ -539,8 +549,22 @@ function calculateHealthScore(choices: CourseChoice[], daysUsed: DayOfWeek[]): n
     // Assuming Standard 5-day week Mon-Fri (or Sun-Thu).
     // Let's just reward keeping dayCount low relative to course load
     // If we have < 5 days, big bonus
-    if (daysUsed.length <= 4) score += 10;
-    if (daysUsed.length <= 3) score += 15;
+    if (daysUsed.length <= 4) score += 15; // Increased from 10
+    if (daysUsed.length <= 3) score += 20; // Increased from 15 (Cumulative +35)
+
+    // 5. Total Gap Penalty
+    // Penalize total gap time across all days to prefer tighter schedules
+    // 2 points per hour of gap
+    let totalGapHours = 0;
+    for (const [day, sessions] of sessionsByDay) {
+        if (sessions.length <= 1) continue;
+        sessions.sort((a, b) => a.start - b.start);
+        for (let i = 1; i < sessions.length; i++) {
+            const gap = sessions[i].start - sessions[i - 1].end;
+            if (gap > 0) totalGapHours += gap;
+        }
+    }
+    score -= Math.round(totalGapHours * 2);
 
     return Math.max(0, Math.min(100, Math.round(score)));
 }
