@@ -8,12 +8,13 @@ import PreferencesPanel from '../components/PreferencesPanel';
 import ThemeToggle from '../components/ThemeToggle';
 import { optimizeSchedule, ScheduleOption, findConflicts, selectionsToChoices, ConflictInfo } from '../optimizer';
 import { SchedulePreferences, DEFAULT_PREFERENCES } from '../preferences';
-import { Search, Calendar, PlusCircle, ChevronDown, Save, RotateCcw, Zap, Loader, LogOut, FileWarning, Share, X, BookOpen, Grid3x3 } from 'lucide-react';
+import { Search, Calendar, PlusCircle, ChevronDown, Save, Zap, Loader, LogOut, FileWarning, Share, X, BookOpen, Grid3x3 } from 'lucide-react';
 import { fetchCourses, saveSchedule, loadSchedule, deleteSchedule, ScheduleResponse } from '../lib/api';
 import WelcomeModal from '../components/WelcomeModal';
 import { getConflict, getConflictAlternatives, ConflictSuggestion } from '../utils';
 import PinModal from '../components/PinModal';
 import ShareModal from '../components/ShareModal';
+import SaveModal from '../components/SaveModal';
 
 const SchedulerPage: React.FC = () => {
     const [courses, setCourses] = useState<Course[]>([]);
@@ -38,6 +39,7 @@ const SchedulerPage: React.FC = () => {
     const [activeDragId, setActiveDragId] = useState<string | null>(null);
     const [candidateSections, setCandidateSections] = useState<CandidateItem[]>([]);
     const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+    const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
     const [isDirty, setIsDirty] = useState(false);
     const [isNewUser, setIsNewUser] = useState(false); // Track first-time users for autosave
     const [hasPromptedForPin, setHasPromptedForPin] = useState(false); // Track if we've prompted for PIN this session
@@ -394,12 +396,45 @@ const SchedulerPage: React.FC = () => {
 
     const handleSave = async () => {
         if (!studentId) return;
-        // Save directly without PIN (PIN feature disabled for now)
-        performSave();
+        // Open save modal for manual saves with custom names
+        setIsSaveModalOpen(true);
     };
 
-    const handleLoad = async () => {
-        window.location.reload();
+    const handleManualSave = async (name: string) => {
+        if (!studentId) return;
+
+        const dataToSave = selections.map(s => ({
+            courseCode: s.course.code,
+            selectedLectureId: s.selectedLectureId,
+            selectedTutorialId: s.selectedTutorialId,
+            selectedLabId: s.selectedLabId,
+            selectedMthsGroup: s.selectedMthsGroup
+        }));
+
+        const result = await saveSchedule(studentId, JSON.stringify(dataToSave), undefined, name);
+
+        if (result.success) {
+            setIsDirty(false);
+            setScheduleName(name);
+            alert(`Schedule "${name}" saved successfully!`);
+        } else {
+            alert(`Failed to save: ${result.message}`);
+        }
+    };
+
+    const handleLoadSchedule = async (name: string) => {
+        if (!studentId) return;
+        setIsLoading(true);
+        const status = await loadSchedule(studentId, undefined, name);
+        setIsLoading(false);
+
+        if (status && status.exists && !status.protected && status.schedule_json) {
+            setSelections(parseScheduleData(status.schedule_json, courses));
+            setScheduleName(name);
+            setIsDirty(false);
+        } else {
+            alert('Failed to load schedule');
+        }
     };
 
     const handleOptimize = () => {
@@ -618,16 +653,9 @@ const SchedulerPage: React.FC = () => {
                         <button
                             onClick={handleSave}
                             className="p-2 text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors"
-                            title="Save to Cloud"
+                            title="Save / Load Schedules"
                         >
                             <Save size={20} />
-                        </button>
-                        <button
-                            onClick={handleLoad}
-                            className="p-2 text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors"
-                            title="Reload from Cloud"
-                        >
-                            <RotateCcw size={20} />
                         </button>
                     </div>
                 </header>
@@ -855,6 +883,16 @@ const SchedulerPage: React.FC = () => {
                     onClose={() => setIsShareModalOpen(false)}
                     selections={selections}
                 />
+                {studentId && (
+                    <SaveModal
+                        isOpen={isSaveModalOpen}
+                        studentId={studentId}
+                        currentScheduleName={scheduleName}
+                        onSave={handleManualSave}
+                        onLoad={handleLoadSchedule}
+                        onClose={() => setIsSaveModalOpen(false)}
+                    />
+                )}
             </div>
         </DndContext>
     );
