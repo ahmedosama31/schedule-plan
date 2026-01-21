@@ -36,8 +36,8 @@ const CourseCard: React.FC<Props> = ({ selection, allSelections, onRemove, onUpd
     const conflict = getConflict(section, allSelections);
     const times = section.sessions.map(s => `${s.day.substring(0, 3)} ${s.startString}-${s.endString}`).join(', ');
     return (
-      <option key={section.id} value={section.id} disabled={!!conflict} className={conflict ? 'text-red-400' : ''}>
-        {conflict ? '⚠ ' : ''} Grp {section.group}: {times} {conflict ? '(Conflict)' : ''}
+      <option key={section.id} value={section.id} className={conflict ? 'text-red-400' : ''}>
+        {conflict ? '⚠ ' : ''} Grp {section.group}: {times} {conflict ? '(Overlap)' : ''}
       </option>
     );
   };
@@ -61,8 +61,8 @@ const CourseCard: React.FC<Props> = ({ selection, allSelections, onRemove, onUpd
     }).filter(Boolean).join(', ');
 
     return (
-      <option key={group} value={group} disabled={!!conflict}>
-        {conflict ? '⚠ ' : ''} Group {group} ({details}) {conflict ? '(Conflict)' : ''}
+      <option key={group} value={group}>
+        {conflict ? '⚠ ' : ''} Group {group} ({details}) {conflict ? '(Overlap)' : ''}
       </option>
     );
   };
