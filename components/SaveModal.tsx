@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { X, Save, FolderOpen, Plus, Clock, Trash2 } from 'lucide-react';
+import { X, Save, FolderOpen, Plus, Clock, Trash2, Lock } from 'lucide-react';
 import { fetchUserSchedules, UserScheduleInfo, deleteSchedule } from '../lib/api';
 
 interface SaveModalProps {
     isOpen: boolean;
     studentId: string;
     currentScheduleName: string | null;
-    onSave: (name: string) => void;
+    onSave: (name: string, saveLocks: boolean) => void;
     onLoad: (name: string) => void;
     onClose: () => void;
 }
@@ -16,6 +16,7 @@ const SaveModal: React.FC<SaveModalProps> = ({ isOpen, studentId, currentSchedul
     const [savedSchedules, setSavedSchedules] = useState<UserScheduleInfo[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [activeTab, setActiveTab] = useState<'save' | 'load'>('save');
+    const [saveLocks, setSaveLocks] = useState(true);
 
     useEffect(() => {
         if (isOpen && studentId) {
@@ -36,7 +37,7 @@ const SaveModal: React.FC<SaveModalProps> = ({ isOpen, studentId, currentSchedul
             alert('Please enter a schedule name');
             return;
         }
-        onSave(name);
+        onSave(name, saveLocks);
         setScheduleName('');
         onClose();
     };
@@ -88,8 +89,8 @@ const SaveModal: React.FC<SaveModalProps> = ({ isOpen, studentId, currentSchedul
                     <button
                         onClick={() => setActiveTab('save')}
                         className={`flex-1 py-3 px-4 text-sm font-semibold transition-colors flex items-center justify-center gap-2 ${activeTab === 'save'
-                                ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400'
-                                : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
+                            ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400'
+                            : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
                             }`}
                     >
                         <Plus size={16} />
@@ -98,8 +99,8 @@ const SaveModal: React.FC<SaveModalProps> = ({ isOpen, studentId, currentSchedul
                     <button
                         onClick={() => setActiveTab('load')}
                         className={`flex-1 py-3 px-4 text-sm font-semibold transition-colors flex items-center justify-center gap-2 ${activeTab === 'load'
-                                ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400'
-                                : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
+                            ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400'
+                            : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
                             }`}
                     >
                         <FolderOpen size={16} />
@@ -128,6 +129,28 @@ const SaveModal: React.FC<SaveModalProps> = ({ isOpen, studentId, currentSchedul
                             <p className="text-xs text-slate-500 dark:text-slate-400">
                                 Your current schedule will be saved under this name. You can create multiple saved schedules.
                             </p>
+
+                            {/* Save Locks Toggle */}
+                            <div className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
+                                <div className="flex items-center gap-2">
+                                    <Lock size={16} className="text-amber-500" />
+                                    <div>
+                                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Save locked sections</span>
+                                        <p className="text-xs text-slate-500 dark:text-slate-400">Include lock state for optimizer</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => setSaveLocks(!saveLocks)}
+                                    className={`relative w-12 h-6 rounded-full transition-colors ${saveLocks ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'
+                                        }`}
+                                >
+                                    <span
+                                        className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${saveLocks ? 'translate-x-7' : 'translate-x-1'
+                                            }`}
+                                    />
+                                </button>
+                            </div>
+
                             <button
                                 onClick={handleSave}
                                 className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-3 px-4 rounded-lg font-bold shadow-md transition-all flex items-center justify-center gap-2"
@@ -154,8 +177,8 @@ const SaveModal: React.FC<SaveModalProps> = ({ isOpen, studentId, currentSchedul
                                         <div
                                             key={schedule.name}
                                             className={`p-3 rounded-lg border transition-colors ${schedule.name === currentScheduleName
-                                                    ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800'
-                                                    : 'bg-slate-50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700'
+                                                ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800'
+                                                : 'bg-slate-50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700'
                                                 }`}
                                         >
                                             <div className="flex items-center justify-between">

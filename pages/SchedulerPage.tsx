@@ -94,7 +94,12 @@ const SchedulerPage: React.FC = () => {
                     selectedLectureId: p.selectedLectureId,
                     selectedTutorialId: p.selectedTutorialId,
                     selectedLabId: p.selectedLabId,
-                    selectedMthsGroup: p.selectedMthsGroup
+                    selectedMthsGroup: p.selectedMthsGroup,
+                    // Restore lock state if saved
+                    lockedLecture: p.lockedLecture,
+                    lockedTutorial: p.lockedTutorial,
+                    lockedLab: p.lockedLab,
+                    lockedMthsGroup: p.lockedMthsGroup
                 };
             }).filter(Boolean);
         } catch (e) {
@@ -400,16 +405,30 @@ const SchedulerPage: React.FC = () => {
         setIsSaveModalOpen(true);
     };
 
-    const handleManualSave = async (name: string) => {
+    const handleManualSave = async (name: string, saveLocks: boolean) => {
         if (!studentId) return;
 
-        const dataToSave = selections.map(s => ({
-            courseCode: s.course.code,
-            selectedLectureId: s.selectedLectureId,
-            selectedTutorialId: s.selectedTutorialId,
-            selectedLabId: s.selectedLabId,
-            selectedMthsGroup: s.selectedMthsGroup
-        }));
+        const dataToSave = selections.map(s => {
+            const base = {
+                courseCode: s.course.code,
+                selectedLectureId: s.selectedLectureId,
+                selectedTutorialId: s.selectedTutorialId,
+                selectedLabId: s.selectedLabId,
+                selectedMthsGroup: s.selectedMthsGroup
+            };
+
+            if (saveLocks) {
+                return {
+                    ...base,
+                    lockedLecture: s.lockedLecture,
+                    lockedTutorial: s.lockedTutorial,
+                    lockedLab: s.lockedLab,
+                    lockedMthsGroup: s.lockedMthsGroup
+                };
+            }
+
+            return base;
+        });
 
         const result = await saveSchedule(studentId, JSON.stringify(dataToSave), undefined, name);
 
