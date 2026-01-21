@@ -274,36 +274,36 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onM
 
   return (
     <div
-      className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border-2 overflow-hidden flex flex-col h-full transition-colors border-slate-200 dark:border-slate-700"
+      className="bg-[--bg-primary] rounded-xl shadow-sm border overflow-hidden flex flex-col h-full transition-colors border-[--border-primary]"
     >
       <div className="flex-1 overflow-y-auto overflow-x-auto schedule-scroll relative">
         <div className="min-w-[800px]">
           {/* Days Header - sticky at top */}
-          <div className="grid grid-cols-[50px_1fr_1fr_1fr_1fr_1fr_1fr] border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 sticky top-0 z-20">
-            <div className="p-3 text-xs font-semibold text-slate-400 dark:text-slate-500 text-center border-r border-slate-100 dark:border-slate-700">Time</div>
+          <div className="grid grid-cols-[50px_1fr_1fr_1fr_1fr_1fr_1fr] border-b border-[--border-primary] bg-[--bg-secondary] sticky top-0 z-20">
+            <div className="p-3 text-xs font-medium text-[--text-muted] text-center border-r border-[--border-primary]">Time</div>
             {DAYS.map(day => (
-              <div key={day} className="p-3 text-sm font-semibold text-slate-700 dark:text-slate-300 text-center border-r border-slate-100 dark:border-slate-700 last:border-0">
-                {day}
+              <div key={day} className="p-3 text-sm font-semibold text-[--text-primary] text-center border-r border-[--border-primary] last:border-0">
+                {day.substring(0, 3)}
               </div>
             ))}
           </div>
 
           <div className="grid grid-cols-[50px_1fr_1fr_1fr_1fr_1fr_1fr] min-h-[800px]">
             {/* Time Labels */}
-            <div className="border-r border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+            <div className="border-r border-[--border-primary] bg-[--bg-secondary]">
               {HOURS.map(hour => (
-                <div key={hour} className="h-16 border-b border-slate-100 dark:border-slate-700 text-xs text-slate-400 dark:text-slate-500 p-1 text-center relative">
-                  <span className="absolute -top-2 left-0 right-0">{hour}:00</span>
+                <div key={hour} className="h-16 border-b border-[--border-primary]/50 text-xs text-[--text-muted] p-1 text-center relative">
+                  <span className="absolute -top-2 left-0 right-0 font-medium">{hour}:00</span>
                 </div>
               ))}
             </div>
 
             {/* Day Columns */}
             {DAYS.map(day => (
-              <div key={day} className="relative border-r border-slate-100 dark:border-slate-700 last:border-0">
+              <div key={day} className="relative border-r border-[--border-primary] last:border-0">
                 {/* Grid lines */}
                 {HOURS.map(hour => (
-                  <div key={hour} className="h-16 border-b border-slate-50 dark:border-slate-700/50"></div>
+                  <div key={hour} className="h-16 border-b border-[--border-primary]/30"></div>
                 ))}
 
                 {/* Render User Events */}
@@ -378,22 +378,22 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onM
 
         {/* Mobile: Tap to reschedule hint */}
         {isMobile && selections.length > 0 && (
-          <div className="md:hidden mt-2 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800 text-xs text-blue-800 dark:text-blue-200 flex items-center gap-2">
+          <div className="md:hidden mt-2 p-2.5 bg-[--bg-tertiary] rounded-xl border border-[--border-primary] text-xs text-[--text-secondary] flex items-center gap-2">
             <Clock size={14} />
-            <span>Tap any course card to change its time</span>
+            <span>Tap any course on the grid to change its time</span>
           </div>
         )}
 
         {/* Mobile Reschedule Modal */}
         {mobileRescheduleItem && mobileRescheduleSelection && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-            <div className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-sm border border-slate-200 dark:border-slate-700">
-              <div className="p-4 border-b border-slate-200 dark:border-slate-700">
-                <h3 className="font-bold text-lg">{mobileRescheduleItem.name}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400">{mobileRescheduleItem.courseName}</p>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+            <div className="bg-[--bg-primary] rounded-2xl shadow-2xl w-full max-w-sm border border-[--border-primary]">
+              <div className="p-4 border-b border-[--border-primary]">
+                <h3 className="font-bold text-lg text-[--text-primary]">{mobileRescheduleItem.name}</h3>
+                <p className="text-sm text-[--text-tertiary]">{mobileRescheduleItem.courseName}</p>
               </div>
               <div className="p-4 space-y-3">
-                <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                <p className="text-sm text-[--text-secondary]">
                   Change {mobileRescheduleItem.type.toLowerCase()} time:
                 </p>
 
@@ -407,7 +407,7 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onM
                         setMobileRescheduleItem(null);
                       }
                     }}
-                    className="w-full p-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-sm"
+                    className="w-full p-3 border border-[--border-secondary] rounded-xl bg-[--bg-primary] text-[--text-primary] text-sm focus:ring-2 focus:ring-[--text-primary]/20 outline-none"
                   >
                     {mobileRescheduleSelection.course.sections
                       .filter(s => s.type === SectionType.Lecture)
@@ -428,7 +428,7 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onM
                         setMobileRescheduleItem(null);
                       }
                     }}
-                    className="w-full p-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-sm"
+                    className="w-full p-3 border border-[--border-secondary] rounded-xl bg-[--bg-primary] text-[--text-primary] text-sm focus:ring-2 focus:ring-[--text-primary]/20 outline-none"
                   >
                     {mobileRescheduleSelection.course.sections
                       .filter(s => s.type === SectionType.Tutorial)
@@ -449,7 +449,7 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onM
                         setMobileRescheduleItem(null);
                       }
                     }}
-                    className="w-full p-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-sm"
+                    className="w-full p-3 border border-[--border-secondary] rounded-xl bg-[--bg-primary] text-[--text-primary] text-sm focus:ring-2 focus:ring-[--text-primary]/20 outline-none"
                   >
                     {mobileRescheduleSelection.course.sections
                       .filter(s => s.type === SectionType.Lab)
@@ -463,7 +463,7 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onM
 
                 <button
                   onClick={() => setMobileRescheduleItem(null)}
-                  className="w-full bg-slate-200 hover:bg-slate-300 dark:bg-slate-600 dark:hover:bg-slate-500 text-slate-800 dark:text-slate-100 py-2 px-4 rounded-lg font-semibold mt-2"
+                  className="w-full bg-[--bg-tertiary] hover:bg-[--border-secondary] text-[--text-primary] py-2.5 px-4 rounded-xl font-semibold mt-2 transition-colors"
                 >
                   Cancel
                 </button>

@@ -77,25 +77,25 @@ const PreferencesPanel: React.FC<Props> = ({ preferences, onChange, isExpanded, 
     ].filter(Boolean).length;
 
     return (
-        <div className="border-b border-slate-100 dark:border-slate-700 bg-slate-50/80 dark:bg-slate-800/80">
+        <div className="border border-[--border-primary] rounded-xl bg-[--bg-tertiary]/50 overflow-hidden">
             {/* Header - Always visible */}
             <button
                 onClick={onToggleExpand}
-                className="w-full p-3 flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                className="w-full p-3 flex items-center justify-between hover:bg-[--bg-tertiary] transition-colors"
             >
                 <div className="flex items-center gap-2">
-                    <Settings size={14} className="text-slate-500 dark:text-slate-400" />
-                    <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">Optimization Preferences</span>
+                    <Settings size={14} className="text-[--text-muted]" />
+                    <span className="text-xs font-semibold text-[--text-secondary]">Optimization Preferences</span>
                     {activeCount > 0 && (
-                        <span className="text-[10px] bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 px-1.5 py-0.5 rounded-full">
+                        <span className="text-[10px] bg-[--text-primary] text-[--bg-primary] px-1.5 py-0.5 rounded-full font-medium">
                             {activeCount} active
                         </span>
                     )}
                 </div>
                 {isExpanded ? (
-                    <ChevronUp size={14} className="text-slate-400" />
+                    <ChevronUp size={14} className="text-[--text-muted]" />
                 ) : (
-                    <ChevronDown size={14} className="text-slate-400" />
+                    <ChevronDown size={14} className="text-[--text-muted]" />
                 )}
             </button>
 
@@ -104,18 +104,18 @@ const PreferencesPanel: React.FC<Props> = ({ preferences, onChange, isExpanded, 
                 <div className="px-4 pb-4 space-y-4">
                     {/* Time Constraints */}
                     <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-slate-300">
+                        <div className="flex items-center gap-2 text-xs font-medium text-[--text-secondary]">
                             <Clock size={12} />
                             <span>Time Constraints</span>
                         </div>
 
                         <div className="grid grid-cols-2 gap-2">
                             <div>
-                                <label className="block text-[10px] text-slate-500 dark:text-slate-400 mb-1">No classes before</label>
+                                <label className="block text-[10px] text-[--text-muted] mb-1">No classes before</label>
                                 <select
                                     value={preferences.noClassesBefore ?? ''}
                                     onChange={(e) => handleTimeChange('noClassesBefore', e.target.value)}
-                                    className="w-full text-xs p-1.5 border border-slate-200 dark:border-slate-600 rounded bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200"
+                                    className="w-full text-xs p-2 border border-[--border-primary] rounded-lg bg-[--bg-primary] text-[--text-primary] focus:ring-1 focus:ring-[--text-primary]/20 outline-none"
                                 >
                                     {TIME_OPTIONS.map(opt => (
                                         <option key={opt.label} value={opt.value ?? ''}>{opt.label}</option>
@@ -123,11 +123,11 @@ const PreferencesPanel: React.FC<Props> = ({ preferences, onChange, isExpanded, 
                                 </select>
                             </div>
                             <div>
-                                <label className="block text-[10px] text-slate-500 dark:text-slate-400 mb-1">No classes after</label>
+                                <label className="block text-[10px] text-[--text-muted] mb-1">No classes after</label>
                                 <select
                                     value={preferences.noClassesAfter ?? ''}
                                     onChange={(e) => handleTimeChange('noClassesAfter', e.target.value)}
-                                    className="w-full text-xs p-1.5 border border-slate-200 dark:border-slate-600 rounded bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200"
+                                    className="w-full text-xs p-2 border border-[--border-primary] rounded-lg bg-[--bg-primary] text-[--text-primary] focus:ring-1 focus:ring-[--text-primary]/20 outline-none"
                                 >
                                     {END_TIME_OPTIONS.map(opt => (
                                         <option key={opt.label} value={opt.value ?? ''}>{opt.label}</option>
@@ -139,7 +139,7 @@ const PreferencesPanel: React.FC<Props> = ({ preferences, onChange, isExpanded, 
 
                     {/* Avoid Days */}
                     <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-slate-300">
+                        <div className="flex items-center gap-2 text-xs font-medium text-[--text-secondary]">
                             <CalendarX size={12} />
                             <span>Avoid Days</span>
                         </div>
@@ -150,9 +150,9 @@ const PreferencesPanel: React.FC<Props> = ({ preferences, onChange, isExpanded, 
                                     <button
                                         key={day}
                                         onClick={() => handleDayToggle(day)}
-                                        className={`px-2 py-1 text-[10px] rounded transition-colors ${isAvoided
-                                            ? 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800'
-                                            : 'bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500'
+                                        className={`px-2.5 py-1.5 text-[10px] rounded-lg transition-colors font-medium ${isAvoided
+                                            ? 'bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-900'
+                                            : 'bg-[--bg-primary] text-[--text-tertiary] border border-[--border-primary] hover:border-[--border-secondary]'
                                             }`}
                                     >
                                         {day.substring(0, 3)}
@@ -163,36 +163,36 @@ const PreferencesPanel: React.FC<Props> = ({ preferences, onChange, isExpanded, 
                     </div>
 
                     {/* Prefer Consecutive */}
-                    <div className="flex items-center justify-between gap-2 p-2 bg-white dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600">
+                    <div className="flex items-center justify-between gap-2 p-2.5 bg-[--bg-primary] rounded-xl border border-[--border-primary]">
                         <div className="flex items-center gap-2 flex-1 min-w-0">
                             <Zap size={12} className="text-amber-500 flex-shrink-0" />
-                            <span className="text-xs text-slate-600 dark:text-slate-300">Prefer consecutive classes</span>
+                            <span className="text-xs text-[--text-secondary]">Prefer consecutive classes</span>
                         </div>
                         <button
                             onClick={handleConsecutiveToggle}
-                            className={`w-10 h-5 rounded-full transition-colors relative flex-shrink-0 ${preferences.preferConsecutive ? 'bg-blue-500' : 'bg-slate-300 dark:bg-slate-600'
+                            className={`w-10 h-5 rounded-full transition-colors relative flex-shrink-0 ${preferences.preferConsecutive ? 'bg-[--text-primary]' : 'bg-[--border-secondary]'
                                 }`}
                         >
                             <span
-                                className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${preferences.preferConsecutive ? 'translate-x-4' : 'translate-x-0'
+                                className={`absolute top-0.5 left-0.5 w-4 h-4 bg-[--bg-primary] rounded-full shadow transition-transform ${preferences.preferConsecutive ? 'translate-x-4' : 'translate-x-0'
                                     }`}
                             />
                         </button>
                     </div>
 
                     {/* Exclude Single Session Days */}
-                    <div className="flex items-center justify-between gap-2 p-2 bg-white dark:bg-slate-700 rounded border border-slate-200 dark:border-slate-600">
+                    <div className="flex items-center justify-between gap-2 p-2.5 bg-[--bg-primary] rounded-xl border border-[--border-primary]">
                         <div className="flex items-center gap-2 flex-1 min-w-0">
                             <UserX size={12} className="text-red-500 flex-shrink-0" />
-                            <span className="text-xs text-slate-600 dark:text-slate-300">Exclude days with only 1 class</span>
+                            <span className="text-xs text-[--text-secondary]">Exclude days with only 1 class</span>
                         </div>
                         <button
                             onClick={handleSingleSessionToggle}
-                            className={`w-10 h-5 rounded-full transition-colors relative flex-shrink-0 ${preferences.excludeSingleSessionDays ? 'bg-blue-500' : 'bg-slate-300 dark:bg-slate-600'
+                            className={`w-10 h-5 rounded-full transition-colors relative flex-shrink-0 ${preferences.excludeSingleSessionDays ? 'bg-[--text-primary]' : 'bg-[--border-secondary]'
                                 }`}
                         >
                             <span
-                                className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${preferences.excludeSingleSessionDays ? 'translate-x-4' : 'translate-x-0'
+                                className={`absolute top-0.5 left-0.5 w-4 h-4 bg-[--bg-primary] rounded-full shadow transition-transform ${preferences.excludeSingleSessionDays ? 'translate-x-4' : 'translate-x-0'
                                     }`}
                             />
                         </button>
@@ -201,7 +201,7 @@ const PreferencesPanel: React.FC<Props> = ({ preferences, onChange, isExpanded, 
                     {/* Reset Button */}
                     <button
                         onClick={handleReset}
-                        className="w-full text-xs text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 py-1"
+                        className="w-full text-xs text-[--text-muted] hover:text-[--text-primary] py-1.5 transition-colors"
                     >
                         Reset to defaults
                     </button>

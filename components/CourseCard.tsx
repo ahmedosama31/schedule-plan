@@ -68,40 +68,40 @@ const CourseCard: React.FC<Props> = ({ selection, allSelections, onRemove, onUpd
   };
 
   return (
-    <div className="bg-white dark:bg-slate-700 p-4 rounded-lg shadow-sm border border-slate-200 dark:border-slate-600 mb-3 hover:border-blue-300 dark:hover:border-blue-500 transition-colors">
+    <div className="bg-[--bg-primary] p-4 rounded-xl border border-[--border-primary] hover:border-[--border-secondary] transition-all">
       <div className="flex justify-between items-start mb-3">
         <div>
-          <h3 className="font-bold text-slate-800 dark:text-slate-100">{course.code}</h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">{course.name}</p>
+          <h3 className="font-semibold text-[--text-primary]">{course.code}</h3>
+          <p className="text-xs text-[--text-tertiary] mt-0.5">{course.name}</p>
         </div>
-        <button onClick={onRemove} className="text-slate-400 dark:text-slate-500 hover:text-red-500 transition-colors">
-          <Trash2 size={18} />
+        <button onClick={onRemove} className="text-[--text-muted] hover:text-red-500 transition-colors p-1 hover:bg-red-50 dark:hover:bg-red-950/50 rounded-lg -mr-1 -mt-1">
+          <Trash2 size={16} />
         </button>
       </div>
 
       <div className="space-y-3">
         {course.isMTHS ? (
           <div>
-            <label className="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Section Group</label>
+            <label className="block text-xs font-medium text-[--text-secondary] mb-1.5">Section Group</label>
             <select
-              className="w-full text-sm p-2 border border-slate-200 dark:border-slate-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white dark:bg-slate-600 text-slate-900 dark:text-slate-100"
+              className="w-full text-sm p-2.5 border border-[--border-primary] rounded-lg focus:ring-2 focus:ring-[--text-primary]/10 focus:border-[--text-secondary] outline-none bg-[--bg-primary] text-[--text-primary]"
               value={selection.selectedMthsGroup || ''}
               onChange={handleMthsGroupChange}
             >
               <option value="">Select Group...</option>
               {mthsGroups.map(renderMthsOption)}
             </select>
-            <div className="text-[10px] text-slate-400 dark:text-slate-500 mt-1 flex items-center gap-1">
-              <AlertCircle size={10} /> Same Lec/Tut group required
+            <div className="text-[10px] text-[--text-muted] mt-1.5 flex items-center gap-1">
+              <AlertCircle size={10} />Same Lec/Tut group required
             </div>
           </div>
         ) : (
           <>
             {lectures.length > 0 && (
               <div>
-                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Lecture</label>
+                <label className="block text-xs font-medium text-[--text-secondary] mb-1.5">Lecture</label>
                 <select
-                  className="w-full text-sm p-2 border border-slate-200 dark:border-slate-600 rounded-md focus:ring-2 focus:ring-blue-500 outline-none bg-white dark:bg-slate-600 text-slate-900 dark:text-slate-100"
+                  className="w-full text-sm p-2.5 border border-[--border-primary] rounded-lg focus:ring-2 focus:ring-[--text-primary]/10 focus:border-[--text-secondary] outline-none bg-[--bg-primary] text-[--text-primary]"
                   value={selection.selectedLectureId || ''}
                   onChange={(e) => handleSectionChange('lecture', e.target.value)}
                 >
@@ -113,9 +113,9 @@ const CourseCard: React.FC<Props> = ({ selection, allSelections, onRemove, onUpd
 
             {tutorials.length > 0 && (
               <div>
-                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Tutorial</label>
+                <label className="block text-xs font-medium text-[--text-secondary] mb-1.5">Tutorial</label>
                 <select
-                  className="w-full text-sm p-2 border border-slate-200 dark:border-slate-600 rounded-md focus:ring-2 focus:ring-blue-500 outline-none bg-white dark:bg-slate-600 text-slate-900 dark:text-slate-100"
+                  className="w-full text-sm p-2.5 border border-[--border-primary] rounded-lg focus:ring-2 focus:ring-[--text-primary]/10 focus:border-[--text-secondary] outline-none bg-[--bg-primary] text-[--text-primary]"
                   value={selection.selectedTutorialId || ''}
                   onChange={(e) => handleSectionChange('tutorial', e.target.value)}
                 >
@@ -127,9 +127,9 @@ const CourseCard: React.FC<Props> = ({ selection, allSelections, onRemove, onUpd
 
             {labs.length > 0 && (
               <div>
-                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Laboratory</label>
+                <label className="block text-xs font-medium text-[--text-secondary] mb-1.5">Laboratory</label>
                 <select
-                  className="w-full text-sm p-2 border border-slate-200 dark:border-slate-600 rounded-md focus:ring-2 focus:ring-blue-500 outline-none bg-white dark:bg-slate-600 text-slate-900 dark:text-slate-100"
+                  className="w-full text-sm p-2.5 border border-[--border-primary] rounded-lg focus:ring-2 focus:ring-[--text-primary]/10 focus:border-[--text-secondary] outline-none bg-[--bg-primary] text-[--text-primary]"
                   value={selection.selectedLabId || ''}
                   onChange={(e) => handleSectionChange('lab', e.target.value)}
                 >

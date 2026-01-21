@@ -69,28 +69,28 @@ const SaveModal: React.FC<SaveModalProps> = ({ isOpen, studentId, currentSchedul
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+            <div className="bg-[--bg-primary] rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-[--border-primary]">
                 {/* Header */}
-                <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
-                    <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+                <div className="flex items-center justify-between p-4 border-b border-[--border-primary]">
+                    <h2 className="text-lg font-bold text-[--text-primary]">
                         Manage Schedules
                     </h2>
                     <button
                         onClick={onClose}
-                        className="p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500"
+                        className="p-1.5 rounded-lg hover:bg-[--bg-tertiary] text-[--text-muted] transition-colors"
                     >
-                        <X size={20} />
+                        <X size={18} />
                     </button>
                 </div>
 
                 {/* Tabs */}
-                <div className="flex border-b border-slate-200 dark:border-slate-700">
+                <div className="flex border-b border-[--border-primary]">
                     <button
                         onClick={() => setActiveTab('save')}
                         className={`flex-1 py-3 px-4 text-sm font-semibold transition-colors flex items-center justify-center gap-2 ${activeTab === 'save'
-                            ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400'
-                            : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
+                            ? 'text-[--text-primary] border-b-2 border-[--text-primary]'
+                            : 'text-[--text-muted] hover:text-[--text-secondary]'
                             }`}
                     >
                         <Plus size={16} />
@@ -99,8 +99,8 @@ const SaveModal: React.FC<SaveModalProps> = ({ isOpen, studentId, currentSchedul
                     <button
                         onClick={() => setActiveTab('load')}
                         className={`flex-1 py-3 px-4 text-sm font-semibold transition-colors flex items-center justify-center gap-2 ${activeTab === 'load'
-                            ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400'
-                            : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
+                            ? 'text-[--text-primary] border-b-2 border-[--text-primary]'
+                            : 'text-[--text-muted] hover:text-[--text-secondary]'
                             }`}
                     >
                         <FolderOpen size={16} />
@@ -113,7 +113,7 @@ const SaveModal: React.FC<SaveModalProps> = ({ isOpen, studentId, currentSchedul
                     {activeTab === 'save' ? (
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                <label className="block text-sm font-medium text-[--text-secondary] mb-2">
                                     Schedule Name
                                 </label>
                                 <input
@@ -121,31 +121,31 @@ const SaveModal: React.FC<SaveModalProps> = ({ isOpen, studentId, currentSchedul
                                     value={scheduleName}
                                     onChange={(e) => setScheduleName(e.target.value)}
                                     placeholder="e.g., Plan A, Backup, Morning Classes..."
-                                    className="w-full px-4 py-3 bg-slate-100 dark:bg-slate-700 border-none rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
+                                    className="w-full px-4 py-3 bg-[--bg-tertiary] border border-[--border-primary] rounded-xl focus:ring-2 focus:ring-[--text-primary]/20 focus:border-[--text-secondary] outline-none text-[--text-primary] placeholder-[--text-muted]"
                                     autoFocus
                                     onKeyDown={(e) => e.key === 'Enter' && handleSave()}
                                 />
                             </div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400">
+                            <p className="text-xs text-[--text-muted]">
                                 Your current schedule will be saved under this name. You can create multiple saved schedules.
                             </p>
 
                             {/* Save Locks Toggle */}
-                            <div className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
+                            <div className="flex items-center justify-between p-3 bg-[--bg-tertiary] rounded-xl border border-[--border-primary]">
                                 <div className="flex items-center gap-2">
                                     <Lock size={16} className="text-amber-500" />
                                     <div>
-                                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Save locked sections</span>
-                                        <p className="text-xs text-slate-500 dark:text-slate-400">Include lock state for optimizer</p>
+                                        <span className="text-sm font-medium text-[--text-secondary]">Save locked sections</span>
+                                        <p className="text-xs text-[--text-muted]">Include lock state for optimizer</p>
                                     </div>
                                 </div>
                                 <button
                                     onClick={() => setSaveLocks(!saveLocks)}
-                                    className={`relative w-12 h-6 rounded-full transition-colors ${saveLocks ? 'bg-blue-600' : 'bg-slate-300 dark:bg-slate-600'
+                                    className={`relative w-11 h-6 rounded-full transition-colors ${saveLocks ? 'bg-[--text-primary]' : 'bg-[--border-secondary]'
                                         }`}
                                 >
                                     <span
-                                        className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${saveLocks ? 'translate-x-7' : 'translate-x-1'
+                                        className={`absolute top-1 w-4 h-4 bg-[--bg-primary] rounded-full shadow transition-transform ${saveLocks ? 'translate-x-6' : 'translate-x-1'
                                             }`}
                                     />
                                 </button>
@@ -153,7 +153,7 @@ const SaveModal: React.FC<SaveModalProps> = ({ isOpen, studentId, currentSchedul
 
                             <button
                                 onClick={handleSave}
-                                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-3 px-4 rounded-lg font-bold shadow-md transition-all flex items-center justify-center gap-2"
+                                className="w-full bg-[--text-primary] hover:opacity-90 text-[--bg-primary] py-3 px-4 rounded-xl font-semibold shadow-sm transition-all flex items-center justify-center gap-2 active:scale-[0.98]"
                             >
                                 <Save size={18} />
                                 Save Schedule
@@ -162,13 +162,13 @@ const SaveModal: React.FC<SaveModalProps> = ({ isOpen, studentId, currentSchedul
                     ) : (
                         <div className="space-y-2">
                             {isLoading ? (
-                                <div className="text-center py-8 text-slate-500">
+                                <div className="text-center py-8 text-[--text-muted]">
                                     Loading...
                                 </div>
                             ) : savedSchedules.length === 0 ? (
-                                <div className="text-center py-8 text-slate-500 dark:text-slate-400">
-                                    <FolderOpen size={32} className="mx-auto mb-2 opacity-50" />
-                                    <p className="text-sm">No saved schedules yet</p>
+                                <div className="text-center py-8 text-[--text-muted]">
+                                    <FolderOpen size={32} className="mx-auto mb-2 opacity-40" />
+                                    <p className="text-sm font-medium">No saved schedules yet</p>
                                     <p className="text-xs mt-1">Save your first schedule using the "Save New" tab</p>
                                 </div>
                             ) : (
@@ -176,42 +176,42 @@ const SaveModal: React.FC<SaveModalProps> = ({ isOpen, studentId, currentSchedul
                                     {savedSchedules.map((schedule) => (
                                         <div
                                             key={schedule.name}
-                                            className={`p-3 rounded-lg border transition-colors ${schedule.name === currentScheduleName
-                                                ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800'
-                                                : 'bg-slate-50 dark:bg-slate-700/50 border-slate-200 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700'
+                                            className={`p-3 rounded-xl border transition-colors ${schedule.name === currentScheduleName
+                                                ? 'bg-[--bg-tertiary] border-[--text-primary]/30'
+                                                : 'bg-[--bg-primary] border-[--border-primary] hover:bg-[--bg-tertiary]'
                                                 }`}
                                         >
                                             <div className="flex items-center justify-between">
                                                 <div className="flex-1 min-w-0">
                                                     <div className="flex items-center gap-2">
-                                                        <span className="font-semibold text-slate-900 dark:text-slate-100 truncate">
+                                                        <span className="font-semibold text-[--text-primary] truncate">
                                                             {schedule.name}
                                                         </span>
                                                         {schedule.name === currentScheduleName && (
-                                                            <span className="text-xs bg-blue-100 dark:bg-blue-800 text-blue-600 dark:text-blue-300 px-2 py-0.5 rounded-full">
+                                                            <span className="text-[10px] bg-[--text-primary] text-[--bg-primary] px-2 py-0.5 rounded-full font-medium">
                                                                 Current
                                                             </span>
                                                         )}
                                                     </div>
-                                                    <div className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 mt-1">
+                                                    <div className="flex items-center gap-1 text-xs text-[--text-muted] mt-1">
                                                         <Clock size={12} />
                                                         <span>Updated {formatDate(schedule.updated_at)}</span>
                                                     </div>
                                                 </div>
-                                                <div className="flex items-center gap-1 ml-2">
+                                                <div className="flex items-center gap-1.5 ml-2">
                                                     <button
                                                         onClick={() => handleLoad(schedule.name)}
-                                                        className="p-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+                                                        className="p-2 rounded-lg bg-[--text-primary] hover:opacity-90 text-[--bg-primary] transition-colors"
                                                         title="Load this schedule"
                                                     >
-                                                        <FolderOpen size={16} />
+                                                        <FolderOpen size={14} />
                                                     </button>
                                                     <button
                                                         onClick={() => handleDelete(schedule.name)}
-                                                        className="p-2 rounded-lg bg-red-100 dark:bg-red-900/30 hover:bg-red-200 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 transition-colors"
+                                                        className="p-2 rounded-lg bg-red-100 dark:bg-red-950/50 hover:bg-red-200 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 transition-colors"
                                                         title="Delete this schedule"
                                                     >
-                                                        <Trash2 size={16} />
+                                                        <Trash2 size={14} />
                                                     </button>
                                                 </div>
                                             </div>
@@ -226,8 +226,8 @@ const SaveModal: React.FC<SaveModalProps> = ({ isOpen, studentId, currentSchedul
                 {/* Footer - Current schedule info */}
                 {currentScheduleName && (
                     <div className="px-4 pb-4">
-                        <div className="text-xs text-slate-500 dark:text-slate-400 text-center bg-slate-100 dark:bg-slate-700/50 rounded-lg py-2">
-                            Currently editing: <span className="font-semibold">{currentScheduleName}</span>
+                        <div className="text-xs text-[--text-muted] text-center bg-[--bg-tertiary] rounded-lg py-2 border border-[--border-primary]">
+                            Currently editing: <span className="font-semibold text-[--text-secondary]">{currentScheduleName}</span>
                         </div>
                     </div>
                 )}

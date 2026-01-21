@@ -42,28 +42,31 @@ const ShareModal: React.FC<Props> = ({ isOpen, onClose, selections }) => {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-            <div className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden border border-slate-200 dark:border-slate-700">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+            <div className="bg-[--bg-primary] rounded-2xl shadow-2xl w-full max-w-md overflow-hidden border border-[--border-primary]">
                 {/* Header */}
-                <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
-                    <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">Share Schedule</h2>
+                <div className="flex items-center justify-between p-4 border-b border-[--border-primary]">
+                    <h2 className="text-lg font-bold text-[--text-primary]">Share Schedule</h2>
                     <button
                         onClick={onClose}
-                        className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md transition-colors"
+                        className="p-1.5 hover:bg-[--bg-tertiary] rounded-lg transition-colors"
                     >
-                        <X size={20} className="text-slate-500 dark:text-slate-400" />
+                        <X size={18} className="text-[--text-muted]" />
                     </button>
                 </div>
 
                 {/* Content */}
                 <div className="p-6">
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                    <p className="text-sm text-[--text-secondary] mb-5">
                         Share your schedule with friends! They can view it and save their own copy.
                     </p>
 
                     <button
                         onClick={handleCopyLink}
-                        className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-semibold transition-all shadow-md hover:shadow-lg"
+                        className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-semibold transition-all active:scale-[0.98] ${copied
+                            ? 'bg-emerald-600 text-white'
+                            : 'bg-[--text-primary] hover:opacity-90 text-[--bg-primary]'
+                            }`}
                     >
                         {copied ? (
                             <>
@@ -79,7 +82,7 @@ const ShareModal: React.FC<Props> = ({ isOpen, onClose, selections }) => {
                     </button>
 
                     {copied && (
-                        <p className="mt-3 text-xs text-center text-green-600 dark:text-green-400">
+                        <p className="mt-3 text-xs text-center text-emerald-600 dark:text-emerald-400">
                             ✓ Link copied to clipboard
                         </p>
                     )}

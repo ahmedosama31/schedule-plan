@@ -1,54 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Spring 2026 Scheduler</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      // Configure Tailwind dark mode
-      tailwind.config = {
-        darkMode: 'class',
-      }
-      // Check for saved theme or system preference
-      if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
-    </script>
-    <style>
-      body {
-        background-color: #f8fafc;
-      }
-      .dark body {
-        background-color: #0f172a;
-      }
-      /* Custom scrollbar for schedule container */
-      .schedule-scroll::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
-      .schedule-scroll::-webkit-scrollbar-track {
-        background: #f1f5f9;
-      }
-      .dark .schedule-scroll::-webkit-scrollbar-track {
-        background: #1e293b;
-      }
-      .schedule-scroll::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 4px;
-      }
-      .dark .schedule-scroll::-webkit-scrollbar-thumb {
-        background: #475569;
-      }
-      .schedule-scroll::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8;
-      }
-      .dark .schedule-scroll::-webkit-scrollbar-thumb:hover {
-        background: #64748b;
-      }
-    </style>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spring 2026 Scheduler</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Configure Tailwind dark mode
+    tailwind.config = {
+      darkMode: 'class',
+    }
+    // Check for saved theme or system preference
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  </script>
+  <style>
+    :root {
+      /* Monochrome palette - Light mode */
+      --bg-primary: #ffffff;
+      --bg-secondary: #fafafa;
+      --bg-tertiary: #f5f5f5;
+      --bg-elevated: #ffffff;
+      --border-primary: #e5e5e5;
+      --border-secondary: #d4d4d4;
+      --text-primary: #171717;
+      --text-secondary: #525252;
+      --text-tertiary: #737373;
+      --text-muted: #a3a3a3;
+      --accent: #171717;
+      --accent-hover: #262626;
+      --accent-subtle: #f5f5f5;
+    }
+
+    .dark {
+      /* Monochrome palette - Dark mode */
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #171717;
+      --bg-tertiary: #1f1f1f;
+      --bg-elevated: #262626;
+      --border-primary: #262626;
+      --border-secondary: #404040;
+      --text-primary: #fafafa;
+      --text-secondary: #d4d4d4;
+      --text-tertiary: #a3a3a3;
+      --text-muted: #737373;
+      --accent: #fafafa;
+      --accent-hover: #e5e5e5;
+      --accent-subtle: #262626;
+    }
+
+    body {
+      background-color: var(--bg-secondary);
+      transition: background-color 0.2s ease;
+    }
+
+    /* Modern scrollbar */
+    .schedule-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    .schedule-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .schedule-scroll::-webkit-scrollbar-thumb {
+      background: var(--border-secondary);
+      border-radius: 3px;
+    }
+
+    .schedule-scroll::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+
+    /* Smooth transitions for theme changes */
+    * {
+      transition-property: background-color, border-color;
+      transition-duration: 0.15s;
+      transition-timing-function: ease;
+    }
+
+    /* Disable transitions during theme toggle to prevent flashing */
+    .theme-transitioning * {
+      transition: none !important;
+    }
+  </style>
   <script type="importmap">
 {
   "imports": {
@@ -60,8 +100,10 @@
 }
 </script>
 </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
-  </body>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
 </html>

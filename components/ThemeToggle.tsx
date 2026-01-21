@@ -47,13 +47,10 @@ const ThemeToggle: React.FC = () => {
     return (
         <button
             onClick={toggleTheme}
-            className="flex items-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-medium 
-                 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300
-                 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
-            title={`Theme: ${theme === 'light' ? 'Light' : 'Dark'}`}
+            className="p-2 rounded-lg text-[--text-tertiary] hover:text-[--text-primary] hover:bg-[--bg-tertiary] transition-colors"
+            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
         >
-            {theme === 'light' ? <Sun size={16} /> : <Moon size={16} />}
-            <span className="hidden sm:inline">{theme === 'light' ? 'Light' : 'Dark'}</span>
+            {theme === 'light' ? <Sun size={18} /> : <Moon size={18} />}
         </button>
     );
 };

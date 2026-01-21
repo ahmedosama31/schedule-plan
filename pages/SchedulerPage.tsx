@@ -632,30 +632,30 @@ const SchedulerPage: React.FC = () => {
 
     return (
         <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-            <div className="flex flex-col h-screen overflow-hidden bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors">
+            <div className="flex flex-col h-screen overflow-hidden bg-[--bg-secondary] text-[--text-primary] transition-colors">
                 {isLoading && (
-                    <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm">
-                        <div className="flex flex-col items-center gap-2">
-                            <Loader className="animate-spin text-blue-600" size={32} />
-                            <p className="text-sm font-medium text-slate-600 dark:text-slate-300">Loading courses...</p>
+                    <div className="absolute inset-0 z-50 flex items-center justify-center bg-[--bg-primary]/90 backdrop-blur-sm">
+                        <div className="flex flex-col items-center gap-3">
+                            <Loader className="animate-spin text-[--text-primary]" size={28} />
+                            <p className="text-sm font-medium text-[--text-secondary]">Loading courses...</p>
                         </div>
                     </div>
                 )}
                 {/* Header */}
-                <header className="h-16 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between px-6 z-20">
-                    <div className="flex items-center gap-3">
-                        <div className="bg-blue-600 p-2 rounded-lg text-white">
-                            <Calendar size={24} />
+                <header className="h-14 bg-[--bg-primary] border-b border-[--border-primary] flex items-center justify-between px-4 md:px-6 z-20">
+                    <div className="flex items-center gap-2.5">
+                        <div className="p-1.5 rounded-md bg-[--text-primary] text-[--bg-primary]">
+                            <Calendar size={20} />
                         </div>
-                        <h1 className="text-lg md:text-xl font-bold text-slate-900 dark:text-slate-100">
-                            Spring 2026 Scheduler
+                        <h1 className="text-base md:text-lg font-bold tracking-tight">
+                            Spring 2026
                         </h1>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-1">
                         {studentId && (
-                            <div className="flex items-center gap-2 mr-2 bg-slate-100 dark:bg-slate-700 px-3 py-1 rounded-full">
-                                <span className="text-xs font-bold text-slate-500 dark:text-slate-400">ID: {studentId}</span>
-                                <button onClick={handleLogout} className="text-red-500 hover:bg-red-50 p-1 rounded-full" title="Logout / Switch ID">
+                            <div className="hidden sm:flex items-center gap-2 mr-2 bg-[--bg-tertiary] px-3 py-1.5 rounded-full">
+                                <span className="text-xs font-medium text-[--text-tertiary]">ID: {studentId}</span>
+                                <button onClick={handleLogout} className="text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30 p-1 rounded-full transition-colors" title="Logout / Switch ID">
                                     <LogOut size={14} />
                                 </button>
                             </div>
@@ -663,39 +663,45 @@ const SchedulerPage: React.FC = () => {
                         <ThemeToggle />
                         <button
                             onClick={() => setIsShareModalOpen(true)}
-                            className="p-2 text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors"
+                            className="p-2 text-[--text-tertiary] hover:text-[--text-primary] hover:bg-[--bg-tertiary] rounded-lg transition-colors disabled:opacity-40"
                             title="Share Schedule"
                             disabled={selections.length === 0}
                         >
-                            <Share size={20} />
+                            <Share size={18} />
                         </button>
                         <button
                             onClick={handleSave}
-                            className="p-2 text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors"
+                            className="p-2 text-[--text-tertiary] hover:text-[--text-primary] hover:bg-[--bg-tertiary] rounded-lg transition-colors"
                             title="Save / Load Schedules"
                         >
-                            <Save size={20} />
+                            <Save size={18} />
                         </button>
                     </div>
                 </header>
 
                 <div className="flex flex-1 overflow-hidden relative pb-16 md:pb-0">
                     {/* Sidebar - Show on desktop always, on mobile only when mobileTab === 'courses' */}
-                    <div className={`w-full md:w-96 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col relative ${mobileTab === 'courses' ? 'flex' : 'hidden md:flex'}`}>
-                        <div className="p-4 border-b border-slate-200 dark:border-slate-700 space-y-4">
-                            {/* Mobile header */}
-                            <div className="flex md:hidden justify-between items-center mb-2">
-                                <h2 className="font-bold text-lg">Course Planning</h2>
+                    <div className={`w-full md:w-[360px] lg:w-[380px] bg-[--bg-primary] border-r border-[--border-primary] flex flex-col relative ${mobileTab === 'courses' ? 'flex' : 'hidden md:flex'}`}>
+                        <div className="p-4 border-b border-[--border-primary] space-y-4">
+                            {/* Mobile header with logout */}
+                            <div className="flex md:hidden justify-between items-center">
+                                <h2 className="font-bold text-base">Course Planning</h2>
+                                {studentId && (
+                                    <button onClick={handleLogout} className="text-xs text-[--text-tertiary] flex items-center gap-1 hover:text-red-500 transition-colors">
+                                        <LogOut size={14} />
+                                        <span>ID: {studentId}</span>
+                                    </button>
+                                )}
                             </div>
 
                             {/* Search */}
                             <div ref={searchContainerRef} className="relative">
                                 <div className="relative">
-                                    <Search className="absolute left-3 top-2.5 text-slate-400 dark:text-slate-500" size={18} />
+                                    <Search className="absolute left-3 top-2.5 text-[--text-muted]" size={16} />
                                     <input
                                         type="text"
                                         placeholder="Search courses..."
-                                        className="w-full pl-10 pr-4 py-2 bg-slate-100 dark:bg-slate-700 border-none rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
+                                        className="w-full pl-9 pr-4 py-2.5 bg-[--bg-tertiary] border border-[--border-primary] rounded-xl focus:ring-2 focus:ring-[--text-primary]/20 focus:border-[--text-secondary] outline-none text-[--text-primary] placeholder-[--text-muted] text-sm"
                                         value={searchTerm}
                                         onChange={(e) => {
                                             setSearchTerm(e.target.value);
@@ -707,17 +713,22 @@ const SchedulerPage: React.FC = () => {
 
                                 {/* Dropdown */}
                                 {isDropdownOpen && availableCourses.length > 0 && (
-                                    <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-slate-700 rounded-lg shadow-xl border border-slate-200 dark:border-slate-600 max-h-60 overflow-y-auto z-50">
-                                        {availableCourses.map(course => (
+                                    <div className="absolute top-full left-0 right-0 mt-1.5 bg-[--bg-primary] rounded-xl shadow-xl border border-[--border-primary] max-h-64 overflow-y-auto z-50">
+                                        {availableCourses.slice(0, 8).map(course => (
                                             <button
                                                 key={course.code}
                                                 onClick={() => addCourse(course.code)}
-                                                className="w-full text-left px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-600 border-b border-slate-100 dark:border-slate-600 last:border-0"
+                                                className="w-full text-left px-4 py-3 hover:bg-[--bg-tertiary] border-b border-[--border-primary] last:border-0 transition-colors"
                                             >
-                                                <div className="font-bold text-sm text-slate-800 dark:text-slate-100">{course.code}</div>
-                                                <div className="text-xs text-slate-500 dark:text-slate-400 truncate">{course.name}</div>
+                                                <div className="font-semibold text-sm text-[--text-primary]">{course.code}</div>
+                                                <div className="text-xs text-[--text-tertiary] truncate">{course.name}</div>
                                             </button>
                                         ))}
+                                        {availableCourses.length > 8 && (
+                                            <div className="px-4 py-2 text-xs text-[--text-muted] text-center border-t border-[--border-primary]">
+                                                +{availableCourses.length - 8} more results
+                                            </div>
+                                        )}
                                     </div>
                                 )}
                             </div>
@@ -732,7 +743,7 @@ const SchedulerPage: React.FC = () => {
 
                             {/* Conflict Warning */}
                             {activeConflicts.length > 0 && (
-                                <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg animate-pulse">
+                                <div className="p-3 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-900 rounded-xl">
                                     <div className="flex items-center gap-2 text-red-600 dark:text-red-400 font-bold text-sm mb-2">
                                         <FileWarning size={16} />
                                         <span>{activeConflicts.length} Conflicts Detected</span>
@@ -792,7 +803,7 @@ const SchedulerPage: React.FC = () => {
                             {/* Optimize Button */}
                             <button
                                 onClick={handleOptimize}
-                                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white py-2 px-4 rounded-lg font-bold shadow-md transition-all flex items-center justify-center gap-2"
+                                className="w-full bg-[--text-primary] hover:opacity-90 text-[--bg-primary] py-3 px-4 rounded-xl font-semibold shadow-sm transition-all flex items-center justify-center gap-2 active:scale-[0.98]"
                             >
                                 <Zap size={18} />
                                 Optimize Schedule
@@ -800,13 +811,14 @@ const SchedulerPage: React.FC = () => {
                         </div>
 
                         {/* Course List */}
-                        <div className="flex-1 overflow-y-auto p-4">
+                        <div className="flex-1 overflow-y-auto p-4 space-y-3">
                             {selections.length === 0 ? (
-                                <div className="text-center py-8 text-slate-400 dark:text-slate-500">
-                                    <div className="mb-2 flex justify-center">
-                                        <PlusCircle size={32} className="opacity-50" />
+                                <div className="text-center py-12 text-[--text-muted]">
+                                    <div className="mb-3 flex justify-center">
+                                        <PlusCircle size={40} className="opacity-40" />
                                     </div>
-                                    <p className="text-sm">Search and add courses to start planning</p>
+                                    <p className="text-sm font-medium">No courses added yet</p>
+                                    <p className="text-xs mt-1">Search above to get started</p>
                                 </div>
                             ) : (
                                 selections.map(selection => (
@@ -821,17 +833,17 @@ const SchedulerPage: React.FC = () => {
                             )}
                         </div>
 
-                        <div className="p-3 border-t border-slate-200 dark:border-slate-700 text-center text-[10px] text-slate-400 dark:text-slate-500 flex flex-col gap-2">
+                        <div className="p-3 border-t border-[--border-primary] text-center text-[10px] text-[--text-muted]">
                             <span>Developed by Ahmed Osama</span>
                         </div>
                     </div>
 
                     {/* Main Schedule Grid - Show on desktop always, on mobile only when mobileTab === 'schedule' */}
-                    <div className={`flex-1 relative bg-slate-50 dark:bg-slate-900 p-4 overflow-hidden ${mobileTab === 'schedule' ? 'block' : 'hidden md:block'}`}>
+                    <div className={`flex-1 relative bg-[--bg-secondary] p-3 md:p-4 overflow-hidden ${mobileTab === 'schedule' ? 'block' : 'hidden md:block'}`}>
                         {!isSidebarOpen && (
                             <button
                                 onClick={() => setIsSidebarOpen(true)}
-                                className="absolute top-4 left-4 z-10 bg-white dark:bg-slate-800 p-2 rounded-full shadow-md text-slate-500 hover:text-blue-600"
+                                className="absolute top-4 left-4 z-10 bg-[--bg-primary] p-2 rounded-full shadow-md text-[--text-secondary] hover:text-[--text-primary] border border-[--border-primary]"
                             >
                                 <ChevronDown className="rotate-[-90deg]" size={20} />
                             </button>
@@ -851,27 +863,27 @@ const SchedulerPage: React.FC = () => {
                     </div>
 
                     {/* Mobile Bottom Tab Navigation */}
-                    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 z-30 safe-area-bottom">
-                        <div className="grid grid-cols-2 h-16">
+                    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-[--bg-primary] border-t border-[--border-primary] z-30 safe-area-bottom">
+                        <div className="grid grid-cols-2 h-14">
                             <button
                                 onClick={() => setMobileTab('courses')}
-                                className={`flex flex-col items-center justify-center gap-1 transition-colors ${mobileTab === 'courses'
-                                    ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
-                                    : 'text-slate-500 dark:text-slate-400'
+                                className={`flex flex-col items-center justify-center gap-0.5 transition-colors ${mobileTab === 'courses'
+                                    ? 'text-[--text-primary] bg-[--bg-tertiary]'
+                                    : 'text-[--text-muted]'
                                     }`}
                             >
-                                <BookOpen size={24} />
-                                <span className="text-xs font-semibold">Courses</span>
+                                <BookOpen size={20} />
+                                <span className="text-[10px] font-semibold">Courses</span>
                             </button>
                             <button
                                 onClick={() => setMobileTab('schedule')}
-                                className={`flex flex-col items-center justify-center gap-1 transition-colors ${mobileTab === 'schedule'
-                                    ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
-                                    : 'text-slate-500 dark:text-slate-400'
+                                className={`flex flex-col items-center justify-center gap-0.5 transition-colors ${mobileTab === 'schedule'
+                                    ? 'text-[--text-primary] bg-[--bg-tertiary]'
+                                    : 'text-[--text-muted]'
                                     }`}
                             >
-                                <Grid3x3 size={24} />
-                                <span className="text-xs font-semibold">Schedule</span>
+                                <Grid3x3 size={20} />
+                                <span className="text-[10px] font-semibold">Schedule</span>
                             </button>
                         </div>
                     </div>
