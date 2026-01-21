@@ -290,9 +290,9 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onM
 
           <div className="grid grid-cols-[50px_1fr_1fr_1fr_1fr_1fr_1fr] min-h-[800px]">
             {/* Time Labels */}
-            <div className="border-r border-[--border-primary] bg-[--bg-secondary]">
+            <div className="border-r border-neutral-200 dark:border-neutral-800 bg-[--bg-secondary]">
               {HOURS.map(hour => (
-                <div key={hour} className="h-16 border-b border-[--border-primary]/50 text-xs text-[--text-muted] p-1 text-center relative">
+                <div key={hour} className="h-16 border-b border-neutral-100 dark:border-neutral-800/50 text-xs text-[--text-muted] p-1 text-center relative">
                   <span className="absolute -top-2 left-0 right-0 font-medium">{hour}:00</span>
                 </div>
               ))}
@@ -300,10 +300,10 @@ const ScheduleGrid: React.FC<Props> = ({ selections, candidateSections = [], onM
 
             {/* Day Columns */}
             {DAYS.map(day => (
-              <div key={day} className="relative border-r border-[--border-primary] last:border-0">
+              <div key={day} className="relative border-r border-neutral-200 dark:border-neutral-800 last:border-0">
                 {/* Grid lines */}
                 {HOURS.map(hour => (
-                  <div key={hour} className="h-16 border-b border-[--border-primary]/30"></div>
+                  <div key={hour} className="h-16 border-b border-neutral-100 dark:border-neutral-800/40"></div>
                 ))}
 
                 {/* Render User Events */}
