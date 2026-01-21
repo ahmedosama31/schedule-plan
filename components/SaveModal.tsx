@@ -141,12 +141,10 @@ const SaveModal: React.FC<SaveModalProps> = ({ isOpen, studentId, currentSchedul
                                 </div>
                                 <button
                                     onClick={() => setSaveLocks(!saveLocks)}
-                                    className={`relative w-11 h-6 rounded-full transition-colors ${saveLocks ? 'bg-[--text-primary]' : 'bg-[--border-secondary]'
-                                        }`}
+                                    className={`w-9 h-5 rounded-full transition-colors flex-shrink-0 p-0.5 ${saveLocks ? 'bg-neutral-900 dark:bg-neutral-100' : 'bg-neutral-300 dark:bg-neutral-600'}`}
                                 >
                                     <span
-                                        className={`absolute top-1 w-4 h-4 bg-[--bg-primary] rounded-full shadow transition-transform ${saveLocks ? 'translate-x-6' : 'translate-x-1'
-                                            }`}
+                                        className={`block w-4 h-4 bg-white dark:bg-neutral-900 rounded-full shadow-sm transition-transform ${saveLocks ? 'translate-x-4' : 'translate-x-0'}`}
                                     />
                                 </button>
                             </div>

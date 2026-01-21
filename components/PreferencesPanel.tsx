@@ -170,12 +170,10 @@ const PreferencesPanel: React.FC<Props> = ({ preferences, onChange, isExpanded, 
                         </div>
                         <button
                             onClick={handleConsecutiveToggle}
-                            className={`w-10 h-5 rounded-full transition-colors relative flex-shrink-0 ${preferences.preferConsecutive ? 'bg-[--text-primary]' : 'bg-[--border-secondary]'
-                                }`}
+                            className={`w-9 h-5 rounded-full transition-colors flex-shrink-0 p-0.5 ${preferences.preferConsecutive ? 'bg-neutral-900 dark:bg-neutral-100' : 'bg-neutral-300 dark:bg-neutral-600'}`}
                         >
                             <span
-                                className={`absolute top-0.5 left-0.5 w-4 h-4 bg-[--bg-primary] rounded-full shadow transition-transform ${preferences.preferConsecutive ? 'translate-x-4' : 'translate-x-0'
-                                    }`}
+                                className={`block w-4 h-4 bg-white dark:bg-neutral-900 rounded-full shadow-sm transition-transform ${preferences.preferConsecutive ? 'translate-x-4' : 'translate-x-0'}`}
                             />
                         </button>
                     </div>
@@ -188,12 +186,10 @@ const PreferencesPanel: React.FC<Props> = ({ preferences, onChange, isExpanded, 
                         </div>
                         <button
                             onClick={handleSingleSessionToggle}
-                            className={`w-10 h-5 rounded-full transition-colors relative flex-shrink-0 ${preferences.excludeSingleSessionDays ? 'bg-[--text-primary]' : 'bg-[--border-secondary]'
-                                }`}
+                            className={`w-9 h-5 rounded-full transition-colors flex-shrink-0 p-0.5 ${preferences.excludeSingleSessionDays ? 'bg-neutral-900 dark:bg-neutral-100' : 'bg-neutral-300 dark:bg-neutral-600'}`}
                         >
                             <span
-                                className={`absolute top-0.5 left-0.5 w-4 h-4 bg-[--bg-primary] rounded-full shadow transition-transform ${preferences.excludeSingleSessionDays ? 'translate-x-4' : 'translate-x-0'
-                                    }`}
+                                className={`block w-4 h-4 bg-white dark:bg-neutral-900 rounded-full shadow-sm transition-transform ${preferences.excludeSingleSessionDays ? 'translate-x-4' : 'translate-x-0'}`}
                             />
                         </button>
                     </div>
