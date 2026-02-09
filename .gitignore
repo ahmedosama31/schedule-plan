@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local env and tool state
+.wrangler
+.env
+.env.*
+
