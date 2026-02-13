@@ -1,17 +1,37 @@
-import { Course } from '../types';
+import { Course, Section } from '../types';
 import { COURSES as STATIC_COURSES } from '../data'; // Fallback to static data
 
 const API_BASE = '/api';
+
+const splitMultiSessionSections = (courses: Course[]): Course[] => {
+    return courses.map(course => {
+        const normalized: Section[] = [];
+        for (const section of course.sections) {
+            if (!section.sessions || section.sessions.length <= 1) {
+                normalized.push(section);
+                continue;
+            }
+            section.sessions.forEach((session, idx) => {
+                normalized.push({
+                    ...section,
+                    id: `${section.id}-${session.day}-${session.startString}-${session.endString}-${idx}`,
+                    sessions: [session]
+                });
+            });
+        }
+        return { ...course, sections: normalized };
+    });
+};
 
 export const fetchCourses = async (): Promise<Course[]> => {
     try {
         const response = await fetch(`${API_BASE}/courses`);
         if (!response.ok) throw new Error('Failed to fetch courses');
         const data = await response.json();
-        return data as Course[]; // Assuming the API returns the parsed Course[] directly
+        return splitMultiSessionSections(data as Course[]); // Normalize any multi-session sections
     } catch (error) {
         console.warn('API fetch failed, falling back to static data:', error);
-        return STATIC_COURSES;
+        return splitMultiSessionSections(STATIC_COURSES);
     }
 };
 
