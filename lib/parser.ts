@@ -63,23 +63,18 @@ export const parseRawCourseData = (rawText: string): Course[] => {
 
         const course = coursesMap.get(rawCode)!;
 
-        // Find or Create Section
-        // A section is defined by (Type + Group) usually
-        // But in this data, a single row is a "Session".
-        // We need to aggregate sessions into sections.
-        // Let's assume unique section ID = `${type}-${rawGroup}`
-
-        let section = course.sections.find(s => s.type === type && s.group === rawGroup);
-        if (!section) {
-            section = {
-                id: `${rawCode}-${type}-${rawGroup}`,
-                courseCode: rawCode,
-                type: type,
-                group: rawGroup,
-                sessions: []
-            };
-            course.sections.push(section);
-        }
+        // Create a distinct Section per row.
+        // Some inputs reuse the same group number for different lecture times,
+        // and we do NOT want those to be merged into a multi-session section.
+        const sectionId = `${rawCode}-${type}-${rawGroup}-${rawDay}-${rawFrom}-${rawTo}`;
+        const section: Section = {
+            id: sectionId,
+            courseCode: rawCode,
+            type,
+            group: rawGroup,
+            sessions: []
+        };
+        course.sections.push(section);
 
         // Create clean time strings
         const cleanStart = rawFrom.includes(':') ? rawFrom : `${rawFrom}:00`;
