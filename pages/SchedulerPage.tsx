@@ -15,6 +15,9 @@ import { getConflict, getConflictAlternatives, ConflictSuggestion } from '../uti
 import PinModal from '../components/PinModal';
 import ShareModal from '../components/ShareModal';
 import SaveModal from '../components/SaveModal';
+import { DEFAULT_SCHEDULE_NAME, TERM_LABEL } from '../constants';
+
+type SaveStatus = 'idle' | 'saving' | 'saved' | 'failed';
 
 const SchedulerPage: React.FC = () => {
     const [courses, setCourses] = useState<Course[]>([]);
@@ -43,7 +46,36 @@ const SchedulerPage: React.FC = () => {
     const [isDirty, setIsDirty] = useState(false);
     const [isNewUser, setIsNewUser] = useState(false); // Track first-time users for autosave
     const [hasPromptedForPin, setHasPromptedForPin] = useState(false); // Track if we've prompted for PIN this session
+    const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
+    const [lastSavedAt, setLastSavedAt] = useState<number | null>(null);
+    const [saveError, setSaveError] = useState<string | null>(null);
     const autosaveChangeCount = useRef(0);
+    const dirtyVersion = useRef(0);
+    const saveRequestId = useRef(0);
+
+    const markDirty = () => {
+        dirtyVersion.current += 1;
+        setIsDirty(true);
+        setSaveStatus('idle');
+        setSaveError(null);
+    };
+
+    const serializeSelections = (items: CourseSelection[]) => items.map(s => ({
+        courseCode: s.course.code,
+        selectedLectureId: s.selectedLectureId,
+        selectedTutorialId: s.selectedTutorialId,
+        selectedLabId: s.selectedLabId,
+        selectedMthsGroup: s.selectedMthsGroup,
+        lockedLecture: s.lockedLecture,
+        lockedTutorial: s.lockedTutorial,
+        lockedLab: s.lockedLab,
+        lockedMthsGroup: s.lockedMthsGroup
+    }));
+
+    const formatLastSaved = (timestamp: number) => new Date(timestamp * 1000).toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
 
     // Unsaved changes warning
     useEffect(() => {
@@ -152,7 +184,8 @@ const SchedulerPage: React.FC = () => {
 
                     if (status && status.exists && !status.protected && status.schedule_json) {
                         setSelections(parseScheduleData(status.schedule_json, courseData));
-                        setScheduleName(status.schedule_name || null);
+                        setScheduleName(status.schedule_name || DEFAULT_SCHEDULE_NAME);
+                        setSaveStatus('saved');
                         setShowWelcome(false);
                     } else if (status && status.exists && status.protected) {
                         // Protected: Logged out effectively. Show Welcome.
@@ -162,7 +195,7 @@ const SchedulerPage: React.FC = () => {
                         // Not found or network error?
                         if (status && !status.exists) {
                             setSelections([]);
-                            setScheduleName(null);
+                            setScheduleName(DEFAULT_SCHEDULE_NAME);
                             setShowWelcome(false);
                         } else {
                             setShowWelcome(true);
@@ -205,13 +238,15 @@ const SchedulerPage: React.FC = () => {
         localStorage.setItem('student_id', id);
         setShowWelcome(false);
         setSessionPin(null);
-        setScheduleName(status.exists ? status.schedule_name || null : null);
+        setScheduleName(status.exists ? status.schedule_name || DEFAULT_SCHEDULE_NAME : DEFAULT_SCHEDULE_NAME);
         setIsNewUser(!status.exists);
 
         if (status.exists && status.schedule_json) {
             setSelections(parseScheduleData(status.schedule_json, courses));
+            setSaveStatus('saved');
         } else {
             setSelections([]);
+            setSaveStatus('idle');
         }
     };
 
@@ -227,9 +262,10 @@ const SchedulerPage: React.FC = () => {
                 setStudentId(pendingId);
                 localStorage.setItem('student_id', pendingId);
                 setSessionPin(pin);
-                setScheduleName(status.schedule_name || null);
-                setSelections(parseScheduleData(status.schedule_json, courses));
-                setPendingId(null);
+                setScheduleName(status.schedule_name || DEFAULT_SCHEDULE_NAME);
+            setSelections(parseScheduleData(status.schedule_json, courses));
+            setSaveStatus('saved');
+            setPendingId(null);
                 setPendingName(null);
             } else {
                 alert("Incorrect PIN");
@@ -257,7 +293,7 @@ const SchedulerPage: React.FC = () => {
             localStorage.setItem('student_id', pendingId);
             setSelections([]);
             setSessionPin(null);
-            setScheduleName(null);
+            setScheduleName(DEFAULT_SCHEDULE_NAME);
             setPendingId(null);
             setPendingName(null);
             setShowWelcome(false); // Actually stay logged in as per flow "make a new one"
@@ -278,31 +314,41 @@ const SchedulerPage: React.FC = () => {
         setShowWelcome(true);
     };
 
-    // Autosave for ALL users - silently save full schedule data
-    // Autosave for ALL users - silently save full schedule data
     useEffect(() => {
-        // Autosave for ALL logged-in users with at least one course. Only if dirty.
-        if (!studentId || selections.length === 0 || !isDirty) return;
+        // Autosave for all logged-in users. Empty schedules are saved after a user clears courses.
+        if (!studentId || !isDirty) return;
 
         autosaveChangeCount.current += 1;
+        const versionAtSchedule = dirtyVersion.current;
 
-        const save = async () => {
-            // Save full schedule data including time selections
-            const dataToSave = selections.map(s => ({
-                courseCode: s.course.code,
-                selectedLectureId: s.selectedLectureId,
-                selectedTutorialId: s.selectedTutorialId,
-                selectedLabId: s.selectedLabId,
-                selectedMthsGroup: s.selectedMthsGroup
-            }));
+        const save = async (attempt = 1) => {
+            const requestId = ++saveRequestId.current;
+            const activeScheduleName = scheduleName || DEFAULT_SCHEDULE_NAME;
+            const dataToSave = serializeSelections(selections);
+            setSaveStatus('saving');
+            setSaveError(null);
 
-            // Save without PIN - single schedule per ID (always 'spring26')
-            const result = await saveSchedule(studentId, JSON.stringify(dataToSave), undefined, 'spring26');
+            const result = await saveSchedule(studentId, JSON.stringify(dataToSave), undefined, activeScheduleName, 'autosave');
 
             if (result.success) {
-                console.log('Autosaved schedule');
-                setIsDirty(false);
-                autosaveChangeCount.current = 0;
+                if (requestId === saveRequestId.current && versionAtSchedule === dirtyVersion.current) {
+                    setIsDirty(false);
+                    autosaveChangeCount.current = 0;
+                    setScheduleName(result.schedule_name || activeScheduleName);
+                    setLastSavedAt(result.updated_at || Math.floor(Date.now() / 1000));
+                    setSaveStatus('saved');
+                }
+                return;
+            }
+
+            if (attempt < 3) {
+                window.setTimeout(() => save(attempt + 1), attempt * 1200);
+                return;
+            }
+
+            if (requestId === saveRequestId.current) {
+                setSaveStatus('failed');
+                setSaveError(result.message || 'Autosave failed');
             }
         };
 
@@ -315,7 +361,7 @@ const SchedulerPage: React.FC = () => {
             const timeoutId = setTimeout(save, 600);
             return () => clearTimeout(timeoutId);
         }
-    }, [selections, studentId, isDirty]);
+    }, [selections, studentId, isDirty, scheduleName]);
 
     // Detect when schedule is complete (all required sections selected)
     const isScheduleComplete = useMemo(() => {
@@ -364,37 +410,36 @@ const SchedulerPage: React.FC = () => {
         setSelections([...selections, { course }]);
         setSearchTerm('');
         setIsDropdownOpen(false);
-        setIsDirty(true);
+        markDirty();
     };
 
     const removeCourse = (courseCode: string) => {
         setSelections(selections.filter(s => s.course.code !== courseCode));
-        setIsDirty(true);
+        markDirty();
     };
 
     const updateSelection = (updated: CourseSelection) => {
         setSelections(selections.map(s => s.course.code === updated.course.code ? updated : s));
-        setIsDirty(true);
+        markDirty();
     };
 
     const performSave = async () => {
         if (!studentId) return;
 
-        const dataToSave = selections.map(s => ({
-            courseCode: s.course.code,
-            selectedLectureId: s.selectedLectureId,
-            selectedTutorialId: s.selectedTutorialId,
-            selectedLabId: s.selectedLabId,
-            selectedMthsGroup: s.selectedMthsGroup
-        }));
+        const dataToSave = serializeSelections(selections);
+        const activeScheduleName = scheduleName || DEFAULT_SCHEDULE_NAME;
 
-        // Single schedule per ID - always use 'spring26', no PIN
-        const result = await saveSchedule(studentId, JSON.stringify(dataToSave), undefined, 'spring26');
+        const result = await saveSchedule(studentId, JSON.stringify(dataToSave), undefined, activeScheduleName, 'manual_save');
 
         if (result.success) {
             setIsDirty(false);
+            setScheduleName(result.schedule_name || activeScheduleName);
+            setLastSavedAt(result.updated_at || Math.floor(Date.now() / 1000));
+            setSaveStatus('saved');
             alert('Schedule saved successfully!');
         } else {
+            setSaveStatus('failed');
+            setSaveError(result.message || 'Save failed');
             alert(`Failed to save: ${result.message}`);
         }
     };
@@ -430,13 +475,17 @@ const SchedulerPage: React.FC = () => {
             return base;
         });
 
-        const result = await saveSchedule(studentId, JSON.stringify(dataToSave), undefined, name);
+        const result = await saveSchedule(studentId, JSON.stringify(dataToSave), undefined, name, 'manual_save');
 
         if (result.success) {
             setIsDirty(false);
-            setScheduleName(name);
+            setScheduleName(result.schedule_name || name);
+            setLastSavedAt(result.updated_at || Math.floor(Date.now() / 1000));
+            setSaveStatus('saved');
             alert(`Schedule "${name}" saved successfully!`);
         } else {
+            setSaveStatus('failed');
+            setSaveError(result.message || 'Save failed');
             alert(`Failed to save: ${result.message}`);
         }
     };
@@ -451,6 +500,7 @@ const SchedulerPage: React.FC = () => {
             setSelections(parseScheduleData(status.schedule_json, courses));
             setScheduleName(name);
             setIsDirty(false);
+            setSaveStatus('saved');
         } else {
             alert('Failed to load schedule');
         }
@@ -512,7 +562,7 @@ const SchedulerPage: React.FC = () => {
         });
         setSelections(selectionsWithLocks);
         setIsOptimizerOpen(false);
-        setIsDirty(true);
+        markDirty();
         // Autosave will handle saving automatically via the useEffect
     };
 
@@ -608,7 +658,7 @@ const SchedulerPage: React.FC = () => {
                 }
                 return sel;
             }));
-            setIsDirty(true);
+            markDirty();
         }
     };
 
@@ -628,6 +678,7 @@ const SchedulerPage: React.FC = () => {
             }
             return sel;
         }));
+        markDirty();
     };
 
     return (
@@ -648,10 +699,30 @@ const SchedulerPage: React.FC = () => {
                             <Calendar size={20} />
                         </div>
                         <h1 className="text-base md:text-lg font-bold tracking-tight">
-                            Spring 2026
+                            {TERM_LABEL}
                         </h1>
                     </div>
                     <div className="flex items-center gap-1">
+                        {studentId && (
+                            <div
+                                className={`hidden md:flex items-center gap-1.5 mr-1 px-2.5 py-1.5 rounded-full text-[11px] font-medium ${saveStatus === 'failed'
+                                    ? 'bg-red-50 text-red-600 dark:bg-red-950/50 dark:text-red-300'
+                                    : saveStatus === 'saving'
+                                        ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300'
+                                        : 'bg-[--bg-tertiary] text-[--text-tertiary]'
+                                    }`}
+                                title={saveError || undefined}
+                            >
+                                {saveStatus === 'saving' && <Loader size={12} className="animate-spin" />}
+                                {saveStatus === 'failed'
+                                    ? 'Autosave failed'
+                                    : saveStatus === 'saved' && lastSavedAt
+                                        ? `Saved ${formatLastSaved(lastSavedAt)}`
+                                        : isDirty
+                                            ? 'Unsaved changes'
+                                            : 'Autosave ready'}
+                            </div>
+                        )}
                         {studentId && (
                             <div className="hidden sm:flex items-center gap-2 mr-2 bg-[--bg-tertiary] px-3 py-1.5 rounded-full">
                                 <span className="text-xs font-medium text-[--text-tertiary]">ID: {studentId}</span>
@@ -771,7 +842,7 @@ const SchedulerPage: React.FC = () => {
                                                     }
                                                     return sel;
                                                 }));
-                                                setIsDirty(true);
+                                                markDirty();
                                             };
 
                                             return (

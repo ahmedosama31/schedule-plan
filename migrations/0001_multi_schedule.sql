@@ -6,16 +6,16 @@ CREATE TABLE schedules_new (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   student_id TEXT NOT NULL,
   pin TEXT,
-  schedule_name TEXT NOT NULL DEFAULT 'spring26',
+  schedule_name TEXT NOT NULL DEFAULT 'summer26',
   schedule_json TEXT NOT NULL, 
   created_at INTEGER DEFAULT (unixepoch()),
   updated_at INTEGER DEFAULT (unixepoch()),
   UNIQUE(student_id, schedule_name)
 );
 
--- Step 2: Copy existing data (set schedule_name to spring26 for existing records)
+-- Step 2: Copy existing data (set schedule_name to summer26 for existing records without a name)
 INSERT INTO schedules_new (student_id, pin, schedule_name, schedule_json, created_at, updated_at)
-SELECT student_id, pin, COALESCE(schedule_name, 'spring26'), schedule_json, created_at, updated_at
+SELECT student_id, pin, COALESCE(schedule_name, 'summer26'), schedule_json, created_at, updated_at
 FROM schedules;
 
 -- Step 3: Drop old table and rename new one

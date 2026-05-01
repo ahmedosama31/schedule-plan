@@ -3,6 +3,8 @@ import { COURSES as STATIC_COURSES } from '../data'; // Fallback to static data
 
 const API_BASE = '/api';
 
+export type SaveScheduleSource = 'autosave' | 'manual_save';
+
 const splitMultiSessionSections = (courses: Course[]): Course[] => {
     return courses.map(course => {
         const normalized: Section[] = [];
@@ -35,18 +37,24 @@ export const fetchCourses = async (): Promise<Course[]> => {
     }
 };
 
-export const saveSchedule = async (studentId: string, scheduleJson: string, pin?: string, scheduleName?: string): Promise<{ success: boolean, message?: string }> => {
+export const saveSchedule = async (
+    studentId: string,
+    scheduleJson: string,
+    pin?: string,
+    scheduleName?: string,
+    source: SaveScheduleSource = 'manual_save'
+): Promise<{ success: boolean, message?: string, schedule_name?: string, updated_at?: number }> => {
     try {
         const response = await fetch(`${API_BASE}/schedules`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ student_id: studentId, schedule_json: scheduleJson, pin, schedule_name: scheduleName })
+            body: JSON.stringify({ student_id: studentId, schedule_json: scheduleJson, pin, schedule_name: scheduleName, source })
         });
         if (!response.ok) {
             const err = await response.json().catch(() => ({ error: 'Unknown error' })) as { error?: string };
             return { success: false, message: err.error || response.statusText };
         }
-        return { success: true };
+        return await response.json() as { success: boolean, schedule_name?: string, updated_at?: number };
     } catch (e) {
         console.error("Save failed", e);
         return { success: false, message: "Network error" };
@@ -129,6 +137,17 @@ export interface AdminSchedule {
     updated_at: number;
 }
 
+export interface AdminActivityLog {
+    id: number;
+    student_id: string;
+    schedule_name: string;
+    action: 'autosave' | 'manual_save' | 'delete';
+    status: 'success' | 'failed';
+    course_count: number;
+    error_message?: string | null;
+    created_at: number;
+}
+
 export const fetchStats = async (): Promise<StatsResponse | null> => {
     try {
         const response = await fetch(`${API_BASE}/stats`);
@@ -154,6 +173,35 @@ export const fetchAllSchedules = async (adminPassword: string): Promise<AdminSch
         return await response.json() as AdminSchedule[];
     } catch (e) {
         console.error("Fetch all schedules failed", e);
+        return [];
+    }
+}
+
+export const fetchActivityLogs = async (
+    adminPassword: string,
+    filters: Partial<Pick<AdminActivityLog, 'student_id' | 'schedule_name' | 'action' | 'status'>> & { limit?: number } = {}
+): Promise<AdminActivityLog[]> => {
+    try {
+        const params = new URLSearchParams();
+        if (filters.student_id) params.set('student_id', filters.student_id);
+        if (filters.schedule_name) params.set('schedule_name', filters.schedule_name);
+        if (filters.action) params.set('action', filters.action);
+        if (filters.status) params.set('status', filters.status);
+        if (filters.limit) params.set('limit', String(filters.limit));
+
+        const query = params.toString();
+        const response = await fetch(`${API_BASE}/admin/activity${query ? `?${query}` : ''}`, {
+            headers: {
+                'Authorization': `Bearer ${adminPassword}`
+            }
+        });
+        if (!response.ok) {
+            if (response.status === 401) throw new Error("Unauthorized");
+            throw new Error("Failed to fetch activity logs");
+        }
+        return await response.json() as AdminActivityLog[];
+    } catch (e) {
+        console.error("Fetch activity logs failed", e);
         return [];
     }
 }

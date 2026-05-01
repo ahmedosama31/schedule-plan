@@ -1,4 +1,4 @@
-# Spring 2026 Schedule Planner
+# Summer 2026 Schedule Planner
 
 A student-first schedule planner built because the university portal lists courses but does not let students plan or compare full schedules. This site fixes that with search, conflict checks, optimization, saving, and sharing.
 
