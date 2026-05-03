@@ -3,6 +3,7 @@ import { Course, Section, SectionType, ClassSession, DayOfWeek } from '../types'
 export const parseRawCourseData = (rawText: string): Course[] => {
     const lines = rawText.split('\n');
     const coursesMap = new Map<string, Course>();
+    const sectionsMap = new Map<string, Section>();
 
     lines.forEach(line => {
         const parts = line.split('\t').map(p => p.trim());
@@ -63,18 +64,23 @@ export const parseRawCourseData = (rawText: string): Course[] => {
 
         const course = coursesMap.get(rawCode)!;
 
-        // Create a distinct Section per row.
-        // Some inputs reuse the same group number for different lecture times,
-        // and we do NOT want those to be merged into a multi-session section.
         const sectionId = `${rawCode}-${type}-${rawGroup}-${rawDay}-${rawFrom}-${rawTo}`;
-        const section: Section = {
-            id: sectionId,
-            courseCode: rawCode,
-            type,
-            group: rawGroup,
-            sessions: []
-        };
-        course.sections.push(section);
+        const sectionKey = `${rawCode}|${type}|${rawGroup}`;
+        let section = sectionsMap.get(sectionKey);
+        if (!section) {
+            section = {
+                id: sectionId,
+                legacyIds: [sectionId],
+                courseCode: rawCode,
+                type,
+                group: rawGroup,
+                sessions: []
+            };
+            sectionsMap.set(sectionKey, section);
+            course.sections.push(section);
+        } else if (!section.legacyIds?.includes(sectionId)) {
+            section.legacyIds = [...(section.legacyIds || []), sectionId];
+        }
 
         // Create clean time strings
         const cleanStart = rawFrom.includes(':') ? rawFrom : `${rawFrom}:00`;
@@ -83,13 +89,23 @@ export const parseRawCourseData = (rawText: string): Course[] => {
         // Cast Day safely
         const dayEnum = Object.values(DayOfWeek).find(d => d === rawDay) || DayOfWeek.Sunday; // Default fallback
 
-        section.sessions.push({
+        const session = {
             day: dayEnum as DayOfWeek,
             startHour: startHour,
             endHour: endHour,
             startString: cleanStart,
             endString: cleanEnd
-        });
+        };
+
+        if (!section.sessions.some(s =>
+            s.day === session.day &&
+            s.startHour === session.startHour &&
+            s.endHour === session.endHour &&
+            s.startString === session.startString &&
+            s.endString === session.endString
+        )) {
+            section.sessions.push(session);
+        }
     });
 
     return Array.from(coursesMap.values());

@@ -36,6 +36,40 @@ const createSection = (
   };
 };
 
+const addSession = (
+  section: Section,
+  day: DayOfWeek,
+  startH: number,
+  startM: number,
+  endH: number,
+  endM: number,
+  location?: string
+): Section => {
+  const startDec = startH + startM / 60;
+  const endDec = endH + endM / 60;
+  const startStr = `${startH.toString().padStart(2, '0')}:${startM.toString().padStart(2, '0')}`;
+  const endStr = `${endH.toString().padStart(2, '0')}:${endM.toString().padStart(2, '0')}`;
+
+  return {
+    ...section,
+    legacyIds: [
+      ...(section.legacyIds || []),
+      `${section.courseCode}-${section.type.substring(0, 3)}-${section.group}-${day}-${startH}`
+    ],
+    sessions: [
+      ...section.sessions,
+      {
+        day,
+        startHour: startDec,
+        endHour: endDec,
+        startString: startStr,
+        endString: endStr,
+        location
+      },
+    ],
+  };
+};
+
 export const COURSES: Course[] = [
   {
     code: 'AEMS280',
@@ -746,8 +780,7 @@ export const COURSES: Course[] = [
       createSection('CMPS203', SectionType.Lecture, '1', DayOfWeek.Wednesday, 11, 0, 12, 50, '[3701]مدرج أولى حاسبات-60-الجيزة الرئيسي'),
       createSection('CMPS203', SectionType.Lecture, '2', DayOfWeek.Wednesday, 1, 0, 2, 50, '[3701]مدرج أولى حاسبات-60-الجيزة الرئيسي'),
       createSection('CMPS203', SectionType.Tutorial, '1', DayOfWeek.Wednesday, 8, 0, 10, 50, '[3706]3706-45-الجيزة الرئيسي'),
-      createSection('CMPS203', SectionType.Tutorial, '2', DayOfWeek.Wednesday, 1, 0, 3, 50, '[3706]3706-45-الجيزة الرئيسي'),
-      createSection('CMPS203', SectionType.Tutorial, '2', DayOfWeek.Wednesday, 4, 0, 6, 50, '[3706]3706-45-الجيزة الرئيسي'),
+      addSession(createSection('CMPS203', SectionType.Tutorial, '2', DayOfWeek.Wednesday, 1, 0, 3, 50, '[3706]3706-45-الجيزة الرئيسي'), DayOfWeek.Wednesday, 4, 0, 6, 50, '[3706]3706-45-الجيزة الرئيسي'),
       createSection('CMPS203', SectionType.Tutorial, '4', DayOfWeek.Sunday, 1, 0, 3, 50, '[0](CCEC Lab2) Lab Second Flour Arc.Building-0-الجيزة الرئيسي'),
       createSection('CMPS203', SectionType.Tutorial, '5', DayOfWeek.Sunday, 4, 0, 6, 50, '[0](CCEC Lab2) Lab Second Flour Arc.Building-0-الجيزة الرئيسي')
     ]
@@ -833,8 +866,7 @@ export const COURSES: Course[] = [
     isMTHS: false,
     sections: [
       createSection('CMPS405', SectionType.Lecture, '1', DayOfWeek.Tuesday, 9, 0, 10, 50, '[18202]18202-60-الجيزة الرئيسي'),
-      createSection('CMPS405', SectionType.Tutorial, '1', DayOfWeek.Tuesday, 4, 0, 5, 50, '[3706]3706-45-الجيزة الرئيسي'),
-      createSection('CMPS405', SectionType.Tutorial, '1', DayOfWeek.Sunday, 9, 0, 10, 50, '[0](CCEC Lab2) Lab Second Flour Arc.Building-0-الجيزة الرئيسي'),
+      addSession(createSection('CMPS405', SectionType.Tutorial, '1', DayOfWeek.Tuesday, 4, 0, 5, 50, '[3706]3706-45-الجيزة الرئيسي'), DayOfWeek.Sunday, 9, 0, 10, 50, '[0](CCEC Lab2) Lab Second Flour Arc.Building-0-الجيزة الرئيسي'),
       createSection('CMPS405', SectionType.Lecture, '2', DayOfWeek.Thursday, 2, 0, 3, 50, '[20104]20104-45-الجيزة الرئيسي'),
       createSection('CMPS405', SectionType.Tutorial, '3', DayOfWeek.Sunday, 9, 0, 10, 50, '[3203]Digital Computer Lab-45-الجيزة الرئيسي')
     ]
@@ -1003,12 +1035,11 @@ export const COURSES: Course[] = [
     sections: [
       createSection('EECS203', SectionType.Lecture, '1', DayOfWeek.Monday, 1, 0, 3, 50, '[20504]20504-60-الجيزة الرئيسي'),
       createSection('EECS203', SectionType.Lecture, '2', DayOfWeek.Monday, 8, 0, 10, 50, '[20107]20107-45-الجيزة الرئيسي'),
-      createSection('EECS203', SectionType.Lecture, '3', DayOfWeek.Sunday, 8, 0, 10, 50, '[20105]20105-45-الجيزة الرئيسي'),
+      addSession(createSection('EECS203', SectionType.Lecture, '3', DayOfWeek.Sunday, 8, 0, 10, 50, '[20105]20105-45-الجيزة الرئيسي'), DayOfWeek.Monday, 8, 0, 10, 50, '[20110]20110-45-الجيزة الرئيسي'),
       createSection('EECS203', SectionType.Tutorial, '1', DayOfWeek.Wednesday, 11, 0, 12, 50, '[20505]20505-45-الجيزة الرئيسي'),
       createSection('EECS203', SectionType.Tutorial, '2', DayOfWeek.Wednesday, 2, 0, 3, 50, '[20109]20109-45-الجيزة الرئيسي'),
       createSection('EECS203', SectionType.Tutorial, '3', DayOfWeek.Wednesday, 11, 0, 12, 50, '[20110]20110-45-الجيزة الرئيسي'),
       createSection('EECS203', SectionType.Tutorial, '4', DayOfWeek.Wednesday, 4, 0, 5, 50, '[20109]20109-45-الجيزة الرئيسي'),
-      createSection('EECS203', SectionType.Lecture, '3', DayOfWeek.Monday, 8, 0, 10, 50, '[20110]20110-45-الجيزة الرئيسي'),
       createSection('EECS203', SectionType.Tutorial, '5', DayOfWeek.Wednesday, 11, 0, 12, 50, '[20109]20109-45-الجيزة الرئيسي')
     ]
   },

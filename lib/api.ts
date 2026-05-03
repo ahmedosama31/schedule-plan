@@ -1,28 +1,51 @@
-import { Course, Section } from '../types';
+import { Course, Section, ClassSession } from '../types';
 import { COURSES as STATIC_COURSES } from '../data'; // Fallback to static data
 
 const API_BASE = '/api';
 
 export type SaveScheduleSource = 'autosave' | 'manual_save';
 
-const splitMultiSessionSections = (courses: Course[]): Course[] => {
+const sameSession = (a: ClassSession, b: ClassSession) =>
+    a.day === b.day &&
+    a.startHour === b.startHour &&
+    a.endHour === b.endHour &&
+    a.location === b.location;
+
+const mergeMultiSessionSections = (courses: Course[]): Course[] => {
     return courses.map(course => {
-        const normalized: Section[] = [];
+        const byGroup = new Map<string, Section>();
+
         for (const section of course.sections) {
-            if (!section.sessions || section.sessions.length <= 1) {
-                normalized.push(section);
+            const key = `${section.courseCode}|${section.type}|${section.group}`;
+            const existing = byGroup.get(key);
+
+            if (!existing) {
+                byGroup.set(key, {
+                    ...section,
+                    legacyIds: section.legacyIds ? [...section.legacyIds] : [section.id],
+                    sessions: [...(section.sessions || [])]
+                });
                 continue;
             }
-            section.sessions.forEach((session, idx) => {
-                normalized.push({
-                    ...section,
-                    id: `${section.id}-${session.day}-${session.startString}-${session.endString}-${idx}`,
-                    sessions: [session]
-                });
-            });
+
+            const legacyIds = new Set([...(existing.legacyIds || []), ...(section.legacyIds || []), section.id]);
+            existing.legacyIds = Array.from(legacyIds);
+
+            for (const session of section.sessions || []) {
+                if (!existing.sessions.some(existingSession => sameSession(existingSession, session))) {
+                    existing.sessions.push(session);
+                }
+            }
         }
-        return { ...course, sections: normalized };
+
+        return { ...course, sections: Array.from(byGroup.values()) };
     });
+};
+
+export const resolveSectionId = (course: Course, sectionId?: string): string | undefined => {
+    if (!sectionId) return undefined;
+    const section = course.sections.find(s => s.id === sectionId || s.legacyIds?.includes(sectionId));
+    return section?.id || sectionId;
 };
 
 export const fetchCourses = async (): Promise<Course[]> => {
@@ -30,10 +53,10 @@ export const fetchCourses = async (): Promise<Course[]> => {
         const response = await fetch(`${API_BASE}/courses`);
         if (!response.ok) throw new Error('Failed to fetch courses');
         const data = await response.json();
-        return splitMultiSessionSections(data as Course[]); // Normalize any multi-session sections
+        return mergeMultiSessionSections(data as Course[]);
     } catch (error) {
         console.warn('API fetch failed, falling back to static data:', error);
-        return splitMultiSessionSections(STATIC_COURSES);
+        return mergeMultiSessionSections(STATIC_COURSES);
     }
 };
 

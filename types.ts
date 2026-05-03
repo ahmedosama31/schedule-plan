@@ -24,6 +24,7 @@ export interface ClassSession {
 
 export interface Section {
   id: string; // Unique ID like "CMPS101-L1"
+  legacyIds?: string[];
   courseCode: string;
   type: SectionType;
   group: string; // "1", "2", "A", etc.

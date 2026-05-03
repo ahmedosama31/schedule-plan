@@ -9,7 +9,7 @@ import ThemeToggle from '../components/ThemeToggle';
 import { optimizeSchedule, ScheduleOption, findConflicts, selectionsToChoices, ConflictInfo } from '../optimizer';
 import { SchedulePreferences, DEFAULT_PREFERENCES } from '../preferences';
 import { Search, Calendar, PlusCircle, ChevronDown, Save, Zap, Loader, LogOut, FileWarning, Share, X, BookOpen, Grid3x3 } from 'lucide-react';
-import { fetchCourses, saveSchedule, loadSchedule, deleteSchedule, ScheduleResponse } from '../lib/api';
+import { fetchCourses, saveSchedule, loadSchedule, deleteSchedule, ScheduleResponse, resolveSectionId } from '../lib/api';
 import WelcomeModal from '../components/WelcomeModal';
 import { getConflict, getConflictAlternatives, ConflictSuggestion } from '../utils';
 import PinModal from '../components/PinModal';
@@ -123,9 +123,9 @@ const SchedulerPage: React.FC = () => {
                 if (!course) return null;
                 return {
                     course,
-                    selectedLectureId: p.selectedLectureId,
-                    selectedTutorialId: p.selectedTutorialId,
-                    selectedLabId: p.selectedLabId,
+                    selectedLectureId: resolveSectionId(course, p.selectedLectureId),
+                    selectedTutorialId: resolveSectionId(course, p.selectedTutorialId),
+                    selectedLabId: resolveSectionId(course, p.selectedLabId),
                     selectedMthsGroup: p.selectedMthsGroup,
                     // Restore lock state if saved
                     lockedLecture: p.lockedLecture,
@@ -159,9 +159,9 @@ const SchedulerPage: React.FC = () => {
                             if (!course) return null;
                             return {
                                 course,
-                                selectedLectureId: item.l,
-                                selectedTutorialId: item.t,
-                                selectedLabId: item.b,
+                                selectedLectureId: resolveSectionId(course, item.l),
+                                selectedTutorialId: resolveSectionId(course, item.t),
+                                selectedLabId: resolveSectionId(course, item.b),
                                 selectedMthsGroup: item.m
                             };
                         }).filter(Boolean);

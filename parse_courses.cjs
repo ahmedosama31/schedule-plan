@@ -93,13 +93,15 @@ function generateData() {
 
         const course = coursesMap.get(code);
 
-        // Add section generation code string
-        // createSection(code, type, group, day, sH, sM, eH, eM, location)
-        // Clean location: escape quotes
-        const safeLoc = location ? location.replace(/'/g, "\\'") : '';
-
-        const sectionStr = `      createSection('${code}', ${typeEnum}, '${group}', ${dayEnum}, ${start.h}, ${start.m}, ${end.h}, ${end.m}, '${safeLoc}')`;
-        course.sections.push(sectionStr);
+        course.sections.push({
+            code,
+            typeEnum,
+            group,
+            dayEnum,
+            start,
+            end,
+            location
+        });
     });
 
     // Generate output file content
@@ -141,19 +143,79 @@ const createSection = (
   };
 };
 
+const addSession = (
+  section: Section,
+  day: DayOfWeek,
+  startH: number,
+  startM: number,
+  endH: number,
+  endM: number,
+  location?: string
+): Section => {
+  const startDec = startH + startM / 60;
+  const endDec = endH + endM / 60;
+  const startStr = \`\${startH.toString().padStart(2, '0')}:\${startM.toString().padStart(2, '0')}\`;
+  const endStr = \`\${endH.toString().padStart(2, '0')}:\${endM.toString().padStart(2, '0')}\`;
+
+  return {
+    ...section,
+    legacyIds: [
+      ...(section.legacyIds || []),
+      \`\${section.courseCode}-\${section.type.substring(0, 3)}-\${section.group}-\${day}-\${startH}\`
+    ],
+    sessions: [
+      ...section.sessions,
+      {
+        day,
+        startHour: startDec,
+        endHour: endDec,
+        startString: startStr,
+        endString: endStr,
+        location
+      },
+    ],
+  };
+};
+
 export const COURSES: Course[] = [`;
 
     // specific sorting to match original helpful grouping if possible, but code sort is fine
     const sortedCourses = Array.from(coursesMap.values()).sort((a, b) => a.code.localeCompare(b.code));
 
     sortedCourses.forEach(c => {
+        const sectionsByGroup = new Map();
+
+        for (const section of c.sections) {
+            const key = `${section.typeEnum}|${section.group}`;
+            if (!sectionsByGroup.has(key)) {
+                sectionsByGroup.set(key, []);
+            }
+            sectionsByGroup.get(key).push(section);
+        }
+
+        const sectionLines = [];
+        for (const [, sections] of sectionsByGroup) {
+            const [first, ...rest] = sections;
+            const safeLoc = first.location ? first.location.replace(/'/g, "\\'") : '';
+            let sectionStr = `      createSection('${first.code}', ${first.typeEnum}, '${first.group}', ${first.dayEnum}, ${first.start.h}, ${first.start.m}, ${first.end.h}, ${first.end.m}, '${safeLoc}')`;
+
+            if (rest.length > 0) {
+                for (const extra of rest) {
+                    const extraLoc = extra.location ? extra.location.replace(/'/g, "\\'") : '';
+                    sectionStr = `      addSession(${sectionStr.trim()}, ${extra.dayEnum}, ${extra.start.h}, ${extra.start.m}, ${extra.end.h}, ${extra.end.m}, '${extraLoc}')`;
+                }
+            }
+
+            sectionLines.push(sectionStr);
+        }
+
         output += `
   {
     code: '${c.code}',
     name: '${c.name.replace(/'/g, "\\'")}',
     isMTHS: ${c.isMTHS},
     sections: [
-${c.sections.join(',\n')}
+${sectionLines.join(',\n')}
     ]
   },`;
     });
