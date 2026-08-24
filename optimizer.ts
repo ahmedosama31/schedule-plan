@@ -54,6 +54,8 @@ const DAY_ORDER: DayOfWeek[] = [
     DayOfWeek.Thursday
 ];
 
+const LONG_DAY_HOURS = 9;
+
 /**
  * Gets all possible section combinations for a single course.
  * For non-MTHS courses: all combos of (lecture × tutorial × lab)
@@ -252,6 +254,8 @@ function* generateCombinations<T>(arrays: T[][]): Generator<T[]> {
  * Returns true if the schedule should be EXCLUDED.
  */
 function violatesHardConstraints(choices: CourseChoice[], prefs: SchedulePreferences): boolean {
+    const dailyBounds = new Map<DayOfWeek, { start: number; end: number }>();
+
     for (const choice of choices) {
         for (const section of choice.sections) {
             for (const session of section.sessions) {
@@ -267,6 +271,23 @@ function violatesHardConstraints(choices: CourseChoice[], prefs: SchedulePrefere
                 if (prefs.avoidDays && prefs.avoidDays.includes(session.day)) {
                     return true;
                 }
+
+                if (prefs.noLongDays) {
+                    const bounds = dailyBounds.get(session.day);
+                    dailyBounds.set(session.day, {
+                        start: Math.min(bounds?.start ?? session.startHour, session.startHour),
+                        end: Math.max(bounds?.end ?? session.endHour, session.endHour)
+                    });
+                }
+            }
+        }
+    }
+
+    // A long day is measured from the first class start to the last class end.
+    if (prefs.noLongDays) {
+        for (const { start, end } of dailyBounds.values()) {
+            if (end - start > LONG_DAY_HOURS) {
+                return true;
             }
         }
     }
@@ -539,7 +560,7 @@ function calculateHealthAndFlags(choices: CourseChoice[], daysUsed: DayOfWeek[])
         }
 
         // Long Day Penalty
-        if (duration > 9) {
+        if (duration > LONG_DAY_HOURS) {
             score -= 15;
             hasLongDay = true;
         }

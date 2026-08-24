@@ -529,6 +529,12 @@ const SchedulerPage: React.FC = () => {
             if (preferences.preferConsecutive) {
                 activePrefs.push('Preferring consecutive classes');
             }
+            if (preferences.noLongDays) {
+                activePrefs.push('No days spanning more than 9 hours');
+            }
+            if (preferences.excludeSingleSessionDays) {
+                activePrefs.push('No days with only 1 class');
+            }
 
             let errorMsg = '⚠️ No valid schedules found with your current preferences.';
             if (activePrefs.length > 0) {

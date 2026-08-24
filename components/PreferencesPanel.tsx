@@ -1,7 +1,7 @@
 import React from 'react';
 import { SchedulePreferences, DEFAULT_PREFERENCES } from '../preferences';
 import { DayOfWeek } from '../types';
-import { Settings, Clock, CalendarX, Zap, ChevronDown, ChevronUp, UserX } from 'lucide-react';
+import { Settings, Clock, CalendarX, Zap, ChevronDown, ChevronUp, UserX, TimerOff } from 'lucide-react';
 
 interface Props {
     preferences: SchedulePreferences;
@@ -63,6 +63,10 @@ const PreferencesPanel: React.FC<Props> = ({ preferences, onChange, isExpanded, 
         onChange({ ...preferences, excludeSingleSessionDays: !preferences.excludeSingleSessionDays });
     };
 
+    const handleLongDaysToggle = () => {
+        onChange({ ...preferences, noLongDays: !preferences.noLongDays });
+    };
+
     const handleReset = () => {
         onChange({ ...DEFAULT_PREFERENCES });
     };
@@ -74,6 +78,7 @@ const PreferencesPanel: React.FC<Props> = ({ preferences, onChange, isExpanded, 
         (preferences.avoidDays?.length || 0) > 0,
         preferences.preferConsecutive,
         preferences.excludeSingleSessionDays,
+        preferences.noLongDays,
     ].filter(Boolean).length;
 
     return (
@@ -174,6 +179,28 @@ const PreferencesPanel: React.FC<Props> = ({ preferences, onChange, isExpanded, 
                         >
                             <span
                                 className={`block w-4 h-4 bg-white dark:bg-neutral-900 rounded-full shadow-sm transition-transform ${preferences.preferConsecutive ? 'translate-x-4' : 'translate-x-0'}`}
+                            />
+                        </button>
+                    </div>
+
+                    {/* Exclude Long Days */}
+                    <div className="flex items-center justify-between gap-2 p-2.5 bg-[--bg-primary] rounded-xl border border-[--border-primary]">
+                        <div className="flex items-center gap-2 flex-1 min-w-0">
+                            <TimerOff size={12} className="text-violet-500 flex-shrink-0" />
+                            <div className="min-w-0">
+                                <div className="text-xs text-[--text-secondary]">No long days</div>
+                                <div className="text-[10px] text-[--text-muted]">Exclude days spanning more than 9 hours</div>
+                            </div>
+                        </div>
+                        <button
+                            type="button"
+                            aria-label="No long days"
+                            aria-pressed={Boolean(preferences.noLongDays)}
+                            onClick={handleLongDaysToggle}
+                            className={`w-9 h-5 rounded-full transition-colors flex-shrink-0 p-0.5 ${preferences.noLongDays ? 'bg-neutral-900 dark:bg-neutral-100' : 'bg-neutral-300 dark:bg-neutral-600'}`}
+                        >
+                            <span
+                                className={`block w-4 h-4 bg-white dark:bg-neutral-900 rounded-full shadow-sm transition-transform ${preferences.noLongDays ? 'translate-x-4' : 'translate-x-0'}`}
                             />
                         </button>
                     </div>
