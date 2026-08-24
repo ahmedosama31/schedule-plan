@@ -54,7 +54,15 @@ const DAY_ORDER: DayOfWeek[] = [
     DayOfWeek.Thursday
 ];
 
+// University timetable blocks leave ten minutes for changing rooms. That
+// passing time is not an idle gap; only free time beyond it should be scored.
+const PASSING_TIME_MINUTES = 10;
 const LONG_DAY_HOURS = 9;
+
+function calculateIdleGapHours(previousEnd: number, nextStart: number): number {
+    const minutesBetween = Math.round((nextStart - previousEnd) * 60);
+    return Math.max(0, minutesBetween - PASSING_TIME_MINUTES) / 60;
+}
 
 /**
  * Gets all possible section combinations for a single course.
@@ -147,9 +155,6 @@ export function findConflicts(choices: CourseChoice[]): ConflictInfo[] {
             const a = allSessions[i];
             const b = allSessions[j];
 
-            // Skip if same course
-            if (a.course === b.course) continue;
-
             if (sessionsOverlap(a.session, b.session)) {
                 conflicts.push({
                     course1: a.course,
@@ -213,9 +218,9 @@ function calculateGapScore(choices: CourseChoice[]): number {
 
         // Calculate gaps between consecutive sessions
         for (let i = 1; i < sessions.length; i++) {
-            const gap = sessions[i].start - sessions[i - 1].end;
-            if (gap > 0) {
-                totalGap += gap;
+            const idleGap = calculateIdleGapHours(sessions[i - 1].end, sessions[i].start);
+            if (idleGap > 0) {
+                totalGap += idleGap;
             }
         }
     }
@@ -453,6 +458,7 @@ export function optimizeSchedule(
     // 1. Fewer days is better - PRIMARY
     // 2. Lower gap score is better - SECONDARY  
     // 3. Health Score (Higher is better) - TERTIARY
+    // 4. Stable section signature - deterministic tie-breaker
     validOptions.sort((a, b) => {
         // 1. Day Count (Fewer is better)
         if (a.dayCount !== b.dayCount) {
@@ -465,42 +471,25 @@ export function optimizeSchedule(
         }
 
         // 3. Health Score (Higher is better)
-        return b.healthScore - a.healthScore;
+        if (a.healthScore !== b.healthScore) {
+            return b.healthScore - a.healthScore;
+        }
+
+        const signature = (option: ScheduleOption) => option.choices
+            .map(choice => [
+                choice.course.code,
+                choice.lectureId || '',
+                choice.tutorialId || '',
+                choice.labId || '',
+                choice.mthsGroup || '',
+            ].join(':'))
+            .join('|');
+        const aSignature = signature(a);
+        const bSignature = signature(b);
+        return aSignature < bSignature ? -1 : aSignature > bSignature ? 1 : 0;
     });
 
-    // Group schedules into quality tiers and shuffle within each tier
-    // This adds variety without sacrificing the best options
-    const tieredResults: ScheduleOption[] = [];
-    let currentTierStart = 0;
-
-    for (let i = 1; i <= validOptions.length && tieredResults.length < topN; i++) {
-        // Check if we've moved to a different tier (different day count or significantly different gap)
-        const isTierBoundary = i === validOptions.length ||
-            validOptions[i].dayCount !== validOptions[currentTierStart].dayCount ||
-            Math.abs(validOptions[i].gapScore - validOptions[currentTierStart].gapScore) > 1.5;
-
-        if (isTierBoundary) {
-            // Get items in this tier
-            const tierItems = validOptions.slice(currentTierStart, i);
-
-            // Light shuffle within tier (Fisher-Yates on a subset)
-            for (let j = tierItems.length - 1; j > 0; j--) {
-                const k = Math.floor(Math.random() * (j + 1));
-                [tierItems[j], tierItems[k]] = [tierItems[k], tierItems[j]];
-            }
-
-            // Add shuffled tier items to results
-            for (const item of tierItems) {
-                if (tieredResults.length < topN) {
-                    tieredResults.push(item);
-                }
-            }
-
-            currentTierStart = i;
-        }
-    }
-
-    return tieredResults;
+    return validOptions.slice(0, topN);
 }
 
 /**
@@ -575,11 +564,11 @@ function calculateHealthAndFlags(choices: CourseChoice[], daysUsed: DayOfWeek[])
 
             if (i > 0) {
                 const prev = sessions[i - 1];
-                const gap = current.start - prev.end;
+                const idleGap = calculateIdleGapHours(prev.end, current.start);
 
-                if (gap > 0) {
+                if (idleGap > 0) {
                     currentBlock = 0;
-                    if (gap > 3) {
+                    if (idleGap > 3) {
                         score -= 8;
                         hasHugeGap = true;
                     }
@@ -625,8 +614,8 @@ function calculateHealthAndFlags(choices: CourseChoice[], daysUsed: DayOfWeek[])
         if (sessions.length <= 1) continue;
         sessions.sort((a, b) => a.start - b.start);
         for (let i = 1; i < sessions.length; i++) {
-            const gap = sessions[i].start - sessions[i - 1].end;
-            if (gap > 0) totalGapHours += gap;
+            const idleGap = calculateIdleGapHours(sessions[i - 1].end, sessions[i].start);
+            if (idleGap > 0) totalGapHours += idleGap;
         }
     }
     score -= Math.round(totalGapHours * 2);

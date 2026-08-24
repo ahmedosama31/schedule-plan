@@ -7,6 +7,7 @@ declare module '@cloudflare/workers-types' {
 
 interface Env {
     DB: D1Database;
+    ADMIN_PASSWORD?: string;
 }
 
 type PagesFunction<Env = any> = (context: {

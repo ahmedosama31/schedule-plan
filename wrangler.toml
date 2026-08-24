@@ -1,5 +1,6 @@
 name = "schedule-planner"
-compatibility_date = "2024-01-01"
+compatibility_date = "2026-08-24"
+compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "dist"
 
 [[d1_databases]]

@@ -1,0 +1,40 @@
+{
+  "semesterId": "fall-2026-27",
+  "semesterLabel": "Fall 2026/27",
+  "importedAt": "2026-08-24T12:57:50+03:00",
+  "courseCount": 138,
+  "sectionCount": 369,
+  "sessionCount": 369,
+  "sources": [
+    {
+      "name": "pasted-text.txt",
+      "sha256": "835e432fd8fb27678d539e21960d4a571908625738b49401e04db8c7b4e534a4",
+      "parsedRows": 240
+    },
+    {
+      "name": "F26 CCE_CCEE Schedule.pdf",
+      "sha256": "bd93401c3521d5f8319f4ce93f9c95b5e6d014cabf43ef5efdb5f24cafa534cb",
+      "parsedRows": 86
+    },
+    {
+      "name": "complete_course_schedule.xlsx",
+      "sha256": "4d0f1676d1108e020fd8b8e8e24cac64be3c151accd58a93114daadf46d9adb5",
+      "parsedRows": 90
+    }
+  ],
+  "mergeStats": {
+    "curated-workbook:accepted": 50,
+    "curated-workbook:duplicate": 29,
+    "curated-workbook:section-conflict": 9,
+    "curated-workbook:type-conflict": 2,
+    "faculty-pdf:accepted": 79,
+    "faculty-pdf:duplicate": 1,
+    "faculty-pdf:section-conflict": 5,
+    "faculty-pdf:type-conflict": 1,
+    "portal-tsv:accepted": 240
+  },
+  "courseCodeReferences": [
+    "https://eng.cu.edu.eg/wp-content/uploads/credituser/2015/CUFE_STEP_2023BYLAWS_CCE_V1-R-op.pdf",
+    "https://eng.cu.edu.eg/wp-content/uploads/credituser/2015/FA25-ADM_AN_009-final-fall-205-v_5.pdf"
+  ]
+}

@@ -1,5 +1,6 @@
 import { Course, Section, ClassSession } from '../types';
-import { COURSES as STATIC_COURSES } from '../data'; // Fallback to static data
+import { COURSES_BY_SEMESTER } from '../data';
+import { ACTIVE_SEMESTER_ID } from '../constants';
 
 const API_BASE = '/api';
 
@@ -48,15 +49,15 @@ export const resolveSectionId = (course: Course, sectionId?: string): string | u
     return section?.id || sectionId;
 };
 
-export const fetchCourses = async (): Promise<Course[]> => {
+export const fetchCourses = async (semesterId = ACTIVE_SEMESTER_ID): Promise<Course[]> => {
     try {
-        const response = await fetch(`${API_BASE}/courses`);
+        const response = await fetch(`${API_BASE}/courses?semester_id=${encodeURIComponent(semesterId)}`);
         if (!response.ok) throw new Error('Failed to fetch courses');
         const data = await response.json();
         return mergeMultiSessionSections(data as Course[]);
     } catch (error) {
         console.warn('API fetch failed, falling back to static data:', error);
-        return mergeMultiSessionSections(STATIC_COURSES);
+        return mergeMultiSessionSections(COURSES_BY_SEMESTER[semesterId] || COURSES_BY_SEMESTER[ACTIVE_SEMESTER_ID]);
     }
 };
 
@@ -229,12 +230,77 @@ export const fetchActivityLogs = async (
     }
 }
 
-export const updateCourseData = async (rawText: string, parsedJson: string): Promise<boolean> => {
+export interface CatalogRevision {
+    id: number;
+    semester_id: string;
+    semester_label: string;
+    revision: number;
+    source_summary?: string | null;
+    change_note?: string | null;
+    updated_at: number;
+}
+
+export const verifyAdminPassword = async (adminPassword: string): Promise<boolean> => {
+    try {
+        const response = await fetch(`${API_BASE}/admin/auth`, {
+            headers: { 'Authorization': `Bearer ${adminPassword}` }
+        });
+        return response.status === 204;
+    } catch (error) {
+        console.error("Admin verification failed", error);
+        return false;
+    }
+};
+
+export interface SemesterHistoryResponse {
+    active_semester_id: string;
+    semesters: Array<{
+        semester_id: string;
+        semester_label: string;
+        latest_revision: number;
+        updated_at: number;
+    }>;
+    revisions?: CatalogRevision[];
+}
+
+export const fetchSemesterHistory = async (): Promise<SemesterHistoryResponse | null> => {
+    try {
+        const response = await fetch(`${API_BASE}/semesters?include_revisions=true`);
+        if (!response.ok) return null;
+        return await response.json() as SemesterHistoryResponse;
+    } catch (error) {
+        console.error("Semester history fetch failed", error);
+        return null;
+    }
+};
+
+export interface CatalogUpdateInput {
+    semesterId: string;
+    semesterLabel: string;
+    rawText: string;
+    parsedJson: string;
+    changeNote?: string;
+    sourceSummary?: Record<string, unknown>;
+    activate?: boolean;
+}
+
+export const updateCourseData = async (input: CatalogUpdateInput, adminPassword: string): Promise<boolean> => {
     try {
         const response = await fetch(`${API_BASE}/courses`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ raw_text: rawText, parsed_json: parsedJson })
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${adminPassword}`
+            },
+            body: JSON.stringify({
+                semester_id: input.semesterId,
+                semester_label: input.semesterLabel,
+                raw_text: input.rawText,
+                parsed_json: input.parsedJson,
+                change_note: input.changeNote,
+                source_summary: input.sourceSummary,
+                activate: input.activate ?? true
+            })
         });
         return response.ok;
     } catch (e) {

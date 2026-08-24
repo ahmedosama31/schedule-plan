@@ -14,11 +14,14 @@ export const getConflict = (
   currentSelections: CourseSelection[]
 ): string | null => {
   for (const selection of currentSelections) {
-    // Skip same course - switching sections within a course should always be allowed
-    if (selection.course.code === newSection.courseCode) continue;
-
     const sectionsToCheck: Section[] = [];
     const course = selection.course;
+    const isSameCourse = course.code === newSection.courseCode;
+
+    // A new MTHS group replaces the old group as a unit. Regular-course options
+    // replace only their own type, so they must still be checked against the
+    // selected lecture/tutorial/lab of the other types in the same course.
+    if (isSameCourse && course.isMTHS) continue;
 
     if (course.isMTHS && selection.selectedMthsGroup) {
       // Add both Lec and Tut for this group
@@ -27,15 +30,15 @@ export const getConflict = (
     } else {
       if (selection.selectedLectureId) {
         const s = course.sections.find(sec => sec.id === selection.selectedLectureId);
-        if (s) sectionsToCheck.push(s);
+        if (s && (!isSameCourse || s.type !== newSection.type)) sectionsToCheck.push(s);
       }
       if (selection.selectedTutorialId) {
         const s = course.sections.find(sec => sec.id === selection.selectedTutorialId);
-        if (s) sectionsToCheck.push(s);
+        if (s && (!isSameCourse || s.type !== newSection.type)) sectionsToCheck.push(s);
       }
       if (selection.selectedLabId) {
         const s = course.sections.find(sec => sec.id === selection.selectedLabId);
-        if (s) sectionsToCheck.push(s);
+        if (s && (!isSameCourse || s.type !== newSection.type)) sectionsToCheck.push(s);
       }
     }
 

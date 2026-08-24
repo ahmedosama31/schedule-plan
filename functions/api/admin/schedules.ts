@@ -1,32 +1,14 @@
+import { requireAdmin } from './auth';
+
 interface Env {
     DB: D1Database;
+    ADMIN_PASSWORD?: string;
 }
-
-// Admin password - in production, use environment variables or a secure auth system
-const ADMIN_PASSWORD = "12345678";
-
-/**
- * Validates the admin authorization header.
- * Expects: Authorization: Bearer <password>
- */
-const validateAdminAuth = (request: Request): boolean => {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) return false;
-
-    const [type, token] = authHeader.split(" ");
-    if (type !== "Bearer" || !token) return false;
-
-    return token === ADMIN_PASSWORD;
-};
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
     // Verify admin authentication
-    if (!validateAdminAuth(context.request)) {
-        return new Response(JSON.stringify({ error: "Unauthorized" }), {
-            status: 401,
-            headers: { "Content-Type": "application/json" }
-        });
-    }
+    const unauthorized = await requireAdmin(context.request, context.env);
+    if (unauthorized) return unauthorized;
 
     try {
         const { results } = await context.env.DB.prepare(

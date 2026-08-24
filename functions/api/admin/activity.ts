@@ -1,18 +1,9 @@
+import { requireAdmin } from './auth';
+
 interface Env {
     DB: D1Database;
+    ADMIN_PASSWORD?: string;
 }
-
-const ADMIN_PASSWORD = "12345678";
-
-const validateAdminAuth = (request: Request): boolean => {
-    const authHeader = request.headers.get("Authorization");
-    if (!authHeader) return false;
-
-    const [type, token] = authHeader.split(" ");
-    if (type !== "Bearer" || !token) return false;
-
-    return token === ADMIN_PASSWORD;
-};
 
 const clampLimit = (value: string | null) => {
     const parsed = Number(value || 200);
@@ -21,12 +12,8 @@ const clampLimit = (value: string | null) => {
 };
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
-    if (!validateAdminAuth(context.request)) {
-        return new Response(JSON.stringify({ error: "Unauthorized" }), {
-            status: 401,
-            headers: { "Content-Type": "application/json" }
-        });
-    }
+    const unauthorized = await requireAdmin(context.request, context.env);
+    if (unauthorized) return unauthorized;
 
     const url = new URL(context.request.url);
     const filters: string[] = [];

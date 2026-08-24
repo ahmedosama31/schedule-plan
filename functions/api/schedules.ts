@@ -2,7 +2,7 @@ interface Env {
     DB: D1Database;
 }
 
-const DEFAULT_SCHEDULE_NAME = "summer26";
+const DEFAULT_SCHEDULE_NAME = "fall26-27";
 type ScheduleAction = "autosave" | "manual_save" | "delete";
 
 const jsonResponse = (payload: unknown, status = 200) => new Response(JSON.stringify(payload), {

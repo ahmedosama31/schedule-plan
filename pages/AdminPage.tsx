@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Upload, Lock, RefreshCw, ArrowLeft, Users, FileText, Database, ChevronRight, Clock, Search, Eye, X, Activity, Download, AlertTriangle } from 'lucide-react';
-import { fetchStats, fetchAllSchedules, updateCourseData, StatsResponse, AdminSchedule, fetchCourses, fetchActivityLogs, AdminActivityLog } from '../lib/api';
+import { fetchStats, fetchAllSchedules, updateCourseData, StatsResponse, AdminSchedule, fetchCourses, fetchActivityLogs, AdminActivityLog, fetchSemesterHistory, SemesterHistoryResponse, verifyAdminPassword } from '../lib/api';
 import { useNavigate } from 'react-router-dom';
 import { parseRawCourseData } from '../lib/parser';
 import ScheduleViewerModal from '../components/ScheduleViewerModal';
 import { CourseSelection, Course } from '../types';
 import { COURSES } from '../data';
+import { ACTIVE_SEMESTER_ID, TERM_LABEL } from '../constants';
 
 type Tab = 'overview' | 'schedules' | 'activity' | 'data' | 'compare';
 
@@ -22,6 +23,11 @@ const AdminPage: React.FC = () => {
 
     // Data Management Props
     const [rawText, setRawText] = useState('');
+    const [semesterId, setSemesterId] = useState(ACTIVE_SEMESTER_ID);
+    const [semesterLabel, setSemesterLabel] = useState(TERM_LABEL);
+    const [changeNote, setChangeNote] = useState('');
+    const [activateSemester, setActivateSemester] = useState(true);
+    const [semesterHistory, setSemesterHistory] = useState<SemesterHistoryResponse | null>(null);
 
     // Admin Features
     const [showAllCourses, setShowAllCourses] = useState(false);
@@ -45,14 +51,16 @@ const AdminPage: React.FC = () => {
     // Student names cache
     const [studentNames, setStudentNames] = useState<Record<string, string>>({});
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (password === '12345678') {
+        setIsLoading(true);
+        if (await verifyAdminPassword(password)) {
             setIsAuthenticated(true);
             loadStats();
         } else {
             alert('Incorrect password');
         }
+        setIsLoading(false);
     };
 
     const loadStats = async () => {
@@ -91,6 +99,11 @@ const AdminPage: React.FC = () => {
         }
     };
 
+    const loadSemesterHistory = async () => {
+        const data = await fetchSemesterHistory();
+        setSemesterHistory(data);
+    };
+
     // Effect to load data when tab changes
     useEffect(() => {
         if (isAuthenticated) {
@@ -103,6 +116,7 @@ const AdminPage: React.FC = () => {
             if (activeTab === 'schedules') loadSchedules();
             if (activeTab === 'activity') loadActivity();
             if (activeTab === 'compare') loadSchedules();
+            if (activeTab === 'data') loadSemesterHistory();
         }
     }, [activeTab, isAuthenticated]);
 
@@ -216,12 +230,23 @@ const AdminPage: React.FC = () => {
         }
 
         setIsLoading(true);
-        const success = await updateCourseData(rawContent, parsedJson);
+        const success = await updateCourseData({
+            semesterId,
+            semesterLabel,
+            rawText: rawContent,
+            parsedJson,
+            changeNote,
+            activate: activateSemester,
+            sourceSummary: { method: 'admin-paste', importedAt: new Date().toISOString() }
+        }, password);
         setIsLoading(false);
 
         if (success) {
             alert("Courses updated successfully!");
             setRawText('');
+            setChangeNote('');
+            await loadSemesterHistory();
+            await loadCourses();
         } else {
             alert("Failed to update courses.");
         }
@@ -632,7 +657,7 @@ const AdminPage: React.FC = () => {
                                                 Latest per student
                                             </label>
                                             <button
-                                                onClick={() => exportCsv('summer26-schedules.csv', filteredSchedules.map(schedule => ({
+                                                onClick={() => exportCsv('fall26-27-schedules.csv', filteredSchedules.map(schedule => ({
                                                     student_id: schedule.student_id,
                                                     schedule_name: schedule.schedule_name || '',
                                                     course_count: getScheduleCourseCount(schedule.schedule_json),
@@ -734,7 +759,7 @@ const AdminPage: React.FC = () => {
                                         <h2 className="text-2xl font-bold">Schedule Activity</h2>
                                         <div className="flex items-center gap-3">
                                             <button
-                                                onClick={() => exportCsv('summer26-activity.csv', activityLogs.map(log => ({
+                                                onClick={() => exportCsv('fall26-27-activity.csv', activityLogs.map(log => ({
                                                     id: log.id,
                                                     student_id: log.student_id,
                                                     schedule_name: log.schedule_name,
@@ -840,6 +865,55 @@ const AdminPage: React.FC = () => {
                                         <h2 className="text-2xl font-bold">Course Data Management</h2>
                                     </div>
 
+                                    <div className="bg-emerald-50 dark:bg-emerald-900/20 p-4 rounded-lg border border-emerald-200 dark:border-emerald-800">
+                                        <p className="text-sm text-emerald-800 dark:text-emerald-200 flex items-start gap-2">
+                                            <Database size={16} className="mt-0.5 shrink-0" />
+                                            <span>
+                                                Every update creates a new revision for one semester. Older revisions and other semesters are preserved.
+                                            </span>
+                                        </p>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <label className="space-y-2">
+                                            <span className="block text-sm font-semibold">Semester ID</span>
+                                            <input
+                                                value={semesterId}
+                                                onChange={event => setSemesterId(event.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-'))}
+                                                className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg"
+                                                placeholder="fall-2026-27"
+                                            />
+                                        </label>
+                                        <label className="space-y-2">
+                                            <span className="block text-sm font-semibold">Display label</span>
+                                            <input
+                                                value={semesterLabel}
+                                                onChange={event => setSemesterLabel(event.target.value)}
+                                                className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg"
+                                                placeholder="Fall 2026/27"
+                                            />
+                                        </label>
+                                    </div>
+
+                                    <label className="space-y-2 block">
+                                        <span className="block text-sm font-semibold">Change note</span>
+                                        <input
+                                            value={changeNote}
+                                            onChange={event => setChangeNote(event.target.value)}
+                                            className="w-full p-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg"
+                                            placeholder="What changed in this revision?"
+                                        />
+                                    </label>
+
+                                    <label className="flex items-center gap-2 text-sm font-medium">
+                                        <input
+                                            type="checkbox"
+                                            checked={activateSemester}
+                                            onChange={event => setActivateSemester(event.target.checked)}
+                                        />
+                                        Make this the active semester after import
+                                    </label>
+
                                     <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-800">
                                         <p className="text-sm text-amber-800 dark:text-amber-200 flex items-start gap-2">
                                             <FileText size={16} className="mt-0.5 shrink-0" />
@@ -860,13 +934,46 @@ const AdminPage: React.FC = () => {
                                     <div className="flex justify-end">
                                         <button
                                             onClick={handleUpdateCourses}
-                                            disabled={!rawText || isLoading}
+                                            disabled={!rawText || !semesterId || !semesterLabel || isLoading}
                                             className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-bold shadow-lg transition-all hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 flex items-center gap-2"
                                         >
                                             {isLoading ? <RefreshCw size={20} className="animate-spin" /> : <Upload size={20} />}
                                             Process & Update Database
                                         </button>
                                     </div>
+
+                                    {semesterHistory && (
+                                        <div className="bg-[--bg-primary] rounded-xl border border-[--border-primary] overflow-hidden">
+                                            <div className="px-4 py-3 border-b border-[--border-primary]">
+                                                <h3 className="font-bold">Catalog history</h3>
+                                                <p className="text-xs text-[--text-muted] mt-1">
+                                                    Active: {semesterHistory.active_semester_id}
+                                                </p>
+                                            </div>
+                                            <div className="overflow-x-auto">
+                                                <table className="w-full text-sm">
+                                                    <thead className="bg-[--bg-tertiary] text-left">
+                                                        <tr>
+                                                            <th className="px-4 py-2">Semester</th>
+                                                            <th className="px-4 py-2">Revision</th>
+                                                            <th className="px-4 py-2">Change</th>
+                                                            <th className="px-4 py-2">Updated</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {semesterHistory.revisions?.map(revision => (
+                                                            <tr key={revision.id} className="border-t border-[--border-primary]">
+                                                                <td className="px-4 py-2">{revision.semester_label} <span className="text-xs text-[--text-muted]">({revision.semester_id})</span></td>
+                                                                <td className="px-4 py-2">v{revision.revision}</td>
+                                                                <td className="px-4 py-2">{revision.change_note || 'No note'}</td>
+                                                                <td className="px-4 py-2">{new Date(revision.updated_at * 1000).toLocaleString()}</td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             )}
 
