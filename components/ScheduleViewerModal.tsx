@@ -38,6 +38,10 @@ const getColorForCourse = (code: string) => {
 const ScheduleViewerModal: React.FC<Props> = ({ isOpen, onClose, scheduleData }) => {
     if (!isOpen) return null;
 
+    const courses = Array.from(
+        new Map(scheduleData.map(({ course }) => [course.code, course])).values()
+    );
+
     // Flatten schedule data into renderable items
     const items: any[] = [];
     for (const selection of scheduleData) {
@@ -122,6 +126,7 @@ const ScheduleViewerModal: React.FC<Props> = ({ isOpen, onClose, scheduleData })
                                             <div
                                                 key={idx}
                                                 className={`absolute rounded p-1 text-[9px] border-l-2 ${item.color}`}
+                                                title={`${item.name} — ${item.courseName} (${item.type})`}
                                                 style={{
                                                     top: `${top}px`,
                                                     height: `${height}px`,
@@ -130,10 +135,26 @@ const ScheduleViewerModal: React.FC<Props> = ({ isOpen, onClose, scheduleData })
                                                 }}
                                             >
                                                 <div className="font-bold truncate">{item.name}</div>
+                                                <div className="font-medium truncate">{item.courseName}</div>
                                                 <div className="opacity-75 truncate">{item.type.substring(0, 3)}</div>
                                             </div>
                                         );
                                     })}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="mt-4 rounded-lg border border-slate-200 bg-white p-3 dark:border-slate-700 dark:bg-slate-900">
+                        <h3 className="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                            Courses
+                        </h3>
+                        <div className="grid gap-2 sm:grid-cols-2">
+                            {courses.map(course => (
+                                <div key={course.code} className="flex min-w-0 items-start gap-2 text-sm">
+                                    <span className={`mt-1 h-3 w-3 shrink-0 rounded-sm border-l-2 ${getColorForCourse(course.code)}`} />
+                                    <span className="font-semibold text-slate-800 dark:text-slate-100">{course.code}</span>
+                                    <span className="min-w-0 text-slate-600 dark:text-slate-300">{course.name}</span>
                                 </div>
                             ))}
                         </div>

@@ -123,9 +123,13 @@ const AdminPage: React.FC = () => {
     // Function to fetch student name from API
     const fetchStudentName = async (studentId: string): Promise<string | null> => {
         try {
-            const res = await fetch(`https://osa539.pythonanywhere.com/search?query=${encodeURIComponent(studentId)}`);
-            const data = await res.json() as { student?: { NameEn?: string } };
-            return data.student?.NameEn || null;
+            const params = new URLSearchParams({ query: studentId });
+            const res = await fetch(`https://uni-schedules-comparer-api.osapsplus.workers.dev/search?${params}`);
+            if (!res.ok) throw new Error(`Schedule comparer returned ${res.status}`);
+
+            const data = await res.json() as { student?: { NameEn?: unknown } | null };
+            const name = data.student?.NameEn;
+            return typeof name === 'string' && name.trim() ? name.trim() : null;
         } catch (e) {
             console.error('Failed to fetch student name:', e);
             return null;
