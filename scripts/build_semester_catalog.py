@@ -309,8 +309,8 @@ def build_courses(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--portal", required=True, type=Path)
-    parser.add_argument("--pdf", required=True, type=Path)
-    parser.add_argument("--workbook", required=True, type=Path)
+    parser.add_argument("--pdf", type=Path)
+    parser.add_argument("--workbook", type=Path)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--metadata", required=True, type=Path)
     parser.add_argument("--semester-id", required=True)
@@ -319,9 +319,14 @@ def main() -> None:
     args = parser.parse_args()
 
     parsed_portal = portal_rows(args.portal)
-    parsed_pdf = pdf_rows(args.pdf)
-    parsed_workbook = workbook_rows(args.workbook)
-    merged, merge_stats = merge_rows([parsed_portal, parsed_pdf, parsed_workbook])
+    parsed_pdf = pdf_rows(args.pdf) if args.pdf else []
+    parsed_workbook = workbook_rows(args.workbook) if args.workbook else []
+    source_rows = [parsed_portal]
+    if args.pdf:
+        source_rows.append(parsed_pdf)
+    if args.workbook:
+        source_rows.append(parsed_workbook)
+    merged, merge_stats = merge_rows(source_rows)
     courses = build_courses(merged)
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -337,14 +342,14 @@ def main() -> None:
         "sessionCount": sum(len(section["sessions"]) for course in courses for section in course["sections"]),
         "sources": [
             {"name": args.portal.name, "sha256": sha256(args.portal), "parsedRows": len(parsed_portal)},
-            {"name": args.pdf.name, "sha256": sha256(args.pdf), "parsedRows": len(parsed_pdf)},
-            {"name": args.workbook.name, "sha256": sha256(args.workbook), "parsedRows": len(parsed_workbook)},
+            *([{"name": args.pdf.name, "sha256": sha256(args.pdf), "parsedRows": len(parsed_pdf)}] if args.pdf else []),
+            *([{"name": args.workbook.name, "sha256": sha256(args.workbook), "parsedRows": len(parsed_workbook)}] if args.workbook else []),
         ],
         "mergeStats": dict(sorted(merge_stats.items())),
         "courseCodeReferences": [
             "https://eng.cu.edu.eg/wp-content/uploads/credituser/2015/CUFE_STEP_2023BYLAWS_CCE_V1-R-op.pdf",
             "https://eng.cu.edu.eg/wp-content/uploads/credituser/2015/FA25-ADM_AN_009-final-fall-205-v_5.pdf",
-        ],
+        ] if args.workbook else [],
     }
     args.metadata.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({

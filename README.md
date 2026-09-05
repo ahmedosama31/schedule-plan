@@ -13,6 +13,7 @@ This app lets students build schedules visually, then optimize them to thier pre
 - Drag-and-drop weekly grid with overlap detection
 - Conflict detection with alternative suggestions
 - Optimization engine that minimizes days and gaps and respects preferences
+- Two-student friend optimizer that maximizes shared lectures/tutorials while respecting separate preferences
 - Preferences for start and end times, avoided days, and single-class days
 - Lock sections so optimization keeps chosen times
 - Autosave plus named schedule saving, loading, and deletion per student ID
@@ -53,7 +54,20 @@ For attachment-based imports (portal text, PDF, and workbook), follow `docs/seme
 4. Run locally with Pages Functions
    `npx wrangler pages dev ./dist`
 5. Deploy
-   `npx wrangler pages deploy ./dist`
+   Commit and push all release files to `main` so Cloudflare Pages builds the same
+   version stored in Git. The production project is `schedule-plan`:
+   https://schedule-plan.pages.dev.
+
+   If a manual deployment is needed, first run `npm run build` from that committed
+   version, then `npx wrangler pages deploy ./dist --project-name schedule-plan --branch main`.
+   Avoid deploying uncommitted features: a later Git deployment would omit them.
+
+## Release note — September 5, 2026
+
+Restored the friend scheduler in Git alongside the admin student-name and course-label
+fixes. Includes paired schedule saving, optimizer regression checks, and Fall catalog
+revision 4 (206 courses, 618 sections, 619 sessions). Catalog revisions 2–4 were
+already applied to production; their migrations are now tracked with the release.
 
 ## Admin Access
 

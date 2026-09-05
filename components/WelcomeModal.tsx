@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { User, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface WelcomeModalProps {
     isOpen: boolean;
@@ -61,6 +62,12 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({ isOpen, onSubmit }) => {
                         <span>Continue</span>
                         <ArrowRight size={18} />
                     </button>
+                    <Link
+                        to="/friends"
+                        className="flex w-full items-center justify-center gap-2 rounded-xl border border-[--border-primary] py-3 font-semibold text-[--text-secondary] transition-colors hover:bg-[--bg-tertiary]"
+                    >
+                        Plan with a Friend
+                    </Link>
                 </form>
             </div>
         </div>

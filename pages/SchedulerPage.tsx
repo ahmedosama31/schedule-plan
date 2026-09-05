@@ -8,7 +8,8 @@ import PreferencesPanel from '../components/PreferencesPanel';
 import ThemeToggle from '../components/ThemeToggle';
 import { optimizeSchedule, ScheduleOption, findConflicts, selectionsToChoices, ConflictInfo } from '../optimizer';
 import { SchedulePreferences, DEFAULT_PREFERENCES } from '../preferences';
-import { Search, Calendar, PlusCircle, ChevronDown, Save, Zap, Loader, LogOut, FileWarning, Share, X, BookOpen, Grid3x3 } from 'lucide-react';
+import { Search, Calendar, PlusCircle, ChevronDown, Save, Zap, Loader, LogOut, FileWarning, Share, X, BookOpen, Grid3x3, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { fetchCourses, saveSchedule, loadSchedule, deleteSchedule, ScheduleResponse, resolveSectionId } from '../lib/api';
 import WelcomeModal from '../components/WelcomeModal';
 import { getConflict, getConflictAlternatives, ConflictSuggestion } from '../utils';
@@ -737,6 +738,13 @@ const SchedulerPage: React.FC = () => {
                                 </button>
                             </div>
                         )}
+                        <Link
+                            to="/friends"
+                            className="p-2 text-[--text-tertiary] hover:text-[--text-primary] hover:bg-[--bg-tertiary] rounded-lg transition-colors"
+                            title="Plan with a Friend"
+                        >
+                            <Users size={18} />
+                        </Link>
                         <ThemeToggle />
                         <button
                             onClick={() => setIsShareModalOpen(true)}

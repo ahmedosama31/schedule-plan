@@ -30,6 +30,19 @@ python scripts/build_semester_catalog.py `
 
 The command fails if the workbook contains an unmapped course title. Verify new codes against an authoritative university catalog or schedule, add the mapping to `WORKBOOK_CODE_BY_NAME`, then rerun.
 
+When the portal export must be treated as the sole authority, omit `--pdf` and
+`--workbook`. The generated catalog and metadata will then contain only portal
+rows and portal provenance:
+
+```powershell
+python scripts/build_semester_catalog.py `
+  --portal <portal-export.tsv> `
+  --output data/semesters/<semester-id>.json `
+  --metadata data/semesters/<semester-id>.meta.json `
+  --semester-id <semester-id> `
+  --semester-label "<Semester label>"
+```
+
 ## Validate and publish
 
 ```powershell
@@ -37,7 +50,9 @@ npm run validate:data
 node scripts/generate_catalog_migration.mjs `
   data/semesters/<semester-id>.json `
   data/semesters/<semester-id>.meta.json `
-  migrations/<next>_<semester-id>.sql
+  migrations/<next>_<semester-id>.sql `
+  <revision> `
+  "<concise change note>"
 npm run build
 ```
 

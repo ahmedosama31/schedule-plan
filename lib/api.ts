@@ -97,13 +97,18 @@ export interface UserScheduleInfo {
     updated_at: number;
 }
 
+export interface UserSchedulesResult {
+    success: boolean;
+    schedules: UserScheduleInfo[];
+}
+
 export const loadSchedule = async (studentId: string, pin?: string, scheduleName?: string): Promise<ScheduleResponse | null> => {
     try {
         const headers: Record<string, string> = {};
         if (pin) headers['X-Auth-Pin'] = pin;
 
         const nameParam = scheduleName ? `&schedule_name=${encodeURIComponent(scheduleName)}` : '';
-        const response = await fetch(`${API_BASE}/schedules?student_id=${studentId}${nameParam}`, { headers });
+        const response = await fetch(`${API_BASE}/schedules?student_id=${encodeURIComponent(studentId)}${nameParam}`, { headers });
         if (!response.ok) return null;
         const data = await response.json();
         return data as ScheduleResponse;
@@ -114,14 +119,18 @@ export const loadSchedule = async (studentId: string, pin?: string, scheduleName
 }
 
 export const fetchUserSchedules = async (studentId: string): Promise<UserScheduleInfo[]> => {
+    return (await fetchUserSchedulesResult(studentId)).schedules;
+}
+
+export const fetchUserSchedulesResult = async (studentId: string): Promise<UserSchedulesResult> => {
     try {
-        const response = await fetch(`${API_BASE}/schedules?student_id=${studentId}&list_all=true`);
-        if (!response.ok) return [];
+        const response = await fetch(`${API_BASE}/schedules?student_id=${encodeURIComponent(studentId)}&list_all=true`);
+        if (!response.ok) return { success: false, schedules: [] };
         const data = await response.json() as { schedules: UserScheduleInfo[] };
-        return data.schedules;
+        return { success: true, schedules: data.schedules };
     } catch (e) {
         console.error("Fetch user schedules failed", e);
-        return [];
+        return { success: false, schedules: [] };
     }
 }
 
@@ -239,6 +248,40 @@ export interface CatalogRevision {
     change_note?: string | null;
     updated_at: number;
 }
+
+export interface MatchedScheduleSaveInput {
+    student_id: string;
+    source_schedule_name?: string | null;
+    target_schedule_name: string;
+    schedule_json: string;
+}
+
+export interface MatchedScheduleSaveResult {
+    success: boolean;
+    error?: string;
+    schedules?: Array<{
+        student_id: string;
+        schedule_name: string;
+        updated_at: number | null;
+    }>;
+}
+
+export const saveMatchedSchedules = async (
+    schedules: [MatchedScheduleSaveInput, MatchedScheduleSaveInput],
+): Promise<MatchedScheduleSaveResult> => {
+    try {
+        const response = await fetch(`${API_BASE}/matched-schedules`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ schedules }),
+        });
+        const result = await response.json().catch(() => ({ success: false, error: response.statusText })) as MatchedScheduleSaveResult;
+        return response.ok ? result : { success: false, error: result.error || response.statusText };
+    } catch (error) {
+        console.error('Matched schedules save failed', error);
+        return { success: false, error: 'Network error' };
+    }
+};
 
 export const verifyAdminPassword = async (adminPassword: string): Promise<boolean> => {
     try {

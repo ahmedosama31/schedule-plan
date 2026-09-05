@@ -64,6 +64,19 @@ function calculateIdleGapHours(previousEnd: number, nextStart: number): number {
     return Math.max(0, minutesBetween - PASSING_TIME_MINUTES) / 60;
 }
 
+export interface ScheduleSearchLimits {
+    maxCombinationsChecked?: number;
+    maxValidSchedules?: number;
+    maxTimeMs?: number;
+}
+
+export interface ScheduleSearchResult {
+    options: ScheduleOption[];
+    checkedCount: number;
+    limited: boolean;
+    limitReason?: 'combinations' | 'valid-schedules' | 'time';
+}
+
 /**
  * Gets all possible section combinations for a single course.
  * For non-MTHS courses: all combos of (lecture × tutorial × lab)
@@ -327,24 +340,36 @@ function violatesHardConstraints(choices: CourseChoice[], prefs: SchedulePrefere
     return false;
 }
 
-/**
- * Main optimization function.
- * Generates combinations lazily, scores them, and returns the top N.
- * Respects locked selections - locked sections are kept fixed.
- * 
- * @param courses - Array of courses to optimize
- * @param topN - Number of top results to return (default 5)
- * @param preferences - User preferences for filtering and scoring
- * @param lockedSelections - Optional array of selections with lock flags
- * @returns Sorted array of ScheduleOption, best first
- */
-export function optimizeSchedule(
+/** Enumerates and ranks valid schedules while reporting whether a search cap was reached. */
+export function scheduleOptionSignature(option: ScheduleOption): string {
+    return option.choices
+        .map(choice => [
+            choice.course.code,
+            choice.lectureId || '',
+            choice.tutorialId || '',
+            choice.labId || '',
+            choice.mthsGroup || '',
+        ].join(':'))
+        .join('|');
+}
+
+export function compareScheduleOptions(a: ScheduleOption, b: ScheduleOption): number {
+    if (a.dayCount !== b.dayCount) return a.dayCount - b.dayCount;
+    if (a.gapScore !== b.gapScore) return a.gapScore - b.gapScore;
+    if (a.healthScore !== b.healthScore) return b.healthScore - a.healthScore;
+
+    const aSignature = scheduleOptionSignature(a);
+    const bSignature = scheduleOptionSignature(b);
+    return aSignature < bSignature ? -1 : aSignature > bSignature ? 1 : 0;
+}
+
+export function enumerateScheduleOptions(
     courses: Course[],
-    topN: number = 10,
     preferences: SchedulePreferences = DEFAULT_PREFERENCES,
-    lockedSelections?: CourseSelection[]
-): ScheduleOption[] {
-    if (courses.length === 0) return [];
+    lockedSelections?: CourseSelection[],
+    limits: ScheduleSearchLimits = {}
+): ScheduleSearchResult {
+    if (courses.length === 0) return { options: [], checkedCount: 0, limited: false };
 
     // Get all choices for each course, respecting locked selections
     const choicesPerCourse = courses.map(c => {
@@ -393,34 +418,42 @@ export function optimizeSchedule(
 
     // Check for empty choices
     if (choicesPerCourse.some(choices => choices.length === 0)) {
-        return [];
+        return { options: [], checkedCount: 0, limited: false };
     }
 
     // Use generator to iterate combinations without creating massive array
     const generator = generateCombinations(choicesPerCourse);
 
     // Limits
-    const MAX_COMBINATIONS_CHECKED = 2000000; // Increased to 2M to find deeper options
-    const MAX_VALID_SCHEDULES = 5000; // Increased to 5k
-    const MAX_TIME_MS = 2000; // stop after 2 seconds to prevent freezing
+    const MAX_COMBINATIONS_CHECKED = limits.maxCombinationsChecked ?? 2000000;
+    const MAX_VALID_SCHEDULES = limits.maxValidSchedules ?? 5000;
+    const MAX_TIME_MS = limits.maxTimeMs ?? 2000;
     const startTime = performance.now();
 
     let checkedCount = 0;
+    let limited = false;
+    let limitReason: ScheduleSearchResult['limitReason'];
     const validOptions: ScheduleOption[] = [];
-
-    // DEBUG: Log preferences
-    console.log('Optimizer called with preferences:', JSON.stringify(preferences));
 
     for (const choices of generator) {
         checkedCount++;
 
         // Check limits
-        if (checkedCount > MAX_COMBINATIONS_CHECKED) break;
-        if (validOptions.length >= MAX_VALID_SCHEDULES) break;
+        if (checkedCount > MAX_COMBINATIONS_CHECKED) {
+            limited = true;
+            limitReason = 'combinations';
+            break;
+        }
+        if (validOptions.length >= MAX_VALID_SCHEDULES) {
+            limited = true;
+            limitReason = 'valid-schedules';
+            break;
+        }
 
         // Time check every 1000 items to avoid perf hit
         if (checkedCount % 1000 === 0 && (performance.now() - startTime > MAX_TIME_MS)) {
-            console.log('Optimizer time limit reached');
+            limited = true;
+            limitReason = 'time';
             break;
         }
 
@@ -452,44 +485,17 @@ export function optimizeSchedule(
         });
     }
 
-    console.log(`Checked ${checkedCount} combinations. Found ${validOptions.length} valid schedules.`);
+    validOptions.sort(compareScheduleOptions);
+    return { options: validOptions, checkedCount, limited, limitReason };
+}
 
-    // Sort by:
-    // 1. Fewer days is better - PRIMARY
-    // 2. Lower gap score is better - SECONDARY  
-    // 3. Health Score (Higher is better) - TERTIARY
-    // 4. Stable section signature - deterministic tie-breaker
-    validOptions.sort((a, b) => {
-        // 1. Day Count (Fewer is better)
-        if (a.dayCount !== b.dayCount) {
-            return a.dayCount - b.dayCount;
-        }
-
-        // 2. Gap Score (Lower is better)
-        if (a.gapScore !== b.gapScore) {
-            return a.gapScore - b.gapScore;
-        }
-
-        // 3. Health Score (Higher is better)
-        if (a.healthScore !== b.healthScore) {
-            return b.healthScore - a.healthScore;
-        }
-
-        const signature = (option: ScheduleOption) => option.choices
-            .map(choice => [
-                choice.course.code,
-                choice.lectureId || '',
-                choice.tutorialId || '',
-                choice.labId || '',
-                choice.mthsGroup || '',
-            ].join(':'))
-            .join('|');
-        const aSignature = signature(a);
-        const bSignature = signature(b);
-        return aSignature < bSignature ? -1 : aSignature > bSignature ? 1 : 0;
-    });
-
-    return validOptions.slice(0, topN);
+export function optimizeSchedule(
+    courses: Course[],
+    topN: number = 10,
+    preferences: SchedulePreferences = DEFAULT_PREFERENCES,
+    lockedSelections?: CourseSelection[]
+): ScheduleOption[] {
+    return enumerateScheduleOptions(courses, preferences, lockedSelections).options.slice(0, topN);
 }
 
 /**

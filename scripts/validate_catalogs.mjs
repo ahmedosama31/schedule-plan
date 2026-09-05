@@ -43,8 +43,8 @@ for (const file of files) {
     for (const code of ["CMPS457", "CMPS458", "EECS101", "GENS249", "MTHS102"]) {
       if (!courseCodes.has(code)) failures.push(`${file}: expected course ${code} is missing`);
     }
-    if (courses.length !== 138 || sectionCount !== 369 || sessionCount !== 369) {
-      failures.push(`${file}: expected 138 courses / 369 sections / 369 sessions, got ${courses.length} / ${sectionCount} / ${sessionCount}`);
+    if (courses.length !== 206 || sectionCount !== 618 || sessionCount !== 619) {
+      failures.push(`${file}: expected 206 courses / 618 sections / 619 sessions, got ${courses.length} / ${sectionCount} / ${sessionCount}`);
     }
   }
   summaries.push({ file, courses: courses.length, sections: sectionCount, sessions: sessionCount });

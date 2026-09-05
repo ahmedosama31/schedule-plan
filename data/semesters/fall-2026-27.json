@@ -359,7 +359,7 @@
             "endHour": 9.833333333333334,
             "startString": "09:00",
             "endString": "09:50",
-            "location": "[20105]20105-45-الجيزة الرئيسي"
+            "location": "LAB AET3 (GIZA)-35-الجيزة الرئيسي"
           }
         ]
       },
@@ -378,7 +378,7 @@
             "endHour": 12.833333333333334,
             "startString": "10:00",
             "endString": "12:50",
-            "location": "[20105]20105-45-الجيزة الرئيسي"
+            "location": "LAB AET3 (GIZA)-35-الجيزة الرئيسي"
           }
         ]
       }
@@ -527,7 +527,7 @@
       {
         "id": "ARCS304-lec-1",
         "legacyIds": [
-          "ARCS304-Lecture-1-Sunday-14:00-15:50"
+          "ARCS304-Lecture-1-Sunday-15:00-16:50"
         ],
         "courseCode": "ARCS304",
         "type": "Lecture",
@@ -535,10 +535,10 @@
         "sessions": [
           {
             "day": "Sunday",
-            "startHour": 14.0,
-            "endHour": 15.833333333333334,
-            "startString": "14:00",
-            "endString": "15:50",
+            "startHour": 15.0,
+            "endHour": 16.833333333333332,
+            "startString": "15:00",
+            "endString": "16:50",
             "location": "[204071]20407 A -60-الجيزة الرئيسي"
           }
         ]
@@ -546,7 +546,7 @@
       {
         "id": "ARCS304-tut-1",
         "legacyIds": [
-          "ARCS304-Tutorial-1-Sunday-16:00-17:50"
+          "ARCS304-Tutorial-1-Sunday-17:00-18:50"
         ],
         "courseCode": "ARCS304",
         "type": "Tutorial",
@@ -554,10 +554,10 @@
         "sessions": [
           {
             "day": "Sunday",
-            "startHour": 16.0,
-            "endHour": 17.833333333333332,
-            "startString": "16:00",
-            "endString": "17:50",
+            "startHour": 17.0,
+            "endHour": 18.833333333333332,
+            "startString": "17:00",
+            "endString": "18:50",
             "location": "[204071]20407 A -60-الجيزة الرئيسي"
           }
         ]
@@ -746,6 +746,51 @@
     "isMTHS": false
   },
   {
+    "code": "ARCS403",
+    "name": "Integrated Building Systems",
+    "sections": [
+      {
+        "id": "ARCS403-lec-1",
+        "legacyIds": [
+          "ARCS403-Lecture-1-Tuesday-14:00-15:50"
+        ],
+        "courseCode": "ARCS403",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[203071]20307 A -60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "ARCS403-tut-1",
+        "legacyIds": [
+          "ARCS403-Tutorial-1-Tuesday-16:00-17:50"
+        ],
+        "courseCode": "ARCS403",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[203071]20307 A -60-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
     "code": "ARCS405",
     "name": "Building Construction-5",
     "sections": [
@@ -906,18 +951,18 @@
       {
         "id": "ARCS470-tut-1",
         "legacyIds": [
-          "ARCS470-Tutorial-1-Sunday-10:00-12:50"
+          "ARCS470-Tutorial-1-Monday-14:00-16:50"
         ],
         "courseCode": "ARCS470",
         "type": "Tutorial",
         "group": "1",
         "sessions": [
           {
-            "day": "Sunday",
-            "startHour": 10.0,
-            "endHour": 12.833333333333334,
-            "startString": "10:00",
-            "endString": "12:50",
+            "day": "Monday",
+            "startHour": 14.0,
+            "endHour": 16.833333333333332,
+            "startString": "14:00",
+            "endString": "16:50",
             "location": "[20501]20501-70-الجيزة الرئيسي"
           }
         ]
@@ -990,6 +1035,25 @@
             "startString": "08:00",
             "endString": "08:50",
             "location": "[1520]Blue Room-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "CCES280-lec-2",
+        "legacyIds": [
+          "CCES280-Lecture-2-Sunday-8:00-8:50"
+        ],
+        "courseCode": "CCES280",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 8.0,
+            "endHour": 8.833333333333334,
+            "startString": "08:00",
+            "endString": "08:50",
+            "location": "[18101]18101-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -1118,6 +1182,241 @@
             "startString": "18:00",
             "endString": "19:50",
             "location": "-----"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "CHES001",
+    "name": "Chemistry for Engineers",
+    "sections": [
+      {
+        "id": "CHES001-lec-1",
+        "legacyIds": [
+          "CHES001-Lecture-1-Saturday-13:00-14:50"
+        ],
+        "courseCode": "CHES001",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Saturday",
+            "startHour": 13.0,
+            "endHour": 14.833333333333334,
+            "startString": "13:00",
+            "endString": "14:50",
+            "location": "[51116]51116-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "CHES001-lec-2",
+        "legacyIds": [
+          "CHES001-Lecture-2-Monday-13:00-14:50"
+        ],
+        "courseCode": "CHES001",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 13.0,
+            "endHour": 14.833333333333334,
+            "startString": "13:00",
+            "endString": "14:50",
+            "location": "[51116]51116-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "CHES001-lec-3",
+        "legacyIds": [
+          "CHES001-Lecture-3-Monday-10:00-11:50"
+        ],
+        "courseCode": "CHES001",
+        "type": "Lecture",
+        "group": "3",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 10.0,
+            "endHour": 11.833333333333334,
+            "startString": "10:00",
+            "endString": "11:50",
+            "location": "[51116]51116-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "CHES001-lec-4",
+        "legacyIds": [
+          "CHES001-Lecture-4-Sunday-8:00-9:50"
+        ],
+        "courseCode": "CHES001",
+        "type": "Lecture",
+        "group": "4",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51116]51116-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "CHES001-lec-5",
+        "legacyIds": [
+          "CHES001-Lecture-5-Tuesday-8:00-9:50"
+        ],
+        "courseCode": "CHES001",
+        "type": "Lecture",
+        "group": "5",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51116]51116-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "CHES001-lec-6",
+        "legacyIds": [
+          "CHES001-Lecture-6-Sunday-10:00-11:50"
+        ],
+        "courseCode": "CHES001",
+        "type": "Lecture",
+        "group": "6",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 10.0,
+            "endHour": 11.833333333333334,
+            "startString": "10:00",
+            "endString": "11:50",
+            "location": "[51116]51116-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "CHES001-tut-1",
+        "legacyIds": [
+          "CHES001-Tutorial-1-Monday-10:00-11:50"
+        ],
+        "courseCode": "CHES001",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 10.0,
+            "endHour": 11.833333333333334,
+            "startString": "10:00",
+            "endString": "11:50",
+            "location": "[51201]51201-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "CHES001-tut-2",
+        "legacyIds": [
+          "CHES001-Tutorial-2-Sunday-8:00-9:50"
+        ],
+        "courseCode": "CHES001",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51202]51202-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "CHES001-tut-3",
+        "legacyIds": [
+          "CHES001-Tutorial-3-Tuesday-10:00-11:50"
+        ],
+        "courseCode": "CHES001",
+        "type": "Tutorial",
+        "group": "3",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 10.0,
+            "endHour": 11.833333333333334,
+            "startString": "10:00",
+            "endString": "11:50",
+            "location": "[51113]51113-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "CHES001-tut-4",
+        "legacyIds": [
+          "CHES001-Tutorial-4-Monday-8:00-9:50"
+        ],
+        "courseCode": "CHES001",
+        "type": "Tutorial",
+        "group": "4",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51114]51114-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "CHES001-tut-5",
+        "legacyIds": [
+          "CHES001-Tutorial-5-Wednesday-12:00-13:50"
+        ],
+        "courseCode": "CHES001",
+        "type": "Tutorial",
+        "group": "5",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 12.0,
+            "endHour": 13.833333333333334,
+            "startString": "12:00",
+            "endString": "13:50",
+            "location": "[51215]51215-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "CHES001-tut-6",
+        "legacyIds": [
+          "CHES001-Tutorial-6-Tuesday-8:00-9:50"
+        ],
+        "courseCode": "CHES001",
+        "type": "Tutorial",
+        "group": "6",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51216]51216-الشيخ زايد"
           }
         ]
       }
@@ -1842,7 +2141,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[3703]3703-90-الجيزة الرئيسي"
           }
         ]
       },
@@ -1860,7 +2160,8 @@
             "startHour": 8.0,
             "endHour": 10.833333333333334,
             "startString": "08:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[3201](CCEC Lab1) Lab Second Flour Arc.Building-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -1878,7 +2179,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[3706]3706-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -1896,7 +2198,8 @@
             "startHour": 8.0,
             "endHour": 10.833333333333334,
             "startString": "08:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[3707]3707-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -1914,7 +2217,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[3707]3707-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -1932,7 +2236,8 @@
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[3706]3706-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -1957,7 +2262,27 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[3701]مدرج أولى حاسبات-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "CMPS211-tut-1",
+        "legacyIds": [
+          "CMPS211-Tutorial-1-Monday-16:00-17:50"
+        ],
+        "courseCode": "CMPS211",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "2nd floor lab 4"
           }
         ]
       }
@@ -1982,7 +2307,27 @@
             "startHour": 9.0,
             "endHour": 10.833333333333334,
             "startString": "09:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[3704]3704-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "CMPS301-tut-1",
+        "legacyIds": [
+          "CMPS301-Tutorial-1-Monday-16:00-17:50"
+        ],
+        "courseCode": "CMPS301",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[3707]3707-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -2000,7 +2345,8 @@
             "startHour": 16.0,
             "endHour": 17.833333333333332,
             "startString": "16:00",
-            "endString": "17:50"
+            "endString": "17:50",
+            "location": "[3708]3708-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -2014,18 +2360,19 @@
       {
         "id": "CMPS302-lec-1",
         "legacyIds": [
-          "CMPS302-Lecture-1-Wednesday-11:00-12:50"
+          "CMPS302-Lecture-1-Thursday-11:00-12:50"
         ],
         "courseCode": "CMPS302",
         "type": "Lecture",
         "group": "1",
         "sessions": [
           {
-            "day": "Wednesday",
+            "day": "Thursday",
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[3701]مدرج أولى حاسبات-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -2043,7 +2390,8 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[3701]مدرج أولى حاسبات-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -2061,14 +2409,15 @@
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[3707]3707-45-الجيزة الرئيسي"
           }
         ]
       },
       {
         "id": "CMPS302-tut-2",
         "legacyIds": [
-          "CMPS302-Tutorial-2-Sunday-16:00-18:50"
+          "CMPS302-Tutorial-2-Sunday-13:00-15:50"
         ],
         "courseCode": "CMPS302",
         "type": "Tutorial",
@@ -2076,17 +2425,18 @@
         "sessions": [
           {
             "day": "Sunday",
-            "startHour": 16.0,
-            "endHour": 18.833333333333332,
-            "startString": "16:00",
-            "endString": "18:50"
+            "startHour": 13.0,
+            "endHour": 15.833333333333334,
+            "startString": "13:00",
+            "endString": "15:50",
+            "location": "[3708]3708-45-الجيزة الرئيسي"
           }
         ]
       },
       {
         "id": "CMPS302-tut-3",
         "legacyIds": [
-          "CMPS302-Tutorial-3-Sunday-13:00-15:50"
+          "CMPS302-Tutorial-3-Sunday-16:00-18:50"
         ],
         "courseCode": "CMPS302",
         "type": "Tutorial",
@@ -2094,10 +2444,11 @@
         "sessions": [
           {
             "day": "Sunday",
-            "startHour": 13.0,
-            "endHour": 15.833333333333334,
-            "startString": "13:00",
-            "endString": "15:50"
+            "startHour": 16.0,
+            "endHour": 18.833333333333332,
+            "startString": "16:00",
+            "endString": "18:50",
+            "location": "[3708]3708-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -2111,18 +2462,19 @@
       {
         "id": "CMPS303-lec-1",
         "legacyIds": [
-          "CMPS303-Lecture-1-Sunday-11:00-12:50"
+          "CMPS303-Lecture-1-Tuesday-14:00-15:50"
         ],
         "courseCode": "CMPS303",
         "type": "Lecture",
         "group": "1",
         "sessions": [
           {
-            "day": "Sunday",
-            "startHour": 11.0,
-            "endHour": 12.833333333333334,
-            "startString": "11:00",
-            "endString": "12:50"
+            "day": "Tuesday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[3704]3704-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -2140,7 +2492,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[3704]3704-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -2158,7 +2511,53 @@
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[3706]3706-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "CMPS345",
+    "name": "Advanced Digital design, testing and verification",
+    "sections": [
+      {
+        "id": "CMPS345-lec-1",
+        "legacyIds": [
+          "CMPS345-Lecture-1-Thursday-14:00-15:50"
+        ],
+        "courseCode": "CMPS345",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[3702]3702-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "CMPS345-tut-1",
+        "legacyIds": [
+          "CMPS345-Tutorial-1-Thursday-8:00-10:50"
+        ],
+        "courseCode": "CMPS345",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 8.0,
+            "endHour": 10.833333333333334,
+            "startString": "08:00",
+            "endString": "10:50",
+            "location": "[0](CCEC Lab2) Lab Second Flour Arc.Building-0-الجيزة الرئيسي"
           }
         ]
       }
@@ -2183,7 +2582,8 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[3708]3708-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -2201,7 +2601,8 @@
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[3708]3708-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -2219,7 +2620,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[3201](CCEC Lab1) Lab Second Flour Arc.Building-30-الجيزة الرئيسي"
           }
         ]
       }
@@ -2233,36 +2635,38 @@
       {
         "id": "CMPS401-lec-1",
         "legacyIds": [
-          "CMPS401-Lecture-1-Monday-11:00-12:50"
+          "CMPS401-Lecture-1-Tuesday-16:00-18:50"
         ],
         "courseCode": "CMPS401",
         "type": "Lecture",
         "group": "1",
         "sessions": [
           {
-            "day": "Monday",
-            "startHour": 11.0,
-            "endHour": 12.833333333333334,
-            "startString": "11:00",
-            "endString": "12:50"
+            "day": "Tuesday",
+            "startHour": 16.0,
+            "endHour": 18.833333333333332,
+            "startString": "16:00",
+            "endString": "18:50",
+            "location": "[3702]3702-60-الجيزة الرئيسي"
           }
         ]
       },
       {
-        "id": "CMPS401-tut-2",
+        "id": "CMPS401-tut-1",
         "legacyIds": [
-          "CMPS401-Tutorial-2-Monday-16:00-18:50"
+          "CMPS401-Tutorial-1-Monday-16:00-18:50"
         ],
         "courseCode": "CMPS401",
         "type": "Tutorial",
-        "group": "2",
+        "group": "1",
         "sessions": [
           {
             "day": "Monday",
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[0](CCEC Lab2) Lab Second Flour Arc.Building-0-الجيزة الرئيسي"
           }
         ]
       }
@@ -2287,14 +2691,15 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "-----"
           }
         ]
       },
       {
         "id": "CMPS402-tut-1",
         "legacyIds": [
-          "CMPS402-Tutorial-1-Sunday-16:00-18:50"
+          "CMPS402-Tutorial-1-Sunday-8:00-10:50"
         ],
         "courseCode": "CMPS402",
         "type": "Tutorial",
@@ -2302,10 +2707,30 @@
         "sessions": [
           {
             "day": "Sunday",
-            "startHour": 16.0,
-            "endHour": 18.833333333333332,
-            "startString": "16:00",
-            "endString": "18:50"
+            "startHour": 8.0,
+            "endHour": 10.833333333333334,
+            "startString": "08:00",
+            "endString": "10:50",
+            "location": "[3706]3706-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "CMPS402-tut-2",
+        "legacyIds": [
+          "CMPS402-Tutorial-2-Wednesday-13:00-15:50"
+        ],
+        "courseCode": "CMPS402",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 13.0,
+            "endHour": 15.833333333333334,
+            "startString": "13:00",
+            "endString": "15:50",
+            "location": "[3708]3708-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -2330,25 +2755,27 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[3702]3702-60-الجيزة الرئيسي"
           }
         ]
       },
       {
         "id": "CMPS403-tut-1",
         "legacyIds": [
-          "CMPS403-Tutorial-1-Tuesday-9:00-10:50"
+          "CMPS403-Tutorial-1-Wednesday-11:00-12:50"
         ],
         "courseCode": "CMPS403",
         "type": "Tutorial",
         "group": "1",
         "sessions": [
           {
-            "day": "Tuesday",
-            "startHour": 9.0,
-            "endHour": 10.833333333333334,
-            "startString": "09:00",
-            "endString": "10:50"
+            "day": "Wednesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[3706]3706-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -2373,7 +2800,8 @@
             "startHour": 9.0,
             "endHour": 10.833333333333334,
             "startString": "09:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[3702]3702-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -2391,7 +2819,8 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[3702]3702-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -2409,7 +2838,8 @@
             "startHour": 9.0,
             "endHour": 10.833333333333334,
             "startString": "09:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[3708]3708-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -2427,7 +2857,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[3708]3708-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -2452,7 +2883,8 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[3701]مدرج أولى حاسبات-60-الجيزة الرئيسي"
           }
         ]
       }
@@ -2466,7 +2898,7 @@
       {
         "id": "CMPS446-lec-1",
         "legacyIds": [
-          "CMPS446-Lecture-1-Thursday-14:00-15:50"
+          "CMPS446-Lecture-1-Thursday-16:00-17:50"
         ],
         "courseCode": "CMPS446",
         "type": "Lecture",
@@ -2474,10 +2906,11 @@
         "sessions": [
           {
             "day": "Thursday",
-            "startHour": 14.0,
-            "endHour": 15.833333333333334,
-            "startString": "14:00",
-            "endString": "15:50"
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[3702]3702-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -2495,25 +2928,27 @@
             "startHour": 8.0,
             "endHour": 10.833333333333334,
             "startString": "08:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[0](CCEC Lab5) Lab Second Flour Arc.Building-0-الجيزة الرئيسي"
           }
         ]
       },
       {
-        "id": "CMPS446-tut-3",
+        "id": "CMPS446-tut-2",
         "legacyIds": [
-          "CMPS446-Tutorial-3-Wednesday-8:00-10:50"
+          "CMPS446-Tutorial-2-Wednesday-8:00-10:50"
         ],
         "courseCode": "CMPS446",
         "type": "Tutorial",
-        "group": "3",
+        "group": "2",
         "sessions": [
           {
             "day": "Wednesday",
             "startHour": 8.0,
             "endHour": 10.833333333333334,
             "startString": "08:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[3707]3707-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -2538,7 +2973,27 @@
             "startHour": 16.0,
             "endHour": 17.833333333333332,
             "startString": "16:00",
-            "endString": "17:50"
+            "endString": "17:50",
+            "location": "[3707]3707-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "CMPS450-tut-1",
+        "legacyIds": [
+          "CMPS450-Tutorial-1-Sunday-13:00-15:50"
+        ],
+        "courseCode": "CMPS450",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 13.0,
+            "endHour": 15.833333333333334,
+            "startString": "13:00",
+            "endString": "15:50",
+            "location": "[3201](CCEC Lab1) Lab Second Flour Arc.Building-30-الجيزة الرئيسي"
           }
         ]
       }
@@ -2563,7 +3018,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[3702]3702-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -2581,7 +3037,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[3702]3702-60-الجيزة الرئيسي"
           }
         ]
       }
@@ -2606,25 +3063,27 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[3701]مدرج أولى حاسبات-60-الجيزة الرئيسي"
           }
         ]
       },
       {
         "id": "CMPS454-lec-2",
         "legacyIds": [
-          "CMPS454-Lecture-2-Thursday-16:00-17:50"
+          "CMPS454-Lecture-2-Tuesday-14:00-15:50"
         ],
         "courseCode": "CMPS454",
         "type": "Lecture",
         "group": "2",
         "sessions": [
           {
-            "day": "Thursday",
-            "startHour": 16.0,
-            "endHour": 17.833333333333332,
-            "startString": "16:00",
-            "endString": "17:50"
+            "day": "Tuesday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[18102]18102-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -2642,7 +3101,8 @@
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[3706]3706-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -2660,7 +3120,8 @@
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[3707]3707-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -2685,7 +3146,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[3703]3703-90-الجيزة الرئيسي"
           }
         ]
       },
@@ -2703,7 +3165,8 @@
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[0](CCEC Lab2) Lab Second Flour Arc.Building-0-الجيزة الرئيسي"
           }
         ]
       }
@@ -2728,7 +3191,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[18102]18102-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -2746,7 +3210,8 @@
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[3203]Digital Computer Lab-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -2764,7 +3229,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[3203]Digital Computer Lab-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -2789,7 +3255,8 @@
             "startHour": 9.0,
             "endHour": 10.833333333333334,
             "startString": "09:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[18101]18101-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -2807,25 +3274,27 @@
             "startHour": 9.0,
             "endHour": 10.833333333333334,
             "startString": "09:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[0](CCEC Lab5) Lab Second Flour Arc.Building-0-الجيزة الرئيسي"
           }
         ]
       },
       {
         "id": "CMPS458-tut-2",
         "legacyIds": [
-          "CMPS458-Tutorial-2-Thursday-11:00-12:50"
+          "CMPS458-Tutorial-2-Monday-11:00-12:50"
         ],
         "courseCode": "CMPS458",
         "type": "Tutorial",
         "group": "2",
         "sessions": [
           {
-            "day": "Thursday",
+            "day": "Monday",
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[0](CCEC Lab5) Lab Second Flour Arc.Building-0-الجيزة الرئيسي"
           }
         ]
       }
@@ -2895,7 +3364,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[20104]20104-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -2913,7 +3383,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[20104]20104-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -2931,7 +3402,8 @@
             "startHour": 8.0,
             "endHour": 10.833333333333334,
             "startString": "08:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[0]Lab ELC. Building-0-الجيزة الرئيسي"
           }
         ]
       },
@@ -2949,7 +3421,8 @@
             "startHour": 8.0,
             "endHour": 10.833333333333334,
             "startString": "08:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[0]Lab ELC. Building-0-الجيزة الرئيسي"
           }
         ]
       },
@@ -2967,7 +3440,8 @@
             "startHour": 11.0,
             "endHour": 13.833333333333334,
             "startString": "11:00",
-            "endString": "13:50"
+            "endString": "13:50",
+            "location": "[0]Lab ELC. Building-0-الجيزة الرئيسي"
           }
         ]
       },
@@ -2985,7 +3459,8 @@
             "startHour": 8.0,
             "endHour": 10.833333333333334,
             "startString": "08:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[0]Lab ELC. Building-0-الجيزة الرئيسي"
           }
         ]
       }
@@ -3010,7 +3485,8 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[20102]20102-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -3028,7 +3504,8 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[20103]20103-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -3046,7 +3523,8 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[20103]20103-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -3064,7 +3542,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[20103]20103-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -3082,7 +3561,8 @@
             "startHour": 9.0,
             "endHour": 10.833333333333334,
             "startString": "09:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[20104]20104-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -3100,7 +3580,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[20104]20104-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -3118,7 +3599,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[20103]20103-60-الجيزة الرئيسي"
           }
         ]
       }
@@ -3143,7 +3625,8 @@
             "startHour": 9.0,
             "endHour": 10.833333333333334,
             "startString": "09:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[20103]20103-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -3161,7 +3644,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[20107]20107-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -3179,7 +3663,8 @@
             "startHour": 9.0,
             "endHour": 10.833333333333334,
             "startString": "09:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[20107]20107-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -3197,7 +3682,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[20107]20107-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -3215,7 +3701,8 @@
             "startHour": 8.0,
             "endHour": 10.833333333333334,
             "startString": "08:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[20107]20107-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -3233,7 +3720,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[20107]20107-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -3251,7 +3739,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[20107]20107-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -3276,7 +3765,8 @@
             "startHour": 16.0,
             "endHour": 17.833333333333332,
             "startString": "16:00",
-            "endString": "17:50"
+            "endString": "17:50",
+            "location": "[20107]20107-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -3294,7 +3784,8 @@
             "startHour": 16.0,
             "endHour": 17.833333333333332,
             "startString": "16:00",
-            "endString": "17:50"
+            "endString": "17:50",
+            "location": "[20107]20107-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -3312,7 +3803,8 @@
             "startHour": 8.0,
             "endHour": 10.833333333333334,
             "startString": "08:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[20102]20102-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -3330,7 +3822,8 @@
             "startHour": 8.0,
             "endHour": 10.833333333333334,
             "startString": "08:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[20102]20102-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -3348,7 +3841,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[20102]20102-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -3373,7 +3867,8 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[20105]20105-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -3391,7 +3886,8 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[20102]20102-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -3409,7 +3905,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[20109]20109-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -3427,7 +3924,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[20109]20109-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -3497,7 +3995,8 @@
             "startHour": 9.0,
             "endHour": 10.833333333333334,
             "startString": "09:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[18203]18203-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -3515,7 +4014,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[18203]18203-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -3533,7 +4033,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[18203]18203-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -3551,7 +4052,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[18203]18203-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -3569,7 +4071,8 @@
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[18203]18203-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -3587,7 +4090,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[18203]18203-30-الجيزة الرئيسي"
           }
         ]
       }
@@ -3612,7 +4116,8 @@
             "startHour": 9.0,
             "endHour": 10.833333333333334,
             "startString": "09:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[18203]18203-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -3630,7 +4135,53 @@
             "startHour": 8.0,
             "endHour": 10.833333333333334,
             "startString": "08:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[18203]18203-30-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "EECS303",
+    "name": "Signal Analysis for Mechatronic Systems",
+    "sections": [
+      {
+        "id": "EECS303-lec-1",
+        "legacyIds": [
+          "EECS303-Lecture-1-Tuesday-16:00-17:50"
+        ],
+        "courseCode": "EECS303",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[20512]20512-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "EECS303-tut-1",
+        "legacyIds": [
+          "EECS303-Tutorial-1-Wednesday-16:00-17:50"
+        ],
+        "courseCode": "EECS303",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[20512]20512-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -3655,7 +4206,8 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[18203]18203-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -3673,7 +4225,8 @@
             "startHour": 16.0,
             "endHour": 17.833333333333332,
             "startString": "16:00",
-            "endString": "17:50"
+            "endString": "17:50",
+            "location": "[18203]18203-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -3691,7 +4244,8 @@
             "startHour": 16.0,
             "endHour": 17.833333333333332,
             "startString": "16:00",
-            "endString": "17:50"
+            "endString": "17:50",
+            "location": "[18202]18202-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -3709,7 +4263,8 @@
             "startHour": 8.0,
             "endHour": 10.833333333333334,
             "startString": "08:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[18202]18202-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -3727,7 +4282,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[18203]18203-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -3745,7 +4301,8 @@
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[18203]18203-30-الجيزة الرئيسي"
           }
         ]
       }
@@ -3770,7 +4327,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[18203]18203-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -3788,7 +4346,8 @@
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[18203]18203-30-الجيزة الرئيسي"
           }
         ]
       }
@@ -3813,7 +4372,8 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[18202]18202-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -3831,7 +4391,8 @@
             "startHour": 16.0,
             "endHour": 17.833333333333332,
             "startString": "16:00",
-            "endString": "17:50"
+            "endString": "17:50",
+            "location": "[18102]18102-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -3849,7 +4410,8 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[18103]18103-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -3867,7 +4429,8 @@
             "startHour": 16.0,
             "endHour": 17.833333333333332,
             "startString": "16:00",
-            "endString": "17:50"
+            "endString": "17:50",
+            "location": "[18103]18103-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -3885,7 +4448,8 @@
             "startHour": 8.0,
             "endHour": 10.833333333333334,
             "startString": "08:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[18103]18103-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -3903,7 +4467,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[18103]18103-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -3921,7 +4486,8 @@
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[18103]18103-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -3939,7 +4505,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[18101]18101-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -3964,7 +4531,8 @@
             "startHour": 9.0,
             "endHour": 10.833333333333334,
             "startString": "09:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[18102]18102-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -3982,7 +4550,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[18101]18101-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -4000,7 +4569,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[18101]18101-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -4018,7 +4588,8 @@
             "startHour": 8.0,
             "endHour": 10.833333333333334,
             "startString": "08:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[18101]18101-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -4043,7 +4614,8 @@
             "startHour": 9.0,
             "endHour": 10.833333333333334,
             "startString": "09:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[18202]18202-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -4061,7 +4633,8 @@
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[18101]18101-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -4086,7 +4659,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[18101]18101-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -4104,7 +4678,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[18101]18101-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -4129,7 +4704,8 @@
             "startHour": 9.0,
             "endHour": 10.833333333333334,
             "startString": "09:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[18202]18202-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -4147,7 +4723,8 @@
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[18103]18103-30-الجيزة الرئيسي"
           }
         ]
       }
@@ -4156,7 +4733,7 @@
   },
   {
     "code": "EECS436",
-    "name": "Mobile com.",
+    "name": "Mobile Communications",
     "sections": [
       {
         "id": "EECS436-lec-1",
@@ -4172,7 +4749,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[18103]18103-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -4190,7 +4768,8 @@
             "startHour": 11.0,
             "endHour": 13.833333333333334,
             "startString": "11:00",
-            "endString": "13:50"
+            "endString": "13:50",
+            "location": "[18203]18203-30-الجيزة الرئيسي"
           }
         ]
       }
@@ -4199,7 +4778,7 @@
   },
   {
     "code": "EECS466",
-    "name": "Satellite Communication",
+    "name": "Satellite Communications",
     "sections": [
       {
         "id": "EECS466-lec-1",
@@ -4215,7 +4794,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[18101]18101-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -4233,7 +4813,8 @@
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[18101]18101-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -4357,6 +4938,241 @@
     "isMTHS": false
   },
   {
+    "code": "EMCS001",
+    "name": "Engineering Mechanics- Dynamics",
+    "sections": [
+      {
+        "id": "EMCS001-lec-1",
+        "legacyIds": [
+          "EMCS001-Lecture-1-Sunday-8:00-9:50"
+        ],
+        "courseCode": "EMCS001",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51201]51201-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "EMCS001-lec-2",
+        "legacyIds": [
+          "EMCS001-Lecture-2-Sunday-10:00-11:50"
+        ],
+        "courseCode": "EMCS001",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 10.0,
+            "endHour": 11.833333333333334,
+            "startString": "10:00",
+            "endString": "11:50",
+            "location": "[51202]51202-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "EMCS001-lec-3",
+        "legacyIds": [
+          "EMCS001-Lecture-3-Sunday-12:00-13:50"
+        ],
+        "courseCode": "EMCS001",
+        "type": "Lecture",
+        "group": "3",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 12.0,
+            "endHour": 13.833333333333334,
+            "startString": "12:00",
+            "endString": "13:50",
+            "location": "[51113]51113-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "EMCS001-lec-4",
+        "legacyIds": [
+          "EMCS001-Lecture-4-Wednesday-11:00-12:50"
+        ],
+        "courseCode": "EMCS001",
+        "type": "Lecture",
+        "group": "4",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[51114]51114-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "EMCS001-lec-5",
+        "legacyIds": [
+          "EMCS001-Lecture-5-Monday-10:00-11:50"
+        ],
+        "courseCode": "EMCS001",
+        "type": "Lecture",
+        "group": "5",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 10.0,
+            "endHour": 11.833333333333334,
+            "startString": "10:00",
+            "endString": "11:50",
+            "location": "[51215]51215-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "EMCS001-lec-6",
+        "legacyIds": [
+          "EMCS001-Lecture-6-Monday-12:00-13:50"
+        ],
+        "courseCode": "EMCS001",
+        "type": "Lecture",
+        "group": "6",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 12.0,
+            "endHour": 13.833333333333334,
+            "startString": "12:00",
+            "endString": "13:50",
+            "location": "[51216]51216-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "EMCS001-tut-1",
+        "legacyIds": [
+          "EMCS001-Tutorial-1-Sunday-11:00-13:50"
+        ],
+        "courseCode": "EMCS001",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 11.0,
+            "endHour": 13.833333333333334,
+            "startString": "11:00",
+            "endString": "13:50",
+            "location": "[51201]51201-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "EMCS001-tut-2",
+        "legacyIds": [
+          "EMCS001-Tutorial-2-Wednesday-8:00-10:50"
+        ],
+        "courseCode": "EMCS001",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 8.0,
+            "endHour": 10.833333333333334,
+            "startString": "08:00",
+            "endString": "10:50",
+            "location": "[51202]51202-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "EMCS001-tut-3",
+        "legacyIds": [
+          "EMCS001-Tutorial-3-Wednesday-11:00-13:50"
+        ],
+        "courseCode": "EMCS001",
+        "type": "Tutorial",
+        "group": "3",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 11.0,
+            "endHour": 13.833333333333334,
+            "startString": "11:00",
+            "endString": "13:50",
+            "location": "[51113]51113-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "EMCS001-tut-4",
+        "legacyIds": [
+          "EMCS001-Tutorial-4-Tuesday-8:00-10:50"
+        ],
+        "courseCode": "EMCS001",
+        "type": "Tutorial",
+        "group": "4",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 8.0,
+            "endHour": 10.833333333333334,
+            "startString": "08:00",
+            "endString": "10:50",
+            "location": "[51114]51114-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "EMCS001-tut-5",
+        "legacyIds": [
+          "EMCS001-Tutorial-5-Tuesday-11:00-13:50"
+        ],
+        "courseCode": "EMCS001",
+        "type": "Tutorial",
+        "group": "5",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 11.0,
+            "endHour": 13.833333333333334,
+            "startString": "11:00",
+            "endString": "13:50",
+            "location": "[51215]51215-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "EMCS001-tut-6",
+        "legacyIds": [
+          "EMCS001-Tutorial-6-Monday-8:00-10:50"
+        ],
+        "courseCode": "EMCS001",
+        "type": "Tutorial",
+        "group": "6",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 8.0,
+            "endHour": 10.833333333333334,
+            "startString": "08:00",
+            "endString": "10:50",
+            "location": "[51216]51216-الشيخ زايد"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
     "code": "EMCS201",
     "name": "Engineering Mechanics-3-Rigid Body Dynamics",
     "sections": [
@@ -4419,7 +5235,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[18101]18101-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -4437,7 +5254,8 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[18101]18101-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -4455,7 +5273,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[18103]18103-30-الجيزة الرئيسي"
           }
         ]
       },
@@ -4473,7 +5292,8 @@
             "startHour": 16.0,
             "endHour": 18.833333333333332,
             "startString": "16:00",
-            "endString": "18:50"
+            "endString": "18:50",
+            "location": "[18103]18103-30-الجيزة الرئيسي"
           }
         ]
       }
@@ -4519,6 +5339,89 @@
             "startString": "13:00",
             "endString": "15:50",
             "location": "[9301] ELC. Bulding -45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "EPES201",
+    "name": "Electrical Engineering Fundamentals",
+    "sections": [
+      {
+        "id": "EPES201-lec-1",
+        "legacyIds": [
+          "EPES201-Lecture-1-Monday-14:00-15:50"
+        ],
+        "courseCode": "EPES201",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[20512]20512-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "EPES201-lec-2",
+        "legacyIds": [
+          "EPES201-Lecture-2-Wednesday-16:00-17:50"
+        ],
+        "courseCode": "EPES201",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[20506]20506-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "EPES201-tut-1",
+        "legacyIds": [
+          "EPES201-Tutorial-1-Thursday-16:00-18:50"
+        ],
+        "courseCode": "EPES201",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 16.0,
+            "endHour": 18.833333333333332,
+            "startString": "16:00",
+            "endString": "18:50",
+            "location": "[20506]20506-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "EPES201-tut-2",
+        "legacyIds": [
+          "EPES201-Tutorial-2-Thursday-13:00-15:50"
+        ],
+        "courseCode": "EPES201",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 13.0,
+            "endHour": 15.833333333333334,
+            "startString": "13:00",
+            "endString": "15:50",
+            "location": "[20506]20506-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -4706,6 +5609,89 @@
     "isMTHS": false
   },
   {
+    "code": "EPES303",
+    "name": "Electric Drive Systems",
+    "sections": [
+      {
+        "id": "EPES303-lec-1",
+        "legacyIds": [
+          "EPES303-Lecture-1-Monday-9:00-10:50"
+        ],
+        "courseCode": "EPES303",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "EPES303-lec-2",
+        "legacyIds": [
+          "EPES303-Lecture-2-Monday-16:00-17:50"
+        ],
+        "courseCode": "EPES303",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "EPES303-tut-1",
+        "legacyIds": [
+          "EPES303-Tutorial-1-Thursday-13:00-15:50"
+        ],
+        "courseCode": "EPES303",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 13.0,
+            "endHour": 15.833333333333334,
+            "startString": "13:00",
+            "endString": "15:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "EPES303-tut-2",
+        "legacyIds": [
+          "EPES303-Tutorial-2-Thursday-16:00-18:50"
+        ],
+        "courseCode": "EPES303",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 16.0,
+            "endHour": 18.833333333333332,
+            "startString": "16:00",
+            "endString": "18:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
     "code": "EPES304",
     "name": "Electrical Machines-2",
     "sections": [
@@ -4744,6 +5730,89 @@
             "startString": "13:00",
             "endString": "15:50",
             "location": "[20102]20102-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "EPES305",
+    "name": "Industrial Instrumentation",
+    "sections": [
+      {
+        "id": "EPES305-lec-1",
+        "legacyIds": [
+          "EPES305-Lecture-1-Monday-16:00-17:50"
+        ],
+        "courseCode": "EPES305",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[14503]14503-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "EPES305-lec-2",
+        "legacyIds": [
+          "EPES305-Lecture-2-Tuesday-14:00-15:50"
+        ],
+        "courseCode": "EPES305",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[14503]14503-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "EPES305-tut-1",
+        "legacyIds": [
+          "EPES305-Tutorial-1-Thursday-14:00-15:50"
+        ],
+        "courseCode": "EPES305",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[14503]14503-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "EPES305-tut-2",
+        "legacyIds": [
+          "EPES305-Tutorial-2-Thursday-16:00-17:50"
+        ],
+        "courseCode": "EPES305",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[14503]14503-50-الجيزة الرئيسي"
           }
         ]
       }
@@ -5516,6 +6585,440 @@
     "isMTHS": false
   },
   {
+    "code": "EPES450",
+    "name": "Programmable Logic Controllers",
+    "sections": [
+      {
+        "id": "EPES450-lec-1",
+        "legacyIds": [
+          "EPES450-Lecture-1-Wednesday-9:00-10:50"
+        ],
+        "courseCode": "EPES450",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "EPES450-lec-2",
+        "legacyIds": [
+          "EPES450-Lecture-2-Wednesday-11:00-12:50"
+        ],
+        "courseCode": "EPES450",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "EPES450-tut-1",
+        "legacyIds": [
+          "EPES450-Tutorial-1-Thursday-13:00-15:50"
+        ],
+        "courseCode": "EPES450",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 13.0,
+            "endHour": 15.833333333333334,
+            "startString": "13:00",
+            "endString": "15:50",
+            "location": "[14300]14300-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "EPES450-tut-2",
+        "legacyIds": [
+          "EPES450-Tutorial-2-Thursday-16:00-18:50"
+        ],
+        "courseCode": "EPES450",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 16.0,
+            "endHour": 18.833333333333332,
+            "startString": "16:00",
+            "endString": "18:50",
+            "location": "[14300]14300-60-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "EPES451",
+    "name": "Industrial Communication and Network",
+    "sections": [
+      {
+        "id": "EPES451-lec-1",
+        "legacyIds": [
+          "EPES451-Lecture-1-Tuesday-11:00-12:50"
+        ],
+        "courseCode": "EPES451",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[14300]14300-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "EPES451-lec-2",
+        "legacyIds": [
+          "EPES451-Lecture-2-Tuesday-14:00-15:50"
+        ],
+        "courseCode": "EPES451",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "EPES451-tut-1",
+        "legacyIds": [
+          "EPES451-Tutorial-1-Tuesday-14:00-15:50"
+        ],
+        "courseCode": "EPES451",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[14300]14300-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "EPES451-tut-2",
+        "legacyIds": [
+          "EPES451-Tutorial-2-Tuesday-16:00-17:50"
+        ],
+        "courseCode": "EPES451",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "GENS001",
+    "name": "Critical and Creative Thinking",
+    "sections": [
+      {
+        "id": "GENS001-lec-1",
+        "legacyIds": [
+          "GENS001-Lecture-1-Monday-12:00-13:50"
+        ],
+        "courseCode": "GENS001",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 12.0,
+            "endHour": 13.833333333333334,
+            "startString": "12:00",
+            "endString": "13:50",
+            "location": "[51201]51201-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "GENS001-lec-2",
+        "legacyIds": [
+          "GENS001-Lecture-2-Wednesday-11:00-12:50"
+        ],
+        "courseCode": "GENS001",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[51204]51204-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "GENS001-lec-3",
+        "legacyIds": [
+          "GENS001-Lecture-3-Wednesday-9:00-10:50"
+        ],
+        "courseCode": "GENS001",
+        "type": "Lecture",
+        "group": "3",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[51113]51113-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "GENS001-lec-4",
+        "legacyIds": [
+          "GENS001-Lecture-4-Wednesday-13:00-14:50"
+        ],
+        "courseCode": "GENS001",
+        "type": "Lecture",
+        "group": "4",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 13.0,
+            "endHour": 14.833333333333334,
+            "startString": "13:00",
+            "endString": "14:50",
+            "location": "[51114]51114-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "GENS001-lec-5",
+        "legacyIds": [
+          "GENS001-Lecture-5-Saturday-10:00-11:50"
+        ],
+        "courseCode": "GENS001",
+        "type": "Lecture",
+        "group": "5",
+        "sessions": [
+          {
+            "day": "Saturday",
+            "startHour": 10.0,
+            "endHour": 11.833333333333334,
+            "startString": "10:00",
+            "endString": "11:50",
+            "location": "[51215]51215-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "GENS001-lec-6",
+        "legacyIds": [
+          "GENS001-Lecture-6-Wednesday-8:00-9:50"
+        ],
+        "courseCode": "GENS001",
+        "type": "Lecture",
+        "group": "6",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51216]51216-الشيخ زايد"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "GENS002",
+    "name": "Societal Issues",
+    "sections": [
+      {
+        "id": "GENS002-lec-1",
+        "legacyIds": [
+          "GENS002-Lecture-1-Tuesday-9:00-10:50"
+        ],
+        "courseCode": "GENS002",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[20109]20109-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "GENS004",
+    "name": "Proficiency and Capacity Building",
+    "sections": [
+      {
+        "id": "GENS004-lec-1",
+        "legacyIds": [
+          "GENS004-Lecture-1-Sunday-10:00-10:50"
+        ],
+        "courseCode": "GENS004",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 10.0,
+            "endHour": 10.833333333333334,
+            "startString": "10:00",
+            "endString": "10:50",
+            "location": "[51201]51201-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "GENS004-lec-2",
+        "legacyIds": [
+          "GENS004-Lecture-2-Sunday-14:00-14:50"
+        ],
+        "courseCode": "GENS004",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 14.0,
+            "endHour": 14.833333333333334,
+            "startString": "14:00",
+            "endString": "14:50",
+            "location": "[51202]51202-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "GENS004-lec-3",
+        "legacyIds": [
+          "GENS004-Lecture-3-Sunday-11:00-11:50"
+        ],
+        "courseCode": "GENS004",
+        "type": "Lecture",
+        "group": "3",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 11.0,
+            "endHour": 11.833333333333334,
+            "startString": "11:00",
+            "endString": "11:50",
+            "location": "[51113]51113-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "GENS004-lec-4",
+        "legacyIds": [
+          "GENS004-Lecture-4-Monday-10:00-10:50"
+        ],
+        "courseCode": "GENS004",
+        "type": "Lecture",
+        "group": "4",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 10.0,
+            "endHour": 10.833333333333334,
+            "startString": "10:00",
+            "endString": "10:50",
+            "location": "[51114]51114-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "GENS004-lec-5",
+        "legacyIds": [
+          "GENS004-Lecture-5-Monday-12:00-12:50"
+        ],
+        "courseCode": "GENS004",
+        "type": "Lecture",
+        "group": "5",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 12.0,
+            "endHour": 12.833333333333334,
+            "startString": "12:00",
+            "endString": "12:50",
+            "location": "[51215]51215-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "GENS004-lec-6",
+        "legacyIds": [
+          "GENS004-Lecture-6-Saturday-13:00-13:50"
+        ],
+        "courseCode": "GENS004",
+        "type": "Lecture",
+        "group": "6",
+        "sessions": [
+          {
+            "day": "Saturday",
+            "startHour": 13.0,
+            "endHour": 13.833333333333334,
+            "startString": "13:00",
+            "endString": "13:50",
+            "location": "[51216]51216-الشيخ زايد"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
     "code": "GENS005",
     "name": "Writing and Presentation Skills",
     "sections": [
@@ -5554,6 +7057,32 @@
             "startString": "11:00",
             "endString": "12:50",
             "location": "[20102]20102-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "GENS009",
+    "name": "Introduction to Design Thinking",
+    "sections": [
+      {
+        "id": "GENS009-lec-2",
+        "legacyIds": [
+          "GENS009-Lecture-2-Wednesday-11:00-12:50"
+        ],
+        "courseCode": "GENS009",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[51219]51219-صالة رسم-الشيخ زايد"
           }
         ]
       }
@@ -5957,7 +7486,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[3704]3704-60-الجيزة الرئيسي"
           }
         ]
       }
@@ -6028,7 +7558,7 @@
             "endHour": 15.833333333333334,
             "startString": "14:00",
             "endString": "15:50",
-            "location": "[20102]20102-45-الجيزة الرئيسي"
+            "location": "[31300]صالة الرسم-60-ملحق كيمياء"
           }
         ]
       },
@@ -6047,7 +7577,7 @@
             "endHour": 17.833333333333332,
             "startString": "16:00",
             "endString": "17:50",
-            "location": "[20102]20102-45-الجيزة الرئيسي"
+            "location": "[31300]صالة الرسم-60-ملحق كيمياء"
           }
         ]
       }
@@ -6100,6 +7630,632 @@
     "isMTHS": false
   },
   {
+    "code": "IHDS402",
+    "name": "Environmental and Municipal Hydraulics",
+    "sections": [
+      {
+        "id": "IHDS402-lec-1",
+        "legacyIds": [
+          "IHDS402-Lecture-1-Sunday-9:00-10:50"
+        ],
+        "courseCode": "IHDS402",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[20506]20506-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "IHDS402-tut-1",
+        "legacyIds": [
+          "IHDS402-Tutorial-1-Sunday-11:00-12:50"
+        ],
+        "courseCode": "IHDS402",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[20506]20506-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "IHDS403",
+    "name": "Field Measurements and Water Quality Aspects",
+    "sections": [
+      {
+        "id": "IHDS403-lec-1",
+        "legacyIds": [
+          "IHDS403-Lecture-1-Monday-9:00-10:50"
+        ],
+        "courseCode": "IHDS403",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[20110]20110-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "IHDS403-tut-1",
+        "legacyIds": [
+          "IHDS403-Tutorial-1-Monday-11:00-12:50"
+        ],
+        "courseCode": "IHDS403",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[20110]20110-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "IHDS404",
+    "name": "EIA for Water, Wastewater and Irrigation Projects",
+    "sections": [
+      {
+        "id": "IHDS404-lec-1",
+        "legacyIds": [
+          "IHDS404-Lecture-1-Sunday-14:00-15:50"
+        ],
+        "courseCode": "IHDS404",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[20506]20506-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "IHDS404-tut-1",
+        "legacyIds": [
+          "IHDS404-Tutorial-1-Sunday-16:00-18:50"
+        ],
+        "courseCode": "IHDS404",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 16.0,
+            "endHour": 18.833333333333332,
+            "startString": "16:00",
+            "endString": "18:50",
+            "location": "[20506]20506-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "IHDS407",
+    "name": "Irrigation Design Work: Crossing Structures",
+    "sections": [
+      {
+        "id": "IHDS407-lec-1",
+        "legacyIds": [
+          "IHDS407-Lecture-1-Wednesday-14:00-15:50"
+        ],
+        "courseCode": "IHDS407",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[20104]20104-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "IHDS407-tut-1",
+        "legacyIds": [
+          "IHDS407-Tutorial-1-Wednesday-16:00-18:50"
+        ],
+        "courseCode": "IHDS407",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 16.0,
+            "endHour": 18.833333333333332,
+            "startString": "16:00",
+            "endString": "18:50",
+            "location": "[20104]20104-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "IHDS415",
+    "name": "Non-Conventional Wastewater Treatment Systems",
+    "sections": [
+      {
+        "id": "IHDS415-lec-1",
+        "legacyIds": [
+          "IHDS415-Lecture-1-Thursday-14:00-15:50"
+        ],
+        "courseCode": "IHDS415",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[20104]20104-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "IHDS415-tut-1",
+        "legacyIds": [
+          "IHDS415-Tutorial-1-Thursday-16:00-17:50"
+        ],
+        "courseCode": "IHDS415",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[20321]20321-32-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "IHDS419",
+    "name": "Applied Hydrology",
+    "sections": [
+      {
+        "id": "IHDS419-lec-1",
+        "legacyIds": [
+          "IHDS419-Lecture-1-Wednesday-9:00-10:50"
+        ],
+        "courseCode": "IHDS419",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[20104]20104-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "IHDS419-tut-1",
+        "legacyIds": [
+          "IHDS419-Tutorial-1-Wednesday-11:00-12:50"
+        ],
+        "courseCode": "IHDS419",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[20104]20104-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "INTS001",
+    "name": "Engineering Graphics",
+    "sections": [
+      {
+        "id": "INTS001-lec-2",
+        "legacyIds": [
+          "INTS001-Lecture-2-Monday-8:00-9:50"
+        ],
+        "courseCode": "INTS001",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51219]51219-صالة رسم-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "INTS001-lec-4",
+        "legacyIds": [
+          "INTS001-Lecture-4-Saturday-8:00-9:50"
+        ],
+        "courseCode": "INTS001",
+        "type": "Lecture",
+        "group": "4",
+        "sessions": [
+          {
+            "day": "Saturday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51219]51219-صالة رسم-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "INTS001-lec-6",
+        "legacyIds": [
+          "INTS001-Lecture-6-Saturday-8:00-9:50"
+        ],
+        "courseCode": "INTS001",
+        "type": "Lecture",
+        "group": "6",
+        "sessions": [
+          {
+            "day": "Saturday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51220]51220-صالة رسم-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "INTS001-tut-2",
+        "legacyIds": [
+          "INTS001-Tutorial-2-Monday-10:00-12:50"
+        ],
+        "courseCode": "INTS001",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 10.0,
+            "endHour": 12.833333333333334,
+            "startString": "10:00",
+            "endString": "12:50",
+            "location": "[51219]51219-صالة رسم-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "INTS001-tut-4",
+        "legacyIds": [
+          "INTS001-Tutorial-4-Saturday-10:00-12:50"
+        ],
+        "courseCode": "INTS001",
+        "type": "Tutorial",
+        "group": "4",
+        "sessions": [
+          {
+            "day": "Saturday",
+            "startHour": 10.0,
+            "endHour": 12.833333333333334,
+            "startString": "10:00",
+            "endString": "12:50",
+            "location": "[51219]51219-صالة رسم-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "INTS001-tut-6",
+        "legacyIds": [
+          "INTS001-Tutorial-6-Saturday-10:00-12:50"
+        ],
+        "courseCode": "INTS001",
+        "type": "Tutorial",
+        "group": "6",
+        "sessions": [
+          {
+            "day": "Saturday",
+            "startHour": 10.0,
+            "endHour": 12.833333333333334,
+            "startString": "10:00",
+            "endString": "12:50",
+            "location": "[51220]51220-صالة رسم-الشيخ زايد"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "INTS005",
+    "name": "Information Technology",
+    "sections": [
+      {
+        "id": "INTS005-lec-1",
+        "legacyIds": [
+          "INTS005-Lecture-1-Wednesday-8:00-8:50"
+        ],
+        "courseCode": "INTS005",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 8.0,
+            "endHour": 8.833333333333334,
+            "startString": "08:00",
+            "endString": "08:50",
+            "location": "[51213]LAB 1 (Zayed)-30-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "INTS005-lec-2",
+        "legacyIds": [
+          "INTS005-Lecture-2-Tuesday-11:00-11:50"
+        ],
+        "courseCode": "INTS005",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 11.0,
+            "endHour": 11.833333333333334,
+            "startString": "11:00",
+            "endString": "11:50",
+            "location": "[51202]51202-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "INTS005-lec-3",
+        "legacyIds": [
+          "INTS005-Lecture-3-Saturday-8:00-8:50"
+        ],
+        "courseCode": "INTS005",
+        "type": "Lecture",
+        "group": "3",
+        "sessions": [
+          {
+            "day": "Saturday",
+            "startHour": 8.0,
+            "endHour": 8.833333333333334,
+            "startString": "08:00",
+            "endString": "08:50",
+            "location": "[51113]51113-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "INTS005-lec-4",
+        "legacyIds": [
+          "INTS005-Lecture-4-Sunday-11:00-11:50"
+        ],
+        "courseCode": "INTS005",
+        "type": "Lecture",
+        "group": "4",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 11.0,
+            "endHour": 11.833333333333334,
+            "startString": "11:00",
+            "endString": "11:50",
+            "location": "[51114]51114-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "INTS005-lec-5",
+        "legacyIds": [
+          "INTS005-Lecture-5-Wednesday-11:00-11:50"
+        ],
+        "courseCode": "INTS005",
+        "type": "Lecture",
+        "group": "5",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 11.0,
+            "endHour": 11.833333333333334,
+            "startString": "11:00",
+            "endString": "11:50",
+            "location": "[51215]51215-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "INTS005-lec-6",
+        "legacyIds": [
+          "INTS005-Lecture-6-Tuesday-14:00-14:50"
+        ],
+        "courseCode": "INTS005",
+        "type": "Lecture",
+        "group": "6",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 14.0,
+            "endHour": 14.833333333333334,
+            "startString": "14:00",
+            "endString": "14:50",
+            "location": "[51216]51216-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "INTS005-tut-1",
+        "legacyIds": [
+          "INTS005-Tutorial-1-Wednesday-9:00-11:50"
+        ],
+        "courseCode": "INTS005",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 9.0,
+            "endHour": 11.833333333333334,
+            "startString": "09:00",
+            "endString": "11:50",
+            "location": "[51213]LAB 1 (Zayed)-30-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "INTS005-tut-2",
+        "legacyIds": [
+          "INTS005-Tutorial-2-Tuesday-12:00-14:50"
+        ],
+        "courseCode": "INTS005",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 12.0,
+            "endHour": 14.833333333333334,
+            "startString": "12:00",
+            "endString": "14:50",
+            "location": "[51214]LAB 2 (Zayed)-25-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "INTS005-tut-3",
+        "legacyIds": [
+          "INTS005-Tutorial-3-Saturday-9:00-11:50"
+        ],
+        "courseCode": "INTS005",
+        "type": "Tutorial",
+        "group": "3",
+        "sessions": [
+          {
+            "day": "Saturday",
+            "startHour": 9.0,
+            "endHour": 11.833333333333334,
+            "startString": "09:00",
+            "endString": "11:50",
+            "location": "[51213]LAB 1 (Zayed)-30-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "INTS005-tut-4",
+        "legacyIds": [
+          "INTS005-Tutorial-4-Sunday-12:00-14:50"
+        ],
+        "courseCode": "INTS005",
+        "type": "Tutorial",
+        "group": "4",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 12.0,
+            "endHour": 14.833333333333334,
+            "startString": "12:00",
+            "endString": "14:50",
+            "location": "[51214]LAB 2 (Zayed)-25-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "INTS005-tut-5",
+        "legacyIds": [
+          "INTS005-Tutorial-5-Wednesday-8:00-10:50"
+        ],
+        "courseCode": "INTS005",
+        "type": "Tutorial",
+        "group": "5",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 8.0,
+            "endHour": 10.833333333333334,
+            "startString": "08:00",
+            "endString": "10:50",
+            "location": "[51214]LAB 2 (Zayed)-25-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "INTS005-tut-6",
+        "legacyIds": [
+          "INTS005-Tutorial-6-Tuesday-11:00-13:50"
+        ],
+        "courseCode": "INTS005",
+        "type": "Tutorial",
+        "group": "6",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 11.0,
+            "endHour": 13.833333333333334,
+            "startString": "11:00",
+            "endString": "13:50",
+            "location": "[51213]LAB 1 (Zayed)-30-الشيخ زايد"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
     "code": "INTS125",
     "name": "Introduction to Mechanical Engineering",
     "sections": [
@@ -6138,6 +8294,1992 @@
             "startString": "13:00",
             "endString": "15:50",
             "location": "[18202]18202-60-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MCNS101",
+    "name": "Thermodynamics",
+    "sections": [
+      {
+        "id": "MCNS101-lec-1",
+        "legacyIds": [
+          "MCNS101-Lecture-1-Sunday-9:00-10:50"
+        ],
+        "courseCode": "MCNS101",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[20110]20110-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MCNS101-lec-2",
+        "legacyIds": [
+          "MCNS101-Lecture-2-Sunday-11:00-12:50"
+        ],
+        "courseCode": "MCNS101",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[20110]20110-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MCNS101-tut-1",
+        "legacyIds": [
+          "MCNS101-Tutorial-1-Monday-14:00-15:50"
+        ],
+        "courseCode": "MCNS101",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[20108]20108-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MCNS101-tut-2",
+        "legacyIds": [
+          "MCNS101-Tutorial-2-Monday-16:00-17:50"
+        ],
+        "courseCode": "MCNS101",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[20108]20108-60-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MCNS202",
+    "name": "Fluid Mechanics",
+    "sections": [
+      {
+        "id": "MCNS202-lec-1",
+        "legacyIds": [
+          "MCNS202-Lecture-1-Sunday-14:00-15:50"
+        ],
+        "courseCode": "MCNS202",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MCNS202-lec-2",
+        "legacyIds": [
+          "MCNS202-Lecture-2-Thursday-14:00-15:50"
+        ],
+        "courseCode": "MCNS202",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[18102]18102-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MCNS202-tut-1",
+        "legacyIds": [
+          "MCNS202-Tutorial-1-Tuesday-16:00-17:50"
+        ],
+        "courseCode": "MCNS202",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[14503]14503-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MCNS202-tut-2",
+        "legacyIds": [
+          "MCNS202-Tutorial-2-Thursday-11:00-12:50"
+        ],
+        "courseCode": "MCNS202",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[14503]14503-50-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MCNS326",
+    "name": "Heat Transfer",
+    "sections": [
+      {
+        "id": "MCNS326-lec-1",
+        "legacyIds": [
+          "MCNS326-Lecture-1-Monday-11:00-12:50"
+        ],
+        "courseCode": "MCNS326",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MCNS326-lec-2",
+        "legacyIds": [
+          "MCNS326-Lecture-2-Monday-14:00-15:50"
+        ],
+        "courseCode": "MCNS326",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MCNS326-tut-1",
+        "legacyIds": [
+          "MCNS326-Tutorial-1-Sunday-14:00-15:50"
+        ],
+        "courseCode": "MCNS326",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[14502]14502-30-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MCNS326-tut-2",
+        "legacyIds": [
+          "MCNS326-Tutorial-2-Thursday-14:00-15:50"
+        ],
+        "courseCode": "MCNS326",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[18201]18201-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MCNS327",
+    "name": "Heat and Mass Transfer",
+    "sections": [
+      {
+        "id": "MCNS327-lec-1",
+        "legacyIds": [
+          "MCNS327-Lecture-1-Wednesday-14:00-15:50"
+        ],
+        "courseCode": "MCNS327",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[20510]20510-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MCNS327-tut-1",
+        "legacyIds": [
+          "MCNS327-Tutorial-1-Tuesday-16:00-18:50"
+        ],
+        "courseCode": "MCNS327",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 16.0,
+            "endHour": 18.833333333333332,
+            "startString": "16:00",
+            "endString": "18:50",
+            "location": "[20510]20510-60-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDES481",
+    "name": "Graduation Project-1",
+    "sections": [
+      {
+        "id": "MDES481-lec-1",
+        "legacyIds": [
+          "MDES481-Lecture-1-Tuesday-18:00-18:50"
+        ],
+        "courseCode": "MDES481",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 18.0,
+            "endHour": 18.833333333333332,
+            "startString": "18:00",
+            "endString": "18:50",
+            "location": "-----"
+          }
+        ]
+      },
+      {
+        "id": "MDES481-tut-1",
+        "legacyIds": [
+          "MDES481-Tutorial-1-Tuesday-19:00-19:50"
+        ],
+        "courseCode": "MDES481",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 19.0,
+            "endHour": 19.833333333333332,
+            "startString": "19:00",
+            "endString": "19:50",
+            "location": "-----"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDES482",
+    "name": "Graduation Project-2",
+    "sections": [
+      {
+        "id": "MDES482-lec-1",
+        "legacyIds": [
+          "MDES482-Lecture-1-Tuesday-18:00-18:50"
+        ],
+        "courseCode": "MDES482",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 18.0,
+            "endHour": 18.833333333333332,
+            "startString": "18:00",
+            "endString": "18:50",
+            "location": "-----"
+          }
+        ]
+      },
+      {
+        "id": "MDES482-tut-1",
+        "legacyIds": [
+          "MDES482-Tutorial-1-Tuesday-19:00-20:50"
+        ],
+        "courseCode": "MDES482",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 19.0,
+            "endHour": 20.833333333333332,
+            "startString": "19:00",
+            "endString": "20:50",
+            "location": "-----"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS132",
+    "name": "Materials Science",
+    "sections": [
+      {
+        "id": "MDPS132-lec-1",
+        "legacyIds": [
+          "MDPS132-Lecture-1-Wednesday-14:00-15:50"
+        ],
+        "courseCode": "MDPS132",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS132-tut-1",
+        "legacyIds": [
+          "MDPS132-Tutorial-1-Wednesday-16:00-18:50"
+        ],
+        "courseCode": "MDPS132",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 16.0,
+            "endHour": 18.833333333333332,
+            "startString": "16:00",
+            "endString": "18:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS133",
+    "name": "Materials for Mechatronics",
+    "sections": [
+      {
+        "id": "MDPS133-lec-1",
+        "legacyIds": [
+          "MDPS133-Lecture-1-Wednesday-11:00-12:50"
+        ],
+        "courseCode": "MDPS133",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[14503]14503-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS133-lec-2",
+        "legacyIds": [
+          "MDPS133-Lecture-2-Wednesday-14:00-15:50"
+        ],
+        "courseCode": "MDPS133",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[14503]14503-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS133-tut-1",
+        "legacyIds": [
+          "MDPS133-Tutorial-1-Wednesday-13:00-15:50"
+        ],
+        "courseCode": "MDPS133",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 13.0,
+            "endHour": 15.833333333333334,
+            "startString": "13:00",
+            "endString": "15:50",
+            "location": "[14502]14502-30-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS133-tut-2",
+        "legacyIds": [
+          "MDPS133-Tutorial-2-Wednesday-16:00-18:50"
+        ],
+        "courseCode": "MDPS133",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 16.0,
+            "endHour": 18.833333333333332,
+            "startString": "16:00",
+            "endString": "18:50",
+            "location": "[14502]14502-30-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS217",
+    "name": "Machine Drawing",
+    "sections": [
+      {
+        "id": "MDPS217-lec-1",
+        "legacyIds": [
+          "MDPS217-Lecture-1-Sunday-9:00-10:50"
+        ],
+        "courseCode": "MDPS217",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[14300]14300-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS217-lec-2",
+        "legacyIds": [
+          "MDPS217-Lecture-2-Sunday-14:00-15:50"
+        ],
+        "courseCode": "MDPS217",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[14300]14300-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS217-lec-3",
+        "legacyIds": [
+          "MDPS217-Lecture-3-Sunday-16:00-17:50"
+        ],
+        "courseCode": "MDPS217",
+        "type": "Lecture",
+        "group": "3",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[14300]14300-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS217-tut-1",
+        "legacyIds": [
+          "MDPS217-Tutorial-1-Tuesday-14:00-17:50"
+        ],
+        "courseCode": "MDPS217",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 14.0,
+            "endHour": 17.833333333333332,
+            "startString": "14:00",
+            "endString": "17:50",
+            "location": "[14402]14402-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS217-tut-2",
+        "legacyIds": [
+          "MDPS217-Tutorial-2-Wednesday-9:00-12:50",
+          "MDPS217-Tutorial-2-Wednesday-14:00-17:50"
+        ],
+        "courseCode": "MDPS217",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 9.0,
+            "endHour": 12.833333333333334,
+            "startString": "09:00",
+            "endString": "12:50",
+            "location": "[14402]14402-60-الجيزة الرئيسي"
+          },
+          {
+            "day": "Wednesday",
+            "startHour": 14.0,
+            "endHour": 17.833333333333332,
+            "startString": "14:00",
+            "endString": "17:50",
+            "location": "[14402]14402-60-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS241",
+    "name": "Manufacturing Processes I",
+    "sections": [
+      {
+        "id": "MDPS241-lec-1",
+        "legacyIds": [
+          "MDPS241-Lecture-1-Monday-9:00-10:50"
+        ],
+        "courseCode": "MDPS241",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[14300]14300-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS241-lec-2",
+        "legacyIds": [
+          "MDPS241-Lecture-2-Monday-11:00-12:50"
+        ],
+        "courseCode": "MDPS241",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[14300]14300-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS241-tut-1",
+        "legacyIds": [
+          "MDPS241-Tutorial-1-Thursday-8:00-10:50"
+        ],
+        "courseCode": "MDPS241",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 8.0,
+            "endHour": 10.833333333333334,
+            "startString": "08:00",
+            "endString": "10:50",
+            "location": "[14300]14300-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS241-tut-2",
+        "legacyIds": [
+          "MDPS241-Tutorial-2-Thursday-13:00-15:50"
+        ],
+        "courseCode": "MDPS241",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 13.0,
+            "endHour": 15.833333333333334,
+            "startString": "13:00",
+            "endString": "15:50",
+            "location": "[14502]14502-30-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS242",
+    "name": "Manufacturing Processes II",
+    "sections": [
+      {
+        "id": "MDPS242-lec-1",
+        "legacyIds": [
+          "MDPS242-Lecture-1-Wednesday-9:00-10:50"
+        ],
+        "courseCode": "MDPS242",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[14502]14502-30-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS242-lec-2",
+        "legacyIds": [
+          "MDPS242-Lecture-2-Wednesday-11:00-12:50"
+        ],
+        "courseCode": "MDPS242",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[14502]14502-30-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS242-tut-1",
+        "legacyIds": [
+          "MDPS242-Tutorial-1-Sunday-8:00-10:50"
+        ],
+        "courseCode": "MDPS242",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 8.0,
+            "endHour": 10.833333333333334,
+            "startString": "08:00",
+            "endString": "10:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS242-tut-2",
+        "legacyIds": [
+          "MDPS242-Tutorial-2-Sunday-13:00-15:50"
+        ],
+        "courseCode": "MDPS242",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 13.0,
+            "endHour": 15.833333333333334,
+            "startString": "13:00",
+            "endString": "15:50",
+            "location": "-----"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS251",
+    "name": "Kinematics of Machine Components",
+    "sections": [
+      {
+        "id": "MDPS251-lec-1",
+        "legacyIds": [
+          "MDPS251-Lecture-1-Wednesday-9:00-10:50"
+        ],
+        "courseCode": "MDPS251",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[18102]18102-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS251-lec-2",
+        "legacyIds": [
+          "MDPS251-Lecture-2-Wednesday-11:00-12:50"
+        ],
+        "courseCode": "MDPS251",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[18102]18102-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS251-tut-1",
+        "legacyIds": [
+          "MDPS251-Tutorial-1-Thursday-13:00-15:50"
+        ],
+        "courseCode": "MDPS251",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 13.0,
+            "endHour": 15.833333333333334,
+            "startString": "13:00",
+            "endString": "15:50",
+            "location": "[20511]20511-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS251-tut-2",
+        "legacyIds": [
+          "MDPS251-Tutorial-2-Thursday-16:00-18:50"
+        ],
+        "courseCode": "MDPS251",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 16.0,
+            "endHour": 18.833333333333332,
+            "startString": "16:00",
+            "endString": "18:50",
+            "location": "[20511]20511-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS261",
+    "name": "Stress Analysis",
+    "sections": [
+      {
+        "id": "MDPS261-lec-1",
+        "legacyIds": [
+          "MDPS261-Lecture-1-Monday-9:00-10:50"
+        ],
+        "courseCode": "MDPS261",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[14503]14503-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS261-lec-2",
+        "legacyIds": [
+          "MDPS261-Lecture-2-Monday-11:00-12:50"
+        ],
+        "courseCode": "MDPS261",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[14503]14503-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS261-tut-1",
+        "legacyIds": [
+          "MDPS261-Tutorial-1-Monday-14:00-15:50"
+        ],
+        "courseCode": "MDPS261",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[14503]14503-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS261-tut-2",
+        "legacyIds": [
+          "MDPS261-Tutorial-2-Thursday-14:00-15:50"
+        ],
+        "courseCode": "MDPS261",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[20509]20509-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS352",
+    "name": "Machine Design",
+    "sections": [
+      {
+        "id": "MDPS352-lec-1",
+        "legacyIds": [
+          "MDPS352-Lecture-1-Monday-9:00-10:50"
+        ],
+        "courseCode": "MDPS352",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[20509]20509-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS352-lec-2",
+        "legacyIds": [
+          "MDPS352-Lecture-2-Monday-11:00-12:50"
+        ],
+        "courseCode": "MDPS352",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[20509]20509-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS352-tut-1",
+        "legacyIds": [
+          "MDPS352-Tutorial-1-Tuesday-13:00-15:50"
+        ],
+        "courseCode": "MDPS352",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 13.0,
+            "endHour": 15.833333333333334,
+            "startString": "13:00",
+            "endString": "15:50",
+            "location": "[20509]20509-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS352-tut-2",
+        "legacyIds": [
+          "MDPS352-Tutorial-2-Tuesday-16:00-18:50"
+        ],
+        "courseCode": "MDPS352",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 16.0,
+            "endHour": 18.833333333333332,
+            "startString": "16:00",
+            "endString": "18:50",
+            "location": "[20509]20509-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS355",
+    "name": "Dynamics of Machine Components",
+    "sections": [
+      {
+        "id": "MDPS355-lec-1",
+        "legacyIds": [
+          "MDPS355-Lecture-1-Wednesday-14:00-15:50"
+        ],
+        "courseCode": "MDPS355",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[14300]14300-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS355-tut-1",
+        "legacyIds": [
+          "MDPS355-Tutorial-1-Wednesday-16:00-18:50"
+        ],
+        "courseCode": "MDPS355",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 16.0,
+            "endHour": 18.833333333333332,
+            "startString": "16:00",
+            "endString": "18:50",
+            "location": "[14300]14300-60-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS363",
+    "name": "Finite Element Analysis",
+    "sections": [
+      {
+        "id": "MDPS363-lec-1",
+        "legacyIds": [
+          "MDPS363-Lecture-1-Sunday-9:00-10:50"
+        ],
+        "courseCode": "MDPS363",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[14503]14503-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS363-tut-1",
+        "legacyIds": [
+          "MDPS363-Tutorial-1-Monday-11:00-12:50"
+        ],
+        "courseCode": "MDPS363",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[14502]14502-30-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS371",
+    "name": "Mechanical Vibrations",
+    "sections": [
+      {
+        "id": "MDPS371-lec-1",
+        "legacyIds": [
+          "MDPS371-Lecture-1-Thursday-11:00-12:50"
+        ],
+        "courseCode": "MDPS371",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[14502]14502-30-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS371-lec-2",
+        "legacyIds": [
+          "MDPS371-Lecture-2-Thursday-14:00-15:50"
+        ],
+        "courseCode": "MDPS371",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[20503]20503-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS371-tut-1",
+        "legacyIds": [
+          "MDPS371-Tutorial-1-Sunday-14:00-15:50"
+        ],
+        "courseCode": "MDPS371",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[18102]18102-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS371-tut-2",
+        "legacyIds": [
+          "MDPS371-Tutorial-2-Sunday-16:00-17:50"
+        ],
+        "courseCode": "MDPS371",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[18102]18102-60-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS372",
+    "name": "Control System Dynamics",
+    "sections": [
+      {
+        "id": "MDPS372-lec-1",
+        "legacyIds": [
+          "MDPS372-Lecture-1-Monday-11:00-12:50"
+        ],
+        "courseCode": "MDPS372",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[20512]20512-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS372-tut-1",
+        "legacyIds": [
+          "MDPS372-Tutorial-1-Thursday-16:00-18:50"
+        ],
+        "courseCode": "MDPS372",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 16.0,
+            "endHour": 18.833333333333332,
+            "startString": "16:00",
+            "endString": "18:50",
+            "location": "[20512]20512-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS374",
+    "name": "Design of Mechatronics Systems",
+    "sections": [
+      {
+        "id": "MDPS374-lec-1",
+        "legacyIds": [
+          "MDPS374-Lecture-1-Sunday-8:00-10:50"
+        ],
+        "courseCode": "MDPS374",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 8.0,
+            "endHour": 10.833333333333334,
+            "startString": "08:00",
+            "endString": "10:50",
+            "location": "[14502]14502-30-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS374-lec-2",
+        "legacyIds": [
+          "MDPS374-Lecture-2-Sunday-10:00-12:50"
+        ],
+        "courseCode": "MDPS374",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 10.0,
+            "endHour": 12.833333333333334,
+            "startString": "10:00",
+            "endString": "12:50",
+            "location": "[20511]20511-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS374-tut-1",
+        "legacyIds": [
+          "MDPS374-Tutorial-1-Sunday-11:00-13:50"
+        ],
+        "courseCode": "MDPS374",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 11.0,
+            "endHour": 13.833333333333334,
+            "startString": "11:00",
+            "endString": "13:50",
+            "location": "[14502]14502-30-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS374-tut-2",
+        "legacyIds": [
+          "MDPS374-Tutorial-2-Sunday-13:00-15:50"
+        ],
+        "courseCode": "MDPS374",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 13.0,
+            "endHour": 15.833333333333334,
+            "startString": "13:00",
+            "endString": "15:50",
+            "location": "[20511]20511-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS423",
+    "name": "Robotics Engineering",
+    "sections": [
+      {
+        "id": "MDPS423-lec-1",
+        "legacyIds": [
+          "MDPS423-Lecture-1-Tuesday-11:00-12:50"
+        ],
+        "courseCode": "MDPS423",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[14502]14502-30-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS423-lec-2",
+        "legacyIds": [
+          "MDPS423-Lecture-2-Tuesday-14:00-15:50"
+        ],
+        "courseCode": "MDPS423",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[20511]20511-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS423-tut-1",
+        "legacyIds": [
+          "MDPS423-Tutorial-1-Tuesday-14:00-15:50"
+        ],
+        "courseCode": "MDPS423",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[14502]14502-30-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS423-tut-2",
+        "legacyIds": [
+          "MDPS423-Tutorial-2-Tuesday-16:00-17:50"
+        ],
+        "courseCode": "MDPS423",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[20511]20511-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS457",
+    "name": "Fluid Power Systems",
+    "sections": [
+      {
+        "id": "MDPS457-lec-1",
+        "legacyIds": [
+          "MDPS457-Lecture-1-Tuesday-9:00-10:50"
+        ],
+        "courseCode": "MDPS457",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS457-tut-1",
+        "legacyIds": [
+          "MDPS457-Tutorial-1-Thursday-11:00-12:50"
+        ],
+        "courseCode": "MDPS457",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS470",
+    "name": "Mechatronics Lab",
+    "sections": [
+      {
+        "id": "MDPS470-lec-1",
+        "legacyIds": [
+          "MDPS470-Lecture-1-Sunday-12:00-12:50"
+        ],
+        "courseCode": "MDPS470",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 12.0,
+            "endHour": 12.833333333333334,
+            "startString": "12:00",
+            "endString": "12:50",
+            "location": "[14503]14503-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS470-lec-2",
+        "legacyIds": [
+          "MDPS470-Lecture-2-Sunday-14:00-14:50"
+        ],
+        "courseCode": "MDPS470",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 14.0,
+            "endHour": 14.833333333333334,
+            "startString": "14:00",
+            "endString": "14:50",
+            "location": "[20512]20512-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS470-tut-1",
+        "legacyIds": [
+          "MDPS470-Tutorial-1-Sunday-13:00-14:50"
+        ],
+        "courseCode": "MDPS470",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 13.0,
+            "endHour": 14.833333333333334,
+            "startString": "13:00",
+            "endString": "14:50",
+            "location": "[14503]14503-50-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS470-tut-2",
+        "legacyIds": [
+          "MDPS470-Tutorial-2-Sunday-15:00-16:50"
+        ],
+        "courseCode": "MDPS470",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 15.0,
+            "endHour": 16.833333333333332,
+            "startString": "15:00",
+            "endString": "16:50",
+            "location": "[20512]20512-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS473",
+    "name": "Automatic Control I",
+    "sections": [
+      {
+        "id": "MDPS473-lec-1",
+        "legacyIds": [
+          "MDPS473-Lecture-1-Wednesday-9:00-10:50"
+        ],
+        "courseCode": "MDPS473",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[14300]14300-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS473-lec-2",
+        "legacyIds": [
+          "MDPS473-Lecture-2-Wednesday-11:00-12:50"
+        ],
+        "courseCode": "MDPS473",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[14300]14300-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS473-tut-1",
+        "legacyIds": [
+          "MDPS473-Tutorial-1-Tuesday-14:00-15:50"
+        ],
+        "courseCode": "MDPS473",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[20108]20108-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS473-tut-2",
+        "legacyIds": [
+          "MDPS473-Tutorial-2-Tuesday-16:00-17:50"
+        ],
+        "courseCode": "MDPS473",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[20108]20108-60-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS479",
+    "name": "Embedded systems for Mechatronics Applications",
+    "sections": [
+      {
+        "id": "MDPS479-lec-1",
+        "legacyIds": [
+          "MDPS479-Lecture-1-Sunday-9:00-10:50"
+        ],
+        "courseCode": "MDPS479",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[18102]18102-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS479-lec-2",
+        "legacyIds": [
+          "MDPS479-Lecture-2-Sunday-11:00-12:50"
+        ],
+        "courseCode": "MDPS479",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[18102]18102-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS479-tut-1",
+        "legacyIds": [
+          "MDPS479-Tutorial-1-Wednesday-9:00-10:50"
+        ],
+        "courseCode": "MDPS479",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[20108]20108-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS479-tut-2",
+        "legacyIds": [
+          "MDPS479-Tutorial-2-Wednesday-11:00-12:50"
+        ],
+        "courseCode": "MDPS479",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[20108]20108-60-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MDPS496",
+    "name": "Machine Learning for Industrial Engineering",
+    "sections": [
+      {
+        "id": "MDPS496-lec-1",
+        "legacyIds": [
+          "MDPS496-Lecture-1-Tuesday-16:00-17:50"
+        ],
+        "courseCode": "MDPS496",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[14300]14300-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MDPS496-tut-1",
+        "legacyIds": [
+          "MDPS496-Tutorial-1-Tuesday-11:00-12:50"
+        ],
+        "courseCode": "MDPS496",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[14501]14501-50-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MEES481",
+    "name": "Graduation Project-1",
+    "sections": [
+      {
+        "id": "MEES481-lec-1",
+        "legacyIds": [
+          "MEES481-Lecture-1-Tuesday-19:00-19:50"
+        ],
+        "courseCode": "MEES481",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 19.0,
+            "endHour": 19.833333333333332,
+            "startString": "19:00",
+            "endString": "19:50",
+            "location": "-----"
+          }
+        ]
+      },
+      {
+        "id": "MEES481-tut-1",
+        "legacyIds": [
+          "MEES481-Tutorial-1-Tuesday-8:00-8:50"
+        ],
+        "courseCode": "MEES481",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 8.0,
+            "endHour": 8.833333333333334,
+            "startString": "08:00",
+            "endString": "08:50",
+            "location": "-----"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MEES482",
+    "name": "Graduation Project-2",
+    "sections": [
+      {
+        "id": "MEES482-lec-1",
+        "legacyIds": [
+          "MEES482-Lecture-1-Tuesday-18:00-18:50"
+        ],
+        "courseCode": "MEES482",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 18.0,
+            "endHour": 18.833333333333332,
+            "startString": "18:00",
+            "endString": "18:50",
+            "location": "-----"
+          }
+        ]
+      },
+      {
+        "id": "MEES482-tut-1",
+        "legacyIds": [
+          "MEES482-Tutorial-1-Tuesday-19:00-20:50"
+        ],
+        "courseCode": "MEES482",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 19.0,
+            "endHour": 20.833333333333332,
+            "startString": "19:00",
+            "endString": "20:50",
+            "location": "-----"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MEPS201",
+    "name": "Internal Combustion Engines (Theory and Development)",
+    "sections": [
+      {
+        "id": "MEPS201-lec-1",
+        "legacyIds": [
+          "MEPS201-Lecture-1-Wednesday-9:00-10:50"
+        ],
+        "courseCode": "MEPS201",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[20504]20504-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MEPS201-tut-1",
+        "legacyIds": [
+          "MEPS201-Tutorial-1-Thursday-11:00-13:50"
+        ],
+        "courseCode": "MEPS201",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 11.0,
+            "endHour": 13.833333333333334,
+            "startString": "11:00",
+            "endString": "13:50",
+            "location": "[20505]20505-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MEPS203",
+    "name": "Fundamentals of Combustion Systems",
+    "sections": [
+      {
+        "id": "MEPS203-lec-1",
+        "legacyIds": [
+          "MEPS203-Lecture-1-Wednesday-11:00-12:50"
+        ],
+        "courseCode": "MEPS203",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[20512]20512-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MEPS203-tut-1",
+        "legacyIds": [
+          "MEPS203-Tutorial-1-Monday-16:00-18:50"
+        ],
+        "courseCode": "MEPS203",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 16.0,
+            "endHour": 18.833333333333332,
+            "startString": "16:00",
+            "endString": "18:50",
+            "location": "[20512]20512-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MEPS209",
+    "name": "Engineering Thermodynamics",
+    "sections": [
+      {
+        "id": "MEPS209-lec-1",
+        "legacyIds": [
+          "MEPS209-Lecture-1-Wednesday-9:00-10:50"
+        ],
+        "courseCode": "MEPS209",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[20510]20510-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MEPS209-tut-1",
+        "legacyIds": [
+          "MEPS209-Tutorial-1-Wednesday-11:00-13:50"
+        ],
+        "courseCode": "MEPS209",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 11.0,
+            "endHour": 13.833333333333334,
+            "startString": "11:00",
+            "endString": "13:50",
+            "location": "[20510]20510-60-الجيزة الرئيسي"
           }
         ]
       }
@@ -6188,6 +10330,736 @@
       }
     ],
     "isMTHS": false
+  },
+  {
+    "code": "MEPS305",
+    "name": "Applied Control Technologies for Energy System",
+    "sections": [
+      {
+        "id": "MEPS305-lec-1",
+        "legacyIds": [
+          "MEPS305-Lecture-1-Monday-9:00-10:50"
+        ],
+        "courseCode": "MEPS305",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[20506]20506-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MEPS305-tut-1",
+        "legacyIds": [
+          "MEPS305-Tutorial-1-Tuesday-13:00-15:50"
+        ],
+        "courseCode": "MEPS305",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 13.0,
+            "endHour": 15.833333333333334,
+            "startString": "13:00",
+            "endString": "15:50",
+            "location": "[20506]20506-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MEPS404",
+    "name": "Nuclear Energy",
+    "sections": [
+      {
+        "id": "MEPS404-lec-1",
+        "legacyIds": [
+          "MEPS404-Lecture-1-Wednesday-11:00-12:50"
+        ],
+        "courseCode": "MEPS404",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[0]17101-0-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MEPS404-tut-1",
+        "legacyIds": [
+          "MEPS404-Tutorial-1-Sunday-14:00-15:50"
+        ],
+        "courseCode": "MEPS404",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[0]17101-0-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MEPS407",
+    "name": "Fire Extinguishing Systems",
+    "sections": [
+      {
+        "id": "MEPS407-lec-1",
+        "legacyIds": [
+          "MEPS407-Lecture-1-Monday-9:00-10:50"
+        ],
+        "courseCode": "MEPS407",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[0]17101-0-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MEPS407-tut-1",
+        "legacyIds": [
+          "MEPS407-Tutorial-1-Monday-16:00-17:50"
+        ],
+        "courseCode": "MEPS407",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[0]17101-0-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MEPS412",
+    "name": "Energy Storage",
+    "sections": [
+      {
+        "id": "MEPS412-lec-1",
+        "legacyIds": [
+          "MEPS412-Lecture-1-Tuesday-14:00-15:50"
+        ],
+        "courseCode": "MEPS412",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[0]17101-0-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MEPS412-tut-1",
+        "legacyIds": [
+          "MEPS412-Tutorial-1-Tuesday-16:00-17:50"
+        ],
+        "courseCode": "MEPS412",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[0]17101-0-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MEPS415",
+    "name": "Power Generation",
+    "sections": [
+      {
+        "id": "MEPS415-lec-1",
+        "legacyIds": [
+          "MEPS415-Lecture-1-Monday-9:00-10:50"
+        ],
+        "courseCode": "MEPS415",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[20511]20511-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MEPS415-tut-1",
+        "legacyIds": [
+          "MEPS415-Tutorial-1-Monday-16:00-18:50"
+        ],
+        "courseCode": "MEPS415",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 16.0,
+            "endHour": 18.833333333333332,
+            "startString": "16:00",
+            "endString": "18:50",
+            "location": "[20511]20511-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MEPS420",
+    "name": "Fundamentals of Energy in Buildings",
+    "sections": [
+      {
+        "id": "MEPS420-lec-1",
+        "legacyIds": [
+          "MEPS420-Lecture-1-Tuesday-9:00-10:50"
+        ],
+        "courseCode": "MEPS420",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[20512]20512-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MEPS420-tut-1",
+        "legacyIds": [
+          "MEPS420-Tutorial-1-Thursday-14:00-15:50"
+        ],
+        "courseCode": "MEPS420",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[20512]20512-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MEPS421",
+    "name": "Fundamentals of Refrigeration and Air Conditioning Design",
+    "sections": [
+      {
+        "id": "MEPS421-lec-1",
+        "legacyIds": [
+          "MEPS421-Lecture-1-Sunday-11:00-12:50"
+        ],
+        "courseCode": "MEPS421",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[0]17101-0-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MEPS421-tut-1",
+        "legacyIds": [
+          "MEPS421-Tutorial-1-Wednesday-16:00-17:50"
+        ],
+        "courseCode": "MEPS421",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 16.0,
+            "endHour": 17.833333333333332,
+            "startString": "16:00",
+            "endString": "17:50",
+            "location": "[0]17101-0-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MEPS436",
+    "name": "Fundamentals of Turbomachinery",
+    "sections": [
+      {
+        "id": "MEPS436-lec-1",
+        "legacyIds": [
+          "MEPS436-Lecture-1-Monday-14:00-15:50"
+        ],
+        "courseCode": "MEPS436",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[20511]20511-45-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MEPS436-tut-1",
+        "legacyIds": [
+          "MEPS436-Tutorial-1-Monday-11:00-12:50"
+        ],
+        "courseCode": "MEPS436",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[20511]20511-45-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MEPS444",
+    "name": "Energy Efficiency",
+    "sections": [
+      {
+        "id": "MEPS444-lec-1",
+        "legacyIds": [
+          "MEPS444-Lecture-1-Wednesday-9:00-10:50"
+        ],
+        "courseCode": "MEPS444",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 9.0,
+            "endHour": 10.833333333333334,
+            "startString": "09:00",
+            "endString": "10:50",
+            "location": "[0]17101-0-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MEPS444-tut-1",
+        "legacyIds": [
+          "MEPS444-Tutorial-1-Wednesday-14:00-15:50"
+        ],
+        "courseCode": "MEPS444",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[0]17101-0-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MEPS446",
+    "name": "Applications of Turbomachinery",
+    "sections": [
+      {
+        "id": "MEPS446-lec-1",
+        "legacyIds": [
+          "MEPS446-Lecture-1-Monday-11:00-12:50"
+        ],
+        "courseCode": "MEPS446",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[0]17101-0-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MEPS446-tut-1",
+        "legacyIds": [
+          "MEPS446-Tutorial-1-Monday-14:00-15:50"
+        ],
+        "courseCode": "MEPS446",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 14.0,
+            "endHour": 15.833333333333334,
+            "startString": "14:00",
+            "endString": "15:50",
+            "location": "[0]17101-0-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MEPS472",
+    "name": "Automatic Control",
+    "sections": [
+      {
+        "id": "MEPS472-lec-1",
+        "legacyIds": [
+          "MEPS472-Lecture-1-Tuesday-11:00-12:50"
+        ],
+        "courseCode": "MEPS472",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[0]17101-0-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MEPS472-tut-1",
+        "legacyIds": [
+          "MEPS472-Tutorial-1-Thursday-11:00-12:50"
+        ],
+        "courseCode": "MEPS472",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[0]17101-0-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "MTHS002",
+    "name": "Calculus I",
+    "sections": [
+      {
+        "id": "MTHS002-lec-1",
+        "legacyIds": [
+          "MTHS002-Lecture-1-Monday-8:00-9:50"
+        ],
+        "courseCode": "MTHS002",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51201]51201-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "MTHS002-lec-2",
+        "legacyIds": [
+          "MTHS002-Lecture-2-Sunday-12:00-13:50"
+        ],
+        "courseCode": "MTHS002",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 12.0,
+            "endHour": 13.833333333333334,
+            "startString": "12:00",
+            "endString": "13:50",
+            "location": "[51202]51202-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "MTHS002-lec-3",
+        "legacyIds": [
+          "MTHS002-Lecture-3-Saturday-12:00-13:50"
+        ],
+        "courseCode": "MTHS002",
+        "type": "Lecture",
+        "group": "3",
+        "sessions": [
+          {
+            "day": "Saturday",
+            "startHour": 12.0,
+            "endHour": 13.833333333333334,
+            "startString": "12:00",
+            "endString": "13:50",
+            "location": "[51113]51113-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "MTHS002-lec-4",
+        "legacyIds": [
+          "MTHS002-Lecture-4-Monday-11:00-12:50"
+        ],
+        "courseCode": "MTHS002",
+        "type": "Lecture",
+        "group": "4",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[51114]51114-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "MTHS002-lec-5",
+        "legacyIds": [
+          "MTHS002-Lecture-5-Monday-13:00-14:50"
+        ],
+        "courseCode": "MTHS002",
+        "type": "Lecture",
+        "group": "5",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 13.0,
+            "endHour": 14.833333333333334,
+            "startString": "13:00",
+            "endString": "14:50",
+            "location": "[51215]51215-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "MTHS002-lec-6",
+        "legacyIds": [
+          "MTHS002-Lecture-6-Sunday-8:00-9:50"
+        ],
+        "courseCode": "MTHS002",
+        "type": "Lecture",
+        "group": "6",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51216]51216-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "MTHS002-tut-1",
+        "legacyIds": [
+          "MTHS002-Tutorial-1-Wednesday-12:00-14:50"
+        ],
+        "courseCode": "MTHS002",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 12.0,
+            "endHour": 14.833333333333334,
+            "startString": "12:00",
+            "endString": "14:50",
+            "location": "[51201]51201-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "MTHS002-tut-2",
+        "legacyIds": [
+          "MTHS002-Tutorial-2-Saturday-10:00-12:50"
+        ],
+        "courseCode": "MTHS002",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Saturday",
+            "startHour": 10.0,
+            "endHour": 12.833333333333334,
+            "startString": "10:00",
+            "endString": "12:50",
+            "location": "[51202]51202-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "MTHS002-tut-3",
+        "legacyIds": [
+          "MTHS002-Tutorial-3-Sunday-8:00-10:50"
+        ],
+        "courseCode": "MTHS002",
+        "type": "Tutorial",
+        "group": "3",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 8.0,
+            "endHour": 10.833333333333334,
+            "startString": "08:00",
+            "endString": "10:50",
+            "location": "[51113]51113-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "MTHS002-tut-4",
+        "legacyIds": [
+          "MTHS002-Tutorial-4-Tuesday-11:00-13:50"
+        ],
+        "courseCode": "MTHS002",
+        "type": "Tutorial",
+        "group": "4",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 11.0,
+            "endHour": 13.833333333333334,
+            "startString": "11:00",
+            "endString": "13:50",
+            "location": "[51114]51114-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "MTHS002-tut-5",
+        "legacyIds": [
+          "MTHS002-Tutorial-5-Sunday-9:00-11:50"
+        ],
+        "courseCode": "MTHS002",
+        "type": "Tutorial",
+        "group": "5",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 9.0,
+            "endHour": 11.833333333333334,
+            "startString": "09:00",
+            "endString": "11:50",
+            "location": "[51215]51215-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "MTHS002-tut-6",
+        "legacyIds": [
+          "MTHS002-Tutorial-6-Wednesday-12:00-14:50"
+        ],
+        "courseCode": "MTHS002",
+        "type": "Tutorial",
+        "group": "6",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 12.0,
+            "endHour": 14.833333333333334,
+            "startString": "12:00",
+            "endString": "14:50",
+            "location": "[51216]51216-الشيخ زايد"
+          }
+        ]
+      }
+    ],
+    "isMTHS": true
   },
   {
     "code": "MTHS004",
@@ -6296,9 +11168,28 @@
         ]
       },
       {
+        "id": "MTHS005-lec-2",
+        "legacyIds": [
+          "MTHS005-Lecture-2-Tuesday-11:00-12:50"
+        ],
+        "courseCode": "MTHS005",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[20108]20108-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
         "id": "MTHS005-tut-1",
         "legacyIds": [
-          "MTHS005-Tutorial-1-Sunday-14:00-15:50"
+          "MTHS005-Tutorial-1-Sunday-11:00-12:50"
         ],
         "courseCode": "MTHS005",
         "type": "Tutorial",
@@ -6306,6 +11197,25 @@
         "sessions": [
           {
             "day": "Sunday",
+            "startHour": 11.0,
+            "endHour": 12.833333333333334,
+            "startString": "11:00",
+            "endString": "12:50",
+            "location": "[20108]20108-60-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MTHS005-tut-2",
+        "legacyIds": [
+          "MTHS005-Tutorial-2-Thursday-14:00-15:50"
+        ],
+        "courseCode": "MTHS005",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Thursday",
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
@@ -6514,7 +11424,7 @@
             "endHour": 12.833333333333334,
             "startString": "11:00",
             "endString": "12:50",
-            "location": "[20108]20108-60-الجيزة الرئيسي"
+            "location": "[20504]20504-60-الجيزة الرئيسي"
           }
         ]
       },
@@ -6590,7 +11500,7 @@
             "endHour": 12.833333333333334,
             "startString": "11:00",
             "endString": "12:50",
-            "location": "[20108]20108-60-الجيزة الرئيسي"
+            "location": "[20505]20505-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -6764,6 +11674,51 @@
     "isMTHS": true
   },
   {
+    "code": "MTHS300",
+    "name": "Statistical Analysis for Civil Engineers",
+    "sections": [
+      {
+        "id": "MTHS300-lec-1",
+        "legacyIds": [
+          "MTHS300-Lecture-1-Thursday-13:00-13:50"
+        ],
+        "courseCode": "MTHS300",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 13.0,
+            "endHour": 13.833333333333334,
+            "startString": "13:00",
+            "endString": "13:50",
+            "location": "[20426]20426-32-الجيزة الرئيسي"
+          }
+        ]
+      },
+      {
+        "id": "MTHS300-tut-1",
+        "legacyIds": [
+          "MTHS300-Tutorial-1-Thursday-14:00-14:50"
+        ],
+        "courseCode": "MTHS300",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Thursday",
+            "startHour": 14.0,
+            "endHour": 14.833333333333334,
+            "startString": "14:00",
+            "endString": "14:50",
+            "location": "[20426]20426-32-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": true
+  },
+  {
     "code": "PBWS303",
     "name": "Water and Waste Water Engineering",
     "sections": [
@@ -6854,6 +11809,362 @@
     "isMTHS": false
   },
   {
+    "code": "PHYS001",
+    "name": "Mechanical Properties of Matter and Thermodynamics",
+    "sections": [
+      {
+        "id": "PHYS001-lec-1",
+        "legacyIds": [
+          "PHYS001-Lecture-1-Tuesday-10:00-11:50"
+        ],
+        "courseCode": "PHYS001",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 10.0,
+            "endHour": 11.833333333333334,
+            "startString": "10:00",
+            "endString": "11:50",
+            "location": "[51201]51201-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "PHYS001-lec-2",
+        "legacyIds": [
+          "PHYS001-Lecture-2-Saturday-8:00-9:50"
+        ],
+        "courseCode": "PHYS001",
+        "type": "Lecture",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Saturday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51202]51202-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "PHYS001-lec-3",
+        "legacyIds": [
+          "PHYS001-Lecture-3-Tuesday-8:00-9:50"
+        ],
+        "courseCode": "PHYS001",
+        "type": "Lecture",
+        "group": "3",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51113]51113-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "PHYS001-lec-4",
+        "legacyIds": [
+          "PHYS001-Lecture-4-Monday-13:00-14:50"
+        ],
+        "courseCode": "PHYS001",
+        "type": "Lecture",
+        "group": "4",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 13.0,
+            "endHour": 14.833333333333334,
+            "startString": "13:00",
+            "endString": "14:50",
+            "location": "[51114]51114-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "PHYS001-lec-5",
+        "legacyIds": [
+          "PHYS001-Lecture-5-Saturday-8:00-9:50"
+        ],
+        "courseCode": "PHYS001",
+        "type": "Lecture",
+        "group": "5",
+        "sessions": [
+          {
+            "day": "Saturday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51215]51215-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "PHYS001-lec-6",
+        "legacyIds": [
+          "PHYS001-Lecture-6-Wednesday-10:00-11:50"
+        ],
+        "courseCode": "PHYS001",
+        "type": "Lecture",
+        "group": "6",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 10.0,
+            "endHour": 11.833333333333334,
+            "startString": "10:00",
+            "endString": "11:50",
+            "location": "[51216]51216-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "PHYS001-tut-1",
+        "legacyIds": [
+          "PHYS001-Tutorial-1-Saturday-10:00-12:50"
+        ],
+        "courseCode": "PHYS001",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Saturday",
+            "startHour": 10.0,
+            "endHour": 12.833333333333334,
+            "startString": "10:00",
+            "endString": "12:50",
+            "location": "[51201]51201-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "PHYS001-tut-2",
+        "legacyIds": [
+          "PHYS001-Tutorial-2-Tuesday-8:00-10:50"
+        ],
+        "courseCode": "PHYS001",
+        "type": "Tutorial",
+        "group": "2",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 8.0,
+            "endHour": 10.833333333333334,
+            "startString": "08:00",
+            "endString": "10:50",
+            "location": "[51202]51202-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "PHYS001-tut-3",
+        "legacyIds": [
+          "PHYS001-Tutorial-3-Monday-12:00-14:50"
+        ],
+        "courseCode": "PHYS001",
+        "type": "Tutorial",
+        "group": "3",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 12.0,
+            "endHour": 14.833333333333334,
+            "startString": "12:00",
+            "endString": "14:50",
+            "location": "[51113]51113-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "PHYS001-tut-4",
+        "legacyIds": [
+          "PHYS001-Tutorial-4-Wednesday-8:00-10:50"
+        ],
+        "courseCode": "PHYS001",
+        "type": "Tutorial",
+        "group": "4",
+        "sessions": [
+          {
+            "day": "Wednesday",
+            "startHour": 8.0,
+            "endHour": 10.833333333333334,
+            "startString": "08:00",
+            "endString": "10:50",
+            "location": "[51114]51114-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "PHYS001-tut-5",
+        "legacyIds": [
+          "PHYS001-Tutorial-5-Sunday-12:00-14:50"
+        ],
+        "courseCode": "PHYS001",
+        "type": "Tutorial",
+        "group": "5",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 12.0,
+            "endHour": 14.833333333333334,
+            "startString": "12:00",
+            "endString": "14:50",
+            "location": "[51215]51215-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "PHYS001-tut-6",
+        "legacyIds": [
+          "PHYS001-Tutorial-6-Sunday-12:00-14:50"
+        ],
+        "courseCode": "PHYS001",
+        "type": "Tutorial",
+        "group": "6",
+        "sessions": [
+          {
+            "day": "Sunday",
+            "startHour": 12.0,
+            "endHour": 14.833333333333334,
+            "startString": "12:00",
+            "endString": "14:50",
+            "location": "[51216]51216-الشيخ زايد"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "PHYS002",
+    "name": "Electricity and Magnetism",
+    "sections": [
+      {
+        "id": "PHYS002-lec-1",
+        "legacyIds": [
+          "PHYS002-Lecture-1-Saturday-8:00-9:50"
+        ],
+        "courseCode": "PHYS002",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Saturday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51201]51201-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "PHYS002-lec-3",
+        "legacyIds": [
+          "PHYS002-Lecture-3-Monday-8:00-9:50"
+        ],
+        "courseCode": "PHYS002",
+        "type": "Lecture",
+        "group": "3",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51113]51113-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "PHYS002-lec-5",
+        "legacyIds": [
+          "PHYS002-Lecture-5-Monday-8:00-9:50"
+        ],
+        "courseCode": "PHYS002",
+        "type": "Lecture",
+        "group": "5",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 8.0,
+            "endHour": 9.833333333333334,
+            "startString": "08:00",
+            "endString": "09:50",
+            "location": "[51215]51215-60-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "PHYS002-tut-1",
+        "legacyIds": [
+          "PHYS002-Tutorial-1-Tuesday-12:00-14:50"
+        ],
+        "courseCode": "PHYS002",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 12.0,
+            "endHour": 14.833333333333334,
+            "startString": "12:00",
+            "endString": "14:50",
+            "location": "[51201]51201-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "PHYS002-tut-3",
+        "legacyIds": [
+          "PHYS002-Tutorial-3-Tuesday-12:00-14:50"
+        ],
+        "courseCode": "PHYS002",
+        "type": "Tutorial",
+        "group": "3",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 12.0,
+            "endHour": 14.833333333333334,
+            "startString": "12:00",
+            "endString": "14:50",
+            "location": "[51113]51113-50-الشيخ زايد"
+          }
+        ]
+      },
+      {
+        "id": "PHYS002-tut-5",
+        "legacyIds": [
+          "PHYS002-Tutorial-5-Saturday-12:00-14:50"
+        ],
+        "courseCode": "PHYS002",
+        "type": "Tutorial",
+        "group": "5",
+        "sessions": [
+          {
+            "day": "Saturday",
+            "startHour": 12.0,
+            "endHour": 14.833333333333334,
+            "startString": "12:00",
+            "endString": "14:50",
+            "location": "[51215]51215-60-الشيخ زايد"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
     "code": "PHYS102",
     "name": "Modern Physics",
     "sections": [
@@ -6871,7 +12182,8 @@
             "startHour": 11.0,
             "endHour": 12.833333333333334,
             "startString": "11:00",
-            "endString": "12:50"
+            "endString": "12:50",
+            "location": "[20102]20102-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -6889,7 +12201,8 @@
             "startHour": 9.0,
             "endHour": 10.833333333333334,
             "startString": "09:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[18201]18201-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -6907,7 +12220,8 @@
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[18201]18201-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -6925,7 +12239,8 @@
             "startHour": 11.0,
             "endHour": 13.833333333333334,
             "startString": "11:00",
-            "endString": "13:50"
+            "endString": "13:50",
+            "location": "[17501]صالة ميكانيكا و -160-الجيزة الرئيسي"
           }
         ]
       },
@@ -6943,7 +12258,8 @@
             "startHour": 8.0,
             "endHour": 10.833333333333334,
             "startString": "08:00",
-            "endString": "10:50"
+            "endString": "10:50",
+            "location": "[17501]صالة ميكانيكا و -160-الجيزة الرئيسي"
           }
         ]
       },
@@ -6961,7 +12277,8 @@
             "startHour": 14.0,
             "endHour": 16.833333333333332,
             "startString": "14:00",
-            "endString": "16:50"
+            "endString": "16:50",
+            "location": "[17501]صالة ميكانيكا و -160-الجيزة الرئيسي"
           }
         ]
       }
@@ -6986,7 +12303,8 @@
             "startHour": 13.0,
             "endHour": 15.833333333333334,
             "startString": "13:00",
-            "endString": "15:50"
+            "endString": "15:50",
+            "location": "[20109]20109-45-الجيزة الرئيسي"
           }
         ]
       },
@@ -7004,7 +12322,79 @@
             "startHour": 16.0,
             "endHour": 17.833333333333332,
             "startString": "16:00",
-            "endString": "17:50"
+            "endString": "17:50",
+            "location": "[0]10103-0-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "SEES280",
+    "name": "Engineering Seminar",
+    "sections": [
+      {
+        "id": "SEES280-lec-1",
+        "legacyIds": [
+          "SEES280-Lecture-1-Monday-13:00-13:50"
+        ],
+        "courseCode": "SEES280",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Monday",
+            "startHour": 13.0,
+            "endHour": 13.833333333333334,
+            "startString": "13:00",
+            "endString": "13:50",
+            "location": "[20103]20103-60-الجيزة الرئيسي"
+          }
+        ]
+      }
+    ],
+    "isMTHS": false
+  },
+  {
+    "code": "SEES481",
+    "name": "Graduation Project-1",
+    "sections": [
+      {
+        "id": "SEES481-lec-1",
+        "legacyIds": [
+          "SEES481-Lecture-1-Tuesday-18:00-18:50"
+        ],
+        "courseCode": "SEES481",
+        "type": "Lecture",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 18.0,
+            "endHour": 18.833333333333332,
+            "startString": "18:00",
+            "endString": "18:50",
+            "location": "-----"
+          }
+        ]
+      },
+      {
+        "id": "SEES481-tut-1",
+        "legacyIds": [
+          "SEES481-Tutorial-1-Tuesday-19:00-19:50"
+        ],
+        "courseCode": "SEES481",
+        "type": "Tutorial",
+        "group": "1",
+        "sessions": [
+          {
+            "day": "Tuesday",
+            "startHour": 19.0,
+            "endHour": 19.833333333333332,
+            "startString": "19:00",
+            "endString": "19:50",
+            "location": "-----"
           }
         ]
       }
@@ -7224,14 +12614,14 @@
       {
         "id": "STRS301-lec-1",
         "legacyIds": [
-          "STRS301-Lecture-1-Sunday-14:00-15:50"
+          "STRS301-Lecture-1-Tuesday-14:00-15:50"
         ],
         "courseCode": "STRS301",
         "type": "Lecture",
         "group": "1",
         "sessions": [
           {
-            "day": "Sunday",
+            "day": "Tuesday",
             "startHour": 14.0,
             "endHour": 15.833333333333334,
             "startString": "14:00",
@@ -7243,14 +12633,14 @@
       {
         "id": "STRS301-tut-1",
         "legacyIds": [
-          "STRS301-Tutorial-1-Sunday-16:00-17:50"
+          "STRS301-Tutorial-1-Tuesday-16:00-17:50"
         ],
         "courseCode": "STRS301",
         "type": "Tutorial",
         "group": "1",
         "sessions": [
           {
-            "day": "Sunday",
+            "day": "Tuesday",
             "startHour": 16.0,
             "endHour": 17.833333333333332,
             "startString": "16:00",
@@ -7314,19 +12704,19 @@
       {
         "id": "STRS311-lec-1",
         "legacyIds": [
-          "STRS311-Lecture-1-Thursday-8:00-9:50"
+          "STRS311-Lecture-1-Tuesday-12:00-13:50"
         ],
         "courseCode": "STRS311",
         "type": "Lecture",
         "group": "1",
         "sessions": [
           {
-            "day": "Thursday",
-            "startHour": 8.0,
-            "endHour": 9.833333333333334,
-            "startString": "08:00",
-            "endString": "09:50",
-            "location": "[20506]20506-45-الجيزة الرئيسي"
+            "day": "Tuesday",
+            "startHour": 12.0,
+            "endHour": 13.833333333333334,
+            "startString": "12:00",
+            "endString": "13:50",
+            "location": "[20508]20508-70-الجيزة الرئيسي"
           }
         ]
       },
@@ -7345,7 +12735,7 @@
             "endHour": 9.833333333333334,
             "startString": "08:00",
             "endString": "09:50",
-            "location": "[20508]20508-70-الجيزة الرئيسي"
+            "location": "[20512]20512-45-الجيزة الرئيسي"
           }
         ]
       }
@@ -7623,51 +13013,6 @@
     "isMTHS": false
   },
   {
-    "code": "STRS437",
-    "name": "Seismic Design of Structures",
-    "sections": [
-      {
-        "id": "STRS437-lec-1",
-        "legacyIds": [
-          "STRS437-Lecture-1-Tuesday-13:00-15:50"
-        ],
-        "courseCode": "STRS437",
-        "type": "Lecture",
-        "group": "1",
-        "sessions": [
-          {
-            "day": "Tuesday",
-            "startHour": 13.0,
-            "endHour": 15.833333333333334,
-            "startString": "13:00",
-            "endString": "15:50",
-            "location": "[20424]20424-32-الجيزة الرئيسي"
-          }
-        ]
-      },
-      {
-        "id": "STRS437-tut-1",
-        "legacyIds": [
-          "STRS437-Tutorial-1-Tuesday-13:00-15:50"
-        ],
-        "courseCode": "STRS437",
-        "type": "Tutorial",
-        "group": "1",
-        "sessions": [
-          {
-            "day": "Tuesday",
-            "startHour": 13.0,
-            "endHour": 15.833333333333334,
-            "startString": "13:00",
-            "endString": "15:50",
-            "location": "[20427]20427-32-الجيزة الرئيسي"
-          }
-        ]
-      }
-    ],
-    "isMTHS": false
-  },
-  {
     "code": "STRS441",
     "name": "Reinforced Concrete Design III",
     "sections": [
@@ -7795,7 +13140,7 @@
             "endHour": 15.833333333333334,
             "startString": "14:00",
             "endString": "15:50",
-            "location": "[20426]20426-32-الجيزة الرئيسي"
+            "location": "LAB AET3 (GIZA)-35-الجيزة الرئيسي"
           }
         ]
       }

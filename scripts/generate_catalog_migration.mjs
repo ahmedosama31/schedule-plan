@@ -1,8 +1,19 @@
 import fs from "node:fs/promises";
 
-const [catalogPath, metadataPath, outputPath] = process.argv.slice(2);
+const [
+  catalogPath,
+  metadataPath,
+  outputPath,
+  revisionArg = "1",
+  changeNote = "Initial catalog assembled from the portal export, faculty PDF, and curated workbook.",
+] = process.argv.slice(2);
 if (!catalogPath || !metadataPath || !outputPath) {
-  throw new Error("Usage: generate_catalog_migration.mjs <catalog.json> <metadata.json> <output.sql>");
+  throw new Error("Usage: generate_catalog_migration.mjs <catalog.json> <metadata.json> <output.sql> [revision] [change-note]");
+}
+
+const revision = Number(revisionArg);
+if (!Number.isSafeInteger(revision) || revision < 1) {
+  throw new Error(`Invalid revision: ${revisionArg}`);
 }
 
 const catalog = JSON.parse(await fs.readFile(catalogPath, "utf8"));
@@ -24,7 +35,7 @@ const sourceSummary = JSON.stringify({
 const courseStatements = catalog.map(course =>
   `UPDATE course_data\n` +
   `SET parsed_json = json_insert(parsed_json, '$[#]', json(${sqlString(JSON.stringify(course))}))\n` +
-  `WHERE semester_id = ${sqlString(metadata.semesterId)} AND revision = 1;\n`
+  `WHERE semester_id = ${sqlString(metadata.semesterId)} AND revision = ${revision};\n`
 ).join("\n");
 
 const sql = `-- Generated from ${catalogPath}; do not hand-edit the JSON payload.\n` +
@@ -34,11 +45,11 @@ const sql = `-- Generated from ${catalogPath}; do not hand-edit the JSON payload
 `VALUES (\n` +
 `  ${sqlString(metadata.semesterId)},\n` +
 `  ${sqlString(metadata.semesterLabel)},\n` +
-`  1,\n` +
+`  ${revision},\n` +
 `  ${sqlString(`Imported from ${metadata.sources.map(source => source.name).join(", ")}`)},\n` +
 `  '[]',\n` +
 `  ${sqlString(sourceSummary)},\n` +
-`  'Initial catalog assembled from the portal export, faculty PDF, and curated workbook.',\n` +
+`  ${sqlString(changeNote)},\n` +
 `  unixepoch()\n` +
 `);\n\n` +
 `${courseStatements}\n` +
